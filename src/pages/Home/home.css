@@ -1,0 +1,14 @@
+.home{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+}
+
+.sidebar{
+    width: 15%;
+    background-color: aqua;
+}
+
+.contentWrapper{
+    width: 100%;
+}
