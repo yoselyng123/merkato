@@ -1,17 +1,12 @@
 import React from "react";
 import styles from "./button.module.css";
 
-function Button({ tag, Icon }) {
+import SvgIcon from "@mui/material/SvgIcon";
+
+function Button({ tag, icon }) {
   return (
     <div className={styles.button}>
-      {Icon && (
-        <div className={styles.iconWrapper}>
-          <Icon
-            sx={{ ":hover": { fill: "#FFF" }, fill: "#000" }}
-            fontSize="inherit"
-          />
-        </div>
-      )}
+      {icon && <SvgIcon className={styles.icon}>{icon}</SvgIcon>}
       <p className={styles.tag}>{tag}</p>
     </div>
   );

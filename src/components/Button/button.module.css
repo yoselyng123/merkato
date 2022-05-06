@@ -27,3 +27,12 @@
 .tag{
     color: #73cb98;
 }
+
+.icon{
+    fill: #A0D9B9;
+    font-size: 1.5rem;
+}
+
+.button:hover > .icon{
+    fill: #FFF;
+}

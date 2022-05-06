@@ -25,15 +25,56 @@
     outline: none;
 }
 
+.searchIcon {
+    fill: #A0D9B9;
+}
+
 .rightSection{
     display: flex;
     align-items: center;
     flex: 1;
     justify-content: flex-end;
     margin-right: 2%;
-
 }
 
 .notification{
-    margin-right: 5%;
+    margin-right: 3%;
+    border-right: 1px solid #DCEAE3;
+    padding: 0% 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.envelope{
+    border-right: 1px solid #DCEAE3;
+    padding: 0% 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notificationsIcon {
+    fill: #A0D9B9;
+}
+
+.notificationsIcon:hover{
+    fill: #28AF61;
+    cursor: pointer;
+}
+
+.envelopeIcon {
+    fill: #A0D9B9;
+}
+
+.envelopeIcon:hover{
+    fill: #28AF61;
+    cursor: pointer;
+}
+
+.downIcon {
+    fill: #9893B7;
+    font-size: 12px;
+    margin-left: 0.3rem;
+}
+
