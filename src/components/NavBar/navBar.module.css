@@ -1,3 +1,39 @@
 .navbar {
-    background-color: #F7F8FA;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5% 2%;
+    border-bottom: 2px solid #DAE9E1;
+}
+
+.leftSection{
+    display: flex;
+    align-items: center;
+    flex: 2;
+}
+
+.searchBar{
+    width: 100%;
+    padding: 1%;
+    background-color: transparent;
+    border: none;
+    font-size: 0.9rem;
+    margin-left: 0.2rem;
+}
+
+.searchBar:focus{
+    outline: none;
+}
+
+.rightSection{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    margin-right: 2%;
+
+}
+
+.notification{
+    margin-right: 5%;
 }

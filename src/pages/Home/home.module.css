@@ -3,11 +3,11 @@
     flex-direction: row;
     width: 100vw;
     height: 100vh;
-    background-color: gray;
+    background-color: #F7F8FA;
 }
 
 .sidebar{
-    width: 17%;
+    width: 15%;
     background-color: #fff;
     border-right: #DCEAE3;
     border-bottom: 0;
@@ -18,11 +18,12 @@
 }
 
 .contentWrapper{
-    background-color: gray;
-    width: 100%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
 }
 .content{
-    padding: 30px;
+    padding: 1.5% 2.5%;
     background-color: #F7F8FA;
     height: 100%;
 }

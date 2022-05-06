@@ -1,12 +1,49 @@
+.products{
+    display: flex;
+    flex-direction: column;
+}
+
+.top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2.2rem;
+    margin-bottom: 1.6rem;
+}
+
 .title{
-    font-size: 25px;
+    font-size: 1.6rem;
     font-weight: bold;
     color: #33353B;
-    margin-top: 30px;
-    margin-bottom: 20px;
 }
+
+.more{
+    text-decoration: none;
+    color: #28AF61;
+    font-weight: 800;
+}
+
+.more:hover{
+    color: #73CB98;
+}
+
+.cardsWrapper{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
 .cards{
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 1.2rem;
 }
+
+
+
+
+
+
+  
