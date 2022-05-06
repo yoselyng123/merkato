@@ -1,23 +1,29 @@
 .button{
     display: flex;
+    flex: nowrap;
+    width: 75%;
+    height: 50px;
     align-items: center;
-    color: #FFF;
-    padding: 5% 10% 3% 10%;
-    border-radius: 15px;
+    color: #ffffff;
+    padding-left: 20px;
+    border-radius: 10px;
     gap: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: 0.5s;
+    cursor: default;
 }
 
 .button:hover{
     background-color: #28AF61;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .iconWrapper  {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
 }
-
-
-.button:hover > p{
-    color: #FFF;
+.button:hover > .tag{
+    color: #ffffff;
     font-size: 1rem;
+}
+.tag{
+    color: #73cb98;
 }

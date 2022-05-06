@@ -12,7 +12,7 @@ function Button({ tag, Icon }) {
           />
         </div>
       )}
-      <p>{tag}</p>
+      <p className={styles.tag}>{tag}</p>
     </div>
   );
 }
