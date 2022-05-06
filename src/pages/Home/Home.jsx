@@ -1,16 +1,16 @@
 import React from "react";
-import "./home.css";
+import styles from "./home.module.css";
 
 import NavBar from "../../components/NavBar/NavBar";
 import SideBar from "../../components/SideBar/SideBar";
 
 function Home() {
   return (
-    <div className="home">
-      <div className="sidebar">
+    <div className={styles.home}>
+      <div className={styles.sidebar}>
         <SideBar />
       </div>
-      <div className="contentWrapper">
+      <div className={styles.contentWrapper}>
         <NavBar />
       </div>
     </div>
