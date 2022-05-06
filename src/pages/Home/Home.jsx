@@ -3,6 +3,8 @@ import styles from "./home.module.css";
 
 import NavBar from "../../components/NavBar/NavBar";
 import SideBar from "../../components/SideBar/SideBar";
+import Categories from "../../components/Categories/Categories";
+import TopProducts from "../../components/TopProducts/TopProducts";
 
 function Home() {
   return (
@@ -12,6 +14,10 @@ function Home() {
       </div>
       <div className={styles.contentWrapper}>
         <NavBar />
+        <div className={styles.content}>
+          <Categories />
+          <TopProducts />
+        </div>
       </div>
     </div>
   );

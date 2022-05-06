@@ -15,3 +15,8 @@
     background-color: gray;
     width: 100%;
 }
+.content{
+    padding: 30px;
+    background-color: #F7F8FA;
+    height: 100%;
+}

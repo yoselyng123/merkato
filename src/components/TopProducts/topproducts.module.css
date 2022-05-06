@@ -1,0 +1,12 @@
+.title{
+    font-size: 25px;
+    font-weight: bold;
+    color: #33353B;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.cards{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
