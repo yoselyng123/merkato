@@ -2,15 +2,16 @@
     display: flex;
     flex-direction: row;
     width: 100vw;
+    height: 100vh;
     background-color: gray;
 }
 
 .sidebar{
     width: 15%;
-    background-color: aqua;
+    background-color: #fff;
 }
 
 .contentWrapper{
-    background-color: blue;
+    background-color: gray;
     width: 100%;
 }

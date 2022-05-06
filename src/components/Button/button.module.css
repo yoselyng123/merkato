@@ -1,3 +1,23 @@
 .button{
-    
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    padding: 5% 10% 3% 10%;
+    border-radius: 15px;
+    gap: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover{
+    background-color: #28AF61;
+}
+
+.iconWrapper  {
+    font-size: 1.8rem;
+}
+
+
+.button:hover > p{
+    color: #FFF;
+    font-size: 1rem;
 }
