@@ -1,0 +1,52 @@
+.containers{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    
+}
+.pago{
+   
+    width: 400px;
+    height: 500px;
+    padding: 10px;
+    margin-left: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.222);
+}
+.productos{
+    display: flex;
+    width: 700px;
+    flex-direction: column;
+}
+.button{
+    width: 40px;
+    height: 30px;
+    background-color: white;
+    border: none;
+    margin-right: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 16px;
+    
+}
+.promo{
+    margin-top: 10px;
+
+}
+.inputPromo{
+    background-color: white;
+    outline: none;
+    height: 30px;
+    border: none;
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+.buttonPromo{
+    height: 30px;
+    border: none;
+    width: 60px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
