@@ -40,7 +40,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
+
 .favorite svg
 {
   color: #DD4750;

@@ -25,10 +25,6 @@
     outline: none;
 }
 
-.searchIcon {
-    fill: #A0D9B9;
-}
-
 .rightSection{
     display: flex;
     align-items: center;
@@ -54,18 +50,12 @@
     align-items: center;
 }
 
-.notificationsIcon {
-    fill: #A0D9B9;
-}
 
 .notificationsIcon:hover{
     fill: #28AF61;
     cursor: pointer;
 }
 
-.envelopeIcon {
-    fill: #A0D9B9;
-}
 
 .envelopeIcon:hover{
     fill: #28AF61;
@@ -76,5 +66,6 @@
     fill: #9893B7;
     font-size: 12px;
     margin-left: 0.3rem;
+    cursor: pointer;
 }
 
