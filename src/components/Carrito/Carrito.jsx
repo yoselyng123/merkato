@@ -1,4 +1,5 @@
 import React from "react";
+import Pago from "../Pago/Pago";
 import ProductoCarrito from "../ProductoCarrito/ProductoCarrito";
 import SideBar from "../SideBar/SideBar";
 import styles from "./Carrito.module.css";
@@ -7,13 +8,45 @@ const Carrito = () => {
     <div className={styles.containers}>
       <div className={styles.productos}>
         <h1>Carrito</h1>
-        <ProductoCarrito />
-        <ProductoCarrito />
-        <ProductoCarrito />
-        <ProductoCarrito />
-        <ProductoCarrito />
+        <ProductoCarrito
+          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
+          nombreProducto="Bread"
+          cantidad="1"
+          precio="2"
+        />
+        <ProductoCarrito
+          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
+          nombreProducto="Bread"
+          cantidad="1"
+          precio="2"
+        />
+        <ProductoCarrito
+          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
+          nombreProducto="Bread"
+          cantidad="1"
+          precio="2"
+        />
+        <ProductoCarrito
+          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
+          nombreProducto="Bread"
+          cantidad="1"
+          precio="2"
+        />
+        <ProductoCarrito
+          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
+          nombreProducto="Bread"
+          cantidad="1"
+          precio="2"
+        />
+        <ProductoCarrito
+          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
+          nombreProducto="Bread"
+          cantidad="1"
+          precio="2"
+        />
       </div>
-      <div className={styles.pago}>
+      <Pago />
+      {/* <div className={styles.pago}>
         <div className={styles.deliveryBox}>
           <h2>Delivery</h2>
           <button className={styles.button}>Si</button>
@@ -33,7 +66,7 @@ const Carrito = () => {
             <label htmlFor="">$2</label>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

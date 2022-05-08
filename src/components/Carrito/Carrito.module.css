@@ -1,9 +1,16 @@
 .containers{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr .5fr;
     padding: 10px;
-    justify-content: center;
+
+    
     
 }
+.productos {
+    display: flex;
+    flex-direction: column;
+}
+
 .pago{
    
     width: 400px;
@@ -13,11 +20,7 @@
     border-radius: 20px;
     border: 1px solid rgba(0, 0, 0, 0.222);
 }
-.productos{
-    display: flex;
-    width: 700px;
-    flex-direction: column;
-}
+
 .button{
     width: 40px;
     height: 30px;
