@@ -4,13 +4,18 @@ import SideBar from "./components/SideBar/SideBar";
 import CarritoPage from "./pages/CarritoPage";
 import Home from "./pages/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Routes from "./Routes";
 function App() {
   return (
-    <div className={styles.app}>
+    <Router>
       <NavBar />
-      <CarritoPage />
+      <div>
+        <Routes />
+      </div>
+
       {/* <Home /> */}
-    </div>
+    </Router>
   );
 }
 
