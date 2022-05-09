@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Koulen&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.landing{
+    display: flex;
+    flex-direction: column;
+    background-color: #F7FBF9;
+    height: 100vh;
+}
+
+.imgBackground{
+    position: absolute;
+    z-index: 1;
+    max-height: 100%;
+    width: auto;
+    right: 0;
+}
+
+/* NAVBAR */
+.navBar{
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem 7rem;
+}
+
+.left{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 45%;
+}
+.right{
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.loginButton{
+    margin-right: 2rem;
+    border-radius: 20px;
+    padding: 0.4rem 1.4rem;
+    border: 2px solid #0F2D2F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+.loginButton > a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: #0F2D2F;
+    font-weight: 500;
+}
+
+.SignUpButton{
+    border-radius: 20px;
+    padding: 0.4rem 1.4rem;
+    border: 2px solid #0F2D2F;
+    background-color: #0F2D2F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.SignUpButton > a{
+    text-decoration: none;
+    color: #F7FBF9;
+    font-size: 0.8rem;
+}
+
+.logoContainer{
+    display: flex;
+    align-items: center;
+}
+
+
+.logo{
+    color: #2D914C;
+    font-weight: 800;
+    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 0.2rem;
+}
+.link{
+    color: #0F2D2F;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* END NAVBAR */
+
+.contentTextWrapper{
+    padding: 7rem 7rem;
+    width: 35%;
+}
+.title{
+    color: #85D28F;
+    font-weight: 700;
+    font-size: 3.5rem;
+    margin-bottom: 1.6rem;
+    letter-spacing: 0.1rem;
+    font-family: 'Montserrat', sans-serif;
+}
+.subtitle{
+    width: 75%;
+    letter-spacing: 0.06rem;
+    line-height: 2rem;
+    color: #6b7679;
+}
