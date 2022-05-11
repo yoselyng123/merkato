@@ -9,6 +9,15 @@ function ListProducts() {
 
       <div className={styles.productsContainer}>
         <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 .listProducts{
     margin-bottom: 3rem;
+    width: 100%;
 }
 
 .title{
@@ -7,4 +8,10 @@
     letter-spacing: 0.02rem;
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
+}
+
+.productsContainer{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 2rem;
 }
