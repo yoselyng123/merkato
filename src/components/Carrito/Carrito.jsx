@@ -1,7 +1,6 @@
 import React from "react";
 import Pago from "../Pago/Pago";
 import ProductoCarrito from "../ProductoCarrito/ProductoCarrito";
-import SideBar from "../SideBar/SideBar";
 import styles from "./Carrito.module.css";
 const Carrito = () => {
   return (
