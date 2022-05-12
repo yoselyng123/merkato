@@ -1,29 +1,8 @@
 .home{
     display: flex;
-    flex-direction: row;
-    width: 100vw;
-    height: 100vh;
-    background-color: #F7F8FA;
-}
-
-.sidebar{
-    width: 15%;
-    background-color: #fff;
-    border-right: #DCEAE3;
-    border-bottom: 0;
-    border-top: 0;
-    border-left: 0;
-    border-right-width: 2px;
-    border-style: solid;
-}
-
-.contentWrapper{
-    width: 85%;
-    display: flex;
     flex-direction: column;
-}
-.content{
-    padding: 1.5% 2.5%;
-    background-color: #F7F8FA;
     height: 100%;
+    padding: 1% 5%;
 }
+
+

@@ -1,80 +1,82 @@
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 1.5% 2%;
+    gap: 2rem;
+    padding: 2% 5%;
     border-bottom: 2px solid #DAE9E1;
 }
 
-.leftSection{
+.searchContainer{
     display: flex;
+    justify-content: center;
     align-items: center;
-    flex: 2;
+    background-color: var(--lightGray);
+    width: 50%;
+    border-radius: 10px;
+    padding: 0.6rem 0.8rem 0.6rem 0rem;
 }
 
-.searchBar{
-    width: 100%;
-    padding: 1%;
-    background-color: transparent;
-    border: none;
-    font-size: 0.9rem;
-    margin-left: 0.2rem;
-}
-
-.searchBar:focus{
+.searchContainer > input {
+    padding: 0.1rem 0.6rem;
     outline: none;
+    border: none;
+    background-color: inherit;
+    flex: 1;
+    font-size: 0.8rem;
+    border-left: 2px solid var(--gray);
 }
 
-.searchIcon {
-    fill: #A0D9B9;
+.searchContainer > select {
+    padding: 0.1rem 0.6rem;
+    border: none;
+    outline: none;
+    background-color: inherit;
+    font-weight: 600;
+    font-size: 0.7rem;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-right: 0.5rem;
 }
 
 .rightSection{
     display: flex;
-    align-items: center;
-    flex: 1;
     justify-content: flex-end;
-    margin-right: 2%;
+    align-items: center;
+    flex: 2;
+    gap: 2rem;
 }
 
-.notification{
-    margin-right: 3%;
-    border-right: 1px solid #DCEAE3;
-    padding: 0% 3%;
+.rightSection > svg {
+    fill: var(--lightGreen);
+    cursor: pointer;
+}
+
+.cartWrapper > svg{
+    fill: var(--lightGreen);
+    cursor: pointer;
+}
+
+.rightSection > svg:hover {
+    fill: var(--lightestGreen);
+}
+
+.cartWrapper > svg:hover{
+    fill: var(--lightestGreen);
+}
+
+.cartWrapper{
     display: flex;
+    gap: 0.3rem;
     justify-content: center;
     align-items: center;
 }
 
-.envelope{
-    border-right: 1px solid #DCEAE3;
-    padding: 0% 3%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.cartInfoTitle{
+    font-size: 0.6rem;
+    color: var(--gray);
+    font-weight: 600;
 }
-
-.notificationsIcon {
-    fill: #A0D9B9;
+.cartInfoNumber{
+    font-size: 0.8rem;
+    font-weight: 600;
 }
-
-.notificationsIcon:hover{
-    fill: #28AF61;
-    cursor: pointer;
-}
-
-.envelopeIcon {
-    fill: #A0D9B9;
-}
-
-.envelopeIcon:hover{
-    fill: #28AF61;
-    cursor: pointer;
-}
-
-.downIcon {
-    fill: #9893B7;
-    font-size: 12px;
-    margin-left: 0.3rem;
-}
-
