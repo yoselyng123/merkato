@@ -40,7 +40,7 @@ function Categories() {
         />
         <Category
           tag="Frozen Seafoods"
-          img="https://cdn-icons.flaticon.com/png/512/4753/premium/4753869.png?token=exp=1652233409~hmac=bcace21b78fd9ebb9c3f98a8f39770ea"
+          img="https://cdn-icons-png.flaticon.com/512/2271/2271030.png"
         />
         <Category
           tag="Raw Meats"
@@ -52,7 +52,7 @@ function Categories() {
         />
         <Category
           tag="Coffees & Teas"
-          img="https://cdn-icons.flaticon.com/png/512/2137/premium/2137674.png?token=exp=1652239624~hmac=c22a44a37fa41c8df97d609521596612"
+          img="https://cdn-icons-png.flaticon.com/512/3082/3082010.png"
         />
         <Category
           tag="Snacks"
@@ -60,7 +60,7 @@ function Categories() {
         />
         <Category
           tag="Milks & Dairies"
-          img="https://cdn-icons.flaticon.com/png/512/869/premium/869664.png?token=exp=1652239724~hmac=bbf63a4ac66b2833579d3aec9820273c"
+          img="https://cdn-icons-png.flaticon.com/512/373/373024.png"
         />
         <Category
           tag="Cleaning"
