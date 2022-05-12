@@ -1,0 +1,84 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+button:hover{
+    cursor: pointer;
+}
+.pago {
+
+
+    height: 500px;
+    padding: 15px;
+    margin-left: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.222);
+}
+
+.boxFotoProducto{
+    display: grid;
+    grid-template-columns: 1fr .7fr;
+    margin-bottom: 20px;
+    align-items: center;
+}
+.buttonFoto{
+    border: none;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #28AF61;
+    color: white;
+}
+.buttonFoto:hover{
+    background-color: #20914f;
+}
+.boxImg{
+    display: block;
+    height: 160px;
+    width: 80%;
+    background-color: red;
+    border-radius: 10px;
+}
+.inputsBox{
+    display: grid;
+    gap: 10px;
+
+}
+.inputsBox input{
+    outline: none;
+    height: 20px;
+    border: none;
+    border-bottom: 1px solid rgb(198, 198, 198);
+    font-size: 16px;
+    
+}
+.inputsBox label{
+    font-size: 16px;
+
+    
+}
+.inputButtons{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 10px;
+}
+.inputButtons button{
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.btnAgregarProd{
+    background-color: #28AF61;
+    color: white;
+}
+.btnAgregarProd:hover {
+    background-color: #20914f;
+}
+.btnLimpiarProd:hover{
+    background-color: rgb(200, 197, 197);
+}
