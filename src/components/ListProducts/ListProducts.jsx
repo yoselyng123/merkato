@@ -9,7 +9,7 @@ function ListProducts() {
 
       <div className={styles.productsContainer}>
         <Product />
-        <Product />
+        <Product extraTag="Best Seller" />
         <Product />
         <Product />
         <Product />
