@@ -6,6 +6,10 @@
     border-bottom: 2px solid #DAE9E1;
 }
 
+.logo{ 
+    text-decoration: none;
+}
+
 .searchContainer{
     display: flex;
     justify-content: center;
@@ -69,6 +73,7 @@
     gap: 0.3rem;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }
 
 .cartInfoTitle{
