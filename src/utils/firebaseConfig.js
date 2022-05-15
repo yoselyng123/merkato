@@ -16,14 +16,14 @@ const firebaseConfig = {
   storageBucket: "merkato-ed078.appspot.com",
   messagingSenderId: "2430167457",
   appId: "1:2430167457:web:2ab96ee7664bcc06d583e0",
-  measurementId: "G-9LJM0YLC4C"
+  measurementId: "G-9LJM0YLC4C",
 };
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp);
-const auth = getAuth();
-const storage = getStorage(firebaseApp);
+export const db = getFirestore(firebaseApp);
+export const auth = getAuth();
+export const storage = getStorage(firebaseApp);
 
 const firebaseExports = { db, auth, storage };
 

@@ -10,38 +10,44 @@ const Carrito = () => {
         <ProductoCarrito
           img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
           nombreProducto="Bread"
-          cantidad="1"
+          cantidad={1}
           precio="2"
+          stock={100}
         />
         <ProductoCarrito
           img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
           nombreProducto="Bread"
-          cantidad="1"
+          cantidad={1}
           precio="2"
+          stock={100}
         />
         <ProductoCarrito
           img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
           nombreProducto="Bread"
-          cantidad="1"
+          cantidad={1}
           precio="2"
+          stock={100}
         />
         <ProductoCarrito
           img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
           nombreProducto="Bread"
-          cantidad="1"
+          cantidad={1}
           precio="2"
+          stock={100}
         />
         <ProductoCarrito
           img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
           nombreProducto="Bread"
-          cantidad="1"
+          cantidad={1}
           precio="2"
+          stock={100}
         />
         <ProductoCarrito
           img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
           nombreProducto="Bread"
-          cantidad="1"
+          cantidad={1}
           precio="2"
+          stock={100}
         />
       </div>
       <Pago />
