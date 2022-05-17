@@ -4,8 +4,6 @@ import SvgIcon from "@mui/material/SvgIcon";
 import Logo from "../Logo/Logo";
 import { Link } from "react-router-dom";
 
-import { Link } from "react-router-dom";
-
 function NavBar() {
   return (
     <div className={styles.navbar}>
