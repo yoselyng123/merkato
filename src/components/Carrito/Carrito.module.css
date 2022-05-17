@@ -1,0 +1,11 @@
+.containers{
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    padding: 1% 5%;
+    
+}
+.productos {
+    display: flex;
+    flex-direction: column;
+}
+

@@ -1,11 +1,47 @@
+.categories{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1.2rem 0rem 2.5rem;
+}
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0rem;
+}
 .title{
-    font-size: 25px;
-    font-weight: bold;
-    color: #33353B;
-    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 0.02rem;
+    font-size: 1.2rem;
+}
+.arrowsWrapper{
+    display: flex;
+    gap: 0.5rem;
+    
+}
+.arrowContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F3F3F3;
+    cursor: pointer;
+    transition: all ease 0.2s;
+}
+
+.arrowContainer:hover{
+    background-color: var(--lightGreen);
+}
+
+.arrowContainer:hover > svg{
+    fill: #FFF;
+}
+.arrowContainer > svg{
+    font-size: 1.2rem;
+    fill: var(--gray);
 }
 .cards{
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 1.5rem;
 }

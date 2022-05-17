@@ -1,12 +1,18 @@
 import "./App.module.css";
-import styles from "./App.module.css";
-import Home from "./pages/Home/Home";
+import NavBar from "./components/NavBar/NavBar";
+import { BrowserRouter as Router } from "react-router-dom";
+import Rutas from "./Rutas";
 
 function App() {
   return (
-    <div className={styles.app}>
-      <Home />
-    </div>
+    <Router>
+      <NavBar />
+      <div>
+        <Rutas />
+      </div>
+
+      {/* <Home /> */}
+    </Router>
   );
 }
 

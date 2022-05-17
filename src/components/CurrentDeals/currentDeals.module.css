@@ -1,0 +1,17 @@
+.currentDeals{
+    padding: 3rem;
+    background-color: #F3F3F3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    height: 50vh;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.currentDeals > svg {
+    font-size: 2rem;
+    cursor: pointer;
+    fill: #000;
+}
