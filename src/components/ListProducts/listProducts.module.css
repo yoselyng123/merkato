@@ -12,25 +12,6 @@
 
 .productsContainer{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
     grid-gap: 2rem;
-}
-
-.infocontainer
-{
-    background: #ffff;
-    width: 60rem;
-    height: 50rem;
-    border-radius: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    position: fixed;
-    z-index: 1000;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%)
 }

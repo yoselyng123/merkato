@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 function NavBar() {
   return (
     <div className={styles.navbar}>
-      <Logo />
+      <Link to="/" className={styles.logo}>
+        <Logo />
+      </Link>
 
       <div className={styles.searchContainer}>
         <select name="" id="">

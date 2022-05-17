@@ -8,6 +8,9 @@
     justify-content: center;
     cursor: pointer;
 }
+.productcontainer {
+    width: 100%;
+}
 .top{
     display: flex;
     align-items: center;
@@ -40,7 +43,6 @@
 
 .imgContainer{
     height: 250px;
-    margin-bottom: 3rem;
     position: relative;
     width: 100%;
 }
@@ -85,7 +87,6 @@
     padding: 0.3rem 0.6rem 0.3rem 0.6rem;
     gap: 0.2rem;
     border-radius: 20px;
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,11 +97,19 @@
     background-color: var(--darkGreen);
 }
 
+.addContainer {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    height: 100%;
+    margin-top: 0.5rem;
+}
+
 .addMoreContainer{
     background-color: var(--lightGreen);
     padding: 0.3rem 0.6rem 0.3rem 0.6rem;
     border-radius: 20px;
-    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -154,4 +163,33 @@
     font-size: 0.8rem;
     color: var(--lightGreen);
     font-weight: 500;
+}
+
+.infobackground
+{
+    background: rgba(105, 105, 105, .5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.infocontainer
+{
+    background: #ffff;
+    width: 60rem;
+    height: 50rem;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
