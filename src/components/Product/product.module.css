@@ -8,6 +8,9 @@
     justify-content: center;
     cursor: pointer;
 }
+.productcontainer {
+    width: 100%;
+}
 .top{
     display: flex;
     align-items: center;

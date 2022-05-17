@@ -47,7 +47,7 @@ function Product({ data }) {
 
   return (
     <div className={styles.product}>
-      <div className={styles.product_container} onClick={(e) => handleCardClick(data, info)}>
+      <div className={styles.productcontainer} onClick={(e) => handleCardClick(data, info)}>
         {info === true &&
           (<div className={styles.infobackground}>
             <div className={styles.infocontainer}>
