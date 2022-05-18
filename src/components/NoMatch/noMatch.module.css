@@ -1,0 +1,35 @@
+.noMatch{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 5rem;
+}
+
+.noMatch > img {
+    width: 10rem;
+    margin-bottom: 3.5rem;
+}
+
+.title{
+    font-size: 2rem;
+    margin-bottom: 1.6rem;
+    font-weight: 600;
+}
+.subtitle{
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.btn {
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: var(--lightGreen);
+    padding: 0.7rem 1.5rem;
+    border-radius: 15px;
+    text-decoration: none;
+}
+
+.btn > p {
+    color: var(--white);
+}
