@@ -2,53 +2,75 @@ import React from "react";
 import Pago from "../Pago/Pago";
 import ProductoCarrito from "../ProductoCarrito/ProductoCarrito";
 import styles from "./Carrito.module.css";
+import firebaseExports from "../../utils/firebaseConfig";
+import { collection, getDocs, where } from "firebase/firestore";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+
 const Carrito = () => {
+  const { carrito, setCarrito, eliminarProductoCarrito } =
+    useContext(UserContext);
+  const [products, setProducts] = useState([]);
+
+  const handleDeleteCarrito = (id) => {
+    const newArray = products.filter((item) => item.id !== id);
+    setProducts(newArray);
+    eliminarProductoCarrito(id);
+  };
+  useEffect(() => {
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    const getProductsFromFirebase = [];
+    const subscriber = async () => {
+      const querySnapshot = await getDocs(
+        collection(firebaseExports.db, "producto")
+      );
+      querySnapshot.forEach((doc) => {
+        //console.log(`${doc.id} => ${doc.data()}`);
+        if (
+          JSON.parse(localStorage.getItem("carrito")).findIndex(
+            (i) => i.id === doc.id
+          ) > -1
+        ) {
+          const numeroEnlaLista = JSON.parse(
+            localStorage.getItem("carrito")
+          ).findIndex((i) => i.id === doc.id);
+          getProductsFromFirebase.push({
+            ...doc.data(),
+            id: doc.id,
+            cantidad_solicitada: JSON.parse(localStorage.getItem("carrito"))[
+              numeroEnlaLista
+            ].quantity,
+          });
+        }
+      });
+      console.log(getProductsFromFirebase);
+      setProducts(getProductsFromFirebase);
+    };
+
+    // return cleanup function
+    return () => subscriber();
+  }, []);
+
   return (
     <div className={styles.containers}>
       <div className={styles.productos}>
         <h1>Carrito</h1>
-        <ProductoCarrito
-          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
-          nombreProducto="Bread"
-          cantidad={1}
-          precio="2"
-          stock={100}
-        />
-        <ProductoCarrito
-          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
-          nombreProducto="Bread"
-          cantidad={1}
-          precio="2"
-          stock={100}
-        />
-        <ProductoCarrito
-          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
-          nombreProducto="Bread"
-          cantidad={1}
-          precio="2"
-          stock={100}
-        />
-        <ProductoCarrito
-          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
-          nombreProducto="Bread"
-          cantidad={1}
-          precio="2"
-          stock={100}
-        />
-        <ProductoCarrito
-          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
-          nombreProducto="Bread"
-          cantidad={1}
-          precio="2"
-          stock={100}
-        />
-        <ProductoCarrito
-          img="https://cdn-icons-png.flaticon.com/512/3348/3348075.png"
-          nombreProducto="Bread"
-          cantidad={1}
-          precio="2"
-          stock={100}
-        />
+        {products.length > 0 ? (
+          products.map((product) => (
+            <ProductoCarrito
+              key={product.id}
+              img={product.foto_producto}
+              nombreProducto={product.nombre}
+              cantidad={product.cantidad_solicitada}
+              precio={product.precio_unitario}
+              stock={product.stock}
+              id={product.id}
+              handleDeleteCarrito={handleDeleteCarrito}
+            />
+          ))
+        ) : (
+          <h1>No products found</h1>
+        )}
       </div>
       <Pago />
       {/* <div className={styles.pago}>

@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Product from "../Product/Product";
 import styles from "./listProducts.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import { UserContext } from "../../context/UserContext";
 
 function ListProducts() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
+  const { carrito, setCarrito } = useContext(UserContext);
 
   useEffect(() => {
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
     const getProductsFromFirebase = [];
     const subscriber = async () => {
       const querySnapshot = await getDocs(
@@ -16,6 +19,7 @@ function ListProducts() {
       );
       querySnapshot.forEach((doc) => {
         //console.log(`${doc.id} => ${doc.data()}`);
+
         getProductsFromFirebase.push({ ...doc.data(), id: doc.id });
       });
       console.log(getProductsFromFirebase);

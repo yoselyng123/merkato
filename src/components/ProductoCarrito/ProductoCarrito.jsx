@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./ProductoCarrito.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
-const ProductoCarrito = ({ img, nombreProducto, cantidad, precio, stock }) => {
+import { UserContext } from "../../context/UserContext";
+const ProductoCarrito = ({
+  img,
+  nombreProducto,
+  cantidad,
+  precio,
+  stock,
+  id,
+  handleDeleteCarrito,
+}) => {
   const [quantity, setQuantity] = useState(cantidad);
-
+  const { modificarCantidadCarrito } = useContext(UserContext);
   const handleClick = (type) => {
     if (type === "+") {
       if (quantity < stock) {
         setQuantity(quantity + 1);
+        modificarCantidadCarrito("+", id, quantity);
       }
     } else {
       if (quantity > 1) {
         setQuantity(quantity - 1);
+        modificarCantidadCarrito("-", id, quantity);
       }
     }
   };
+
   return (
     <div className={styles.containers}>
       <picture className={styles.boxImg}>
@@ -29,7 +41,9 @@ const ProductoCarrito = ({ img, nombreProducto, cantidad, precio, stock }) => {
               <h6 className={styles.disponible}>Disponible</h6>
             </div>
           </div>
-          <h2 className={styles.precioTotal}>${parseInt(precio) * quantity}</h2>
+          <h2 className={styles.precioTotal}>
+            ${(precio * quantity).toFixed(2)}
+          </h2>
         </div>
 
         <div className={styles.downInfo}>
@@ -68,7 +82,12 @@ const ProductoCarrito = ({ img, nombreProducto, cantidad, precio, stock }) => {
           </div>
 
           <div className={styles.downRightSide}>
-            <button className={styles.buttonDelete}>Delete</button>
+            <button
+              className={styles.buttonDelete}
+              onClick={() => handleDeleteCarrito(id)}
+            >
+              Delete
+            </button>
             <button className={styles.buttonSave}>Save</button>
           </div>
         </div>

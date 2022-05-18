@@ -6,7 +6,55 @@ export const UserContext = createContext(null);
 
 export default function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [carrito, setCarrito] = useState(null);
+  const [carrito, setCarrito] = useState([]);
+
+  const agregarACarrito = (idProducto, cantidad) => {
+    if (carrito.findIndex((i) => i.id === idProducto) === -1) {
+      carrito.push({ id: idProducto, quantity: cantidad + 1 });
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+    }
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    console.log(JSON.parse(localStorage.getItem("carrito")), "#######");
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+  };
+
+  const eliminarProductoCarrito = (IdProducto) => {
+    carrito.splice(
+      carrito.findIndex((i) => i.id === IdProducto),
+      1
+    );
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    console.log(JSON.parse(localStorage.getItem("carrito")), "#######");
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+  };
+
+  const modificarCantidadCarrito = (type, IdProducto, cantidad) => {
+    const localStorageAux = JSON.parse(localStorage.getItem("carrito"));
+    if (type === "-") {
+      if (
+        localStorageAux[localStorageAux.findIndex((i) => i.id === IdProducto)]
+          .quantity -
+          1 ===
+        0
+      ) {
+        eliminarProductoCarrito(IdProducto);
+      } else {
+        carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity =
+          carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity - 1;
+      }
+    } else {
+      if (carrito.findIndex((i) => i.id === IdProducto) !== -1) {
+        carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity =
+          carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity + 1;
+      } else {
+        agregarACarrito(IdProducto, cantidad);
+      }
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    console.log(JSON.parse(localStorage.getItem("carrito")), "#######");
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+  };
 
   const createUser = async (user, uid) => {
     await db.collection("users").doc(uid).set(user);
@@ -70,6 +118,9 @@ export default function UserContextProvider({ children }) {
         getUserByEmail,
         carrito,
         setCarrito,
+        agregarACarrito,
+        eliminarProductoCarrito,
+        modificarCantidadCarrito,
       }}
     >
       {children}
