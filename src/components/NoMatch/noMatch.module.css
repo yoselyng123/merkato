@@ -4,6 +4,7 @@
     align-items: center;
     flex-direction: column;
     padding-top: 5rem;
+    height: auto;
 }
 
 .noMatch > img {
@@ -12,9 +13,9 @@
 }
 
 .title{
-    font-size: 2rem;
-    margin-bottom: 1.6rem;
-    font-weight: 600;
+    font-size: 1.7rem;
+    margin-bottom: 1.8rem;
+    font-weight: 700;
 }
 .subtitle{
     margin-bottom: 2rem;

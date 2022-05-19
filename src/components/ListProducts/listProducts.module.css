@@ -1,6 +1,7 @@
 .listProducts{
     margin-bottom: 3rem;
     width: 100%;
+    flex: 1;
 }
 
 .title{
