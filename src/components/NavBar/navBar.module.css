@@ -89,3 +89,38 @@
 .searchContainer > svg{
     cursor: pointer;
 }
+
+.cartWrapper2 {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    flex-direction: column-reverse;
+    position:relative;
+}
+.cartWrapper2>svg {
+    fill: var(--lightGreen);
+    cursor: pointer;
+}
+.cartWrapper2 >svg:hover {
+    fill: var(--lightestGreen);
+}
+.numeritoCarrito{
+    background-color: orange;
+    height: 50%;
+    width: 40%;
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+    font-size: 10px;
+    font-weight:900;
+    
+    
+}
+.numeritoCarrito span{
+    color: var(--lightGreen);
+}

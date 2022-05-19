@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import styles from "./ProductoCarrito.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import { UserContext } from "../../context/UserContext";
+import AddButton from "../AddButton/AddButton";
 const ProductoCarrito = ({
   img,
   nombreProducto,
@@ -17,12 +18,12 @@ const ProductoCarrito = ({
     if (type === "+") {
       if (quantity < stock) {
         setQuantity(quantity + 1);
-        modificarCantidadCarrito("+", id, quantity);
+        modificarCantidadCarrito("+", id, quantity, precio);
       }
     } else {
       if (quantity > 1) {
         setQuantity(quantity - 1);
-        modificarCantidadCarrito("-", id, quantity);
+        modificarCantidadCarrito("-", id, quantity, precio);
       }
     }
   };
