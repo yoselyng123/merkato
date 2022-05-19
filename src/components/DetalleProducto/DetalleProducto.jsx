@@ -5,7 +5,7 @@ import SvgIcon from "@mui/material/SvgIcon";
 
 function DetalleProducto({ info_producto, click }) {
   const [mainImage, setmainImage] = useState(info_producto.foto_producto[0]);
-
+  console.log(info_producto);
   return (
     <div className={styles.infocontent}>
       <div className={styles.exitbutton} onClick={() => click()}>
@@ -37,7 +37,7 @@ function DetalleProducto({ info_producto, click }) {
         <p className={styles.descripcion}>{info_producto.descripcion}</p>
         <div className={styles.priceContainer}>
           <div className={styles.priceWrapper}>
-            <p className={styles.price}>${info_producto.precio_unidad}</p>
+            <p className={styles.price}>${info_producto.precio_unitario}</p>
             <p className={styles.text}>average price $1.24/lb</p>
           </div>
           <p className={styles.text2}>Final cost by weight</p>

@@ -10,7 +10,7 @@ function Product({ data }) {
     foto_producto: "",
     id: 0,
     descripcion: "",
-    precio_unidad: 0,
+    precio_unitario: 0,
   });
 
   const handleClose = () => {
@@ -24,7 +24,7 @@ function Product({ data }) {
     itemInfo.descripcion = product.descripcion;
     itemInfo.id = product.id;
     itemInfo.foto_producto = product.foto_producto;
-    itemInfo.precio_unidad = product.precio_unitario;
+    itemInfo.precio_unitario = product.precio_unitario;
     setItemInfo(itemInfo);
   };
 
