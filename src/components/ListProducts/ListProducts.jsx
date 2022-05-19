@@ -6,6 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import NoMatch from "../NoMatch/NoMatch";
 
 function ListProducts({ products }) {
+  console.log(products);
   return (
     <div className={styles.listProducts}>
       {products.length > 0 ? (

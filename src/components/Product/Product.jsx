@@ -55,7 +55,7 @@ function Product({ data }) {
         </div>
       </div>
 
-      <AddButton />
+      <AddButton data={data} />
     </div>
   );
 }

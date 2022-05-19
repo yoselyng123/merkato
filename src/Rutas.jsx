@@ -6,11 +6,9 @@ import InventarioPage from "./pages/InventarioPage";
 import Searcher from "./pages/Searcher/Searcher";
 import firebaseExports from "./utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-
 function Rutas() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
-
   useEffect(() => {
     const getProductsFromFirebase = [];
     const subscriber = async () => {
