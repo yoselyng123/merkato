@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import CarritoPage from "./pages/CarritoPage";
 import Home from "./pages/Home/Home";
@@ -6,14 +6,10 @@ import InventarioPage from "./pages/InventarioPage";
 import Searcher from "./pages/Searcher/Searcher";
 import firebaseExports from "./utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import { UserContext } from "./context/UserContext";
 function Rutas() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
-  const { carrito, setCarrito } = useContext(UserContext);
   useEffect(() => {
-    setCarrito(JSON.parse(localStorage.getItem("carrito")));
-
     const getProductsFromFirebase = [];
     const subscriber = async () => {
       const querySnapshot = await getDocs(

@@ -8,9 +8,13 @@ export default function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [carrito, setCarrito] = useState([]);
 
-  const agregarACarrito = (idProducto, cantidad) => {
+  const agregarACarrito = (idProducto, cantidad, precio) => {
     if (carrito.findIndex((i) => i.id === idProducto) === -1) {
-      carrito.push({ id: idProducto, quantity: cantidad + 1 });
+      carrito.push({
+        id: idProducto,
+        quantity: cantidad + 1,
+        montoTotal: precio * (cantidad + 1),
+      });
       localStorage.setItem("carrito", JSON.stringify(carrito));
     }
     localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -28,7 +32,7 @@ export default function UserContextProvider({ children }) {
     setCarrito(JSON.parse(localStorage.getItem("carrito")));
   };
 
-  const modificarCantidadCarrito = (type, IdProducto, cantidad) => {
+  const modificarCantidadCarrito = (type, IdProducto, cantidad, precio) => {
     const localStorageAux = JSON.parse(localStorage.getItem("carrito"));
     if (type === "-") {
       if (
@@ -41,13 +45,19 @@ export default function UserContextProvider({ children }) {
       } else {
         carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity =
           carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity - 1;
+        carrito[carrito.findIndex((i) => i.id === IdProducto)].montoTotal =
+          carrito[carrito.findIndex((i) => i.id === IdProducto)].montoTotal -
+          precio;
       }
     } else {
       if (carrito.findIndex((i) => i.id === IdProducto) !== -1) {
         carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity =
           carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity + 1;
+        carrito[carrito.findIndex((i) => i.id === IdProducto)].montoTotal =
+          carrito[carrito.findIndex((i) => i.id === IdProducto)].montoTotal +
+          precio;
       } else {
-        agregarACarrito(IdProducto, cantidad);
+        agregarACarrito(IdProducto, cantidad, precio);
       }
     }
 

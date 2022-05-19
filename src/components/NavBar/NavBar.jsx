@@ -1,11 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./navBar.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import Logo from "../Logo/Logo";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 function NavBar() {
+  const {
+    carrito,
+    modificarCantidadCarrito,
+    agregarACarrito,
+    eliminarProductoCarrito,
+  } = useContext(UserContext);
+
   let navigate = useNavigate();
+  const [numItems, setNumItems] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    carrito.forEach((element) => {
+      setNumItems(numItems + element.quantity);
+      setTotalAmount(totalAmount + element.montoTotal);
+    });
+  }, []);
 
   const [search, setSearch] = useState("");
 
@@ -68,7 +85,7 @@ function NavBar() {
           </SvgIcon>
           <div className={styles.cartInfo}>
             <p className={styles.cartInfoTitle}>Your cart</p>
-            <p className={styles.cartInfoNumber}>$1,200.00</p>
+            <p className={styles.cartInfoNumber}>${totalAmount}</p>
           </div>
         </Link>
       </div>
