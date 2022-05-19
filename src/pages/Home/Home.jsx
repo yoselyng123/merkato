@@ -4,12 +4,12 @@ import CurrentDeals from "../../components/CurrentDeals/CurrentDeals";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import styles from "./home.module.css";
 
-function Home() {
+function Home({ products }) {
   return (
     <div className={styles.home}>
       <CurrentDeals />
       <Categories />
-      <ListProducts />
+      <ListProducts products={products} />
     </div>
   );
 }
