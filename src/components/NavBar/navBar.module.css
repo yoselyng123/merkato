@@ -4,6 +4,10 @@
     gap: 2rem;
     padding: 2% 5%;
     border-bottom: 2px solid #DAE9E1;
+    position: fixed;
+    z-index: 5;
+    background-color: #fff;
+    width: 100%;
 }
 
 .logo{ 
