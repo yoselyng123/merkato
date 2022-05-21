@@ -1,0 +1,39 @@
+.comercio{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.comerciocontainer {
+    width: 100%;
+}
+
+.imgContainer{
+    height: 250px;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgContainer > img{
+    height: 80%;
+}
+.infoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.title{
+    margin: 0.5rem 0rem;
+    font-size: 1rem;
+}

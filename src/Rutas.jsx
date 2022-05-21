@@ -8,19 +8,19 @@ import firebaseExports from "./utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 function Rutas() {
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
+  const [comercios, setComercios] = useState([]);
+
   useEffect(() => {
-    const getProductsFromFirebase = [];
+    const getComerciosFromFirebase = [];
     const subscriber = async () => {
       const querySnapshot = await getDocs(
-        collection(firebaseExports.db, "producto")
+        collection(firebaseExports.db, "comercio")
       );
       querySnapshot.forEach((doc) => {
-        //console.log(`${doc.id} => ${doc.data()}`);
-        getProductsFromFirebase.push({ ...doc.data(), id: doc.id });
+        getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
       });
-      console.log(getProductsFromFirebase);
-      setProducts(getProductsFromFirebase);
+      console.log(getComerciosFromFirebase);
+      setComercios(getComerciosFromFirebase);
       setLoading(false);
     };
 
@@ -36,12 +36,15 @@ function Rutas() {
     <Routes>
       <Route exact path="/carrito" element={<CarritoPage />}></Route>
       <Route exact path="/inventario" element={<InventarioPage />}></Route>
-      <Route
+      {/*<Route
         exact
         path="/search/:name"
         element={<Searcher products={products} />}
-      ></Route>
-      <Route exact path="/" element={<Home products={products} />}></Route>
+  ></Route>*/}
+      {/*<Route exact path="/" element={<Home products={products} />}></Route>*/}
+
+
+      <Route exact path="/" element={<Home comercios={comercios} />}></Route>
     </Routes>
   );
 }

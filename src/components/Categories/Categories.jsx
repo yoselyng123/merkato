@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Category from "../Category/Category";
 import styles from "./categories.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
+import firebaseExports from "../../utils/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
-function Categories() {
+function Categories({ idComercio }) {
+
+  const [loading, setLoading] = useState(true);
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    const getCategoriasFromFirebase = [];
+    const subscriber = async () => {
+      const querySnapshot = await getDocs(
+        collection(firebaseExports.db, "comercio", idComercio, "categorias") 
+      );
+      querySnapshot.forEach((doc) => {
+        getCategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(getCategoriasFromFirebase);
+      setCategorias(getCategoriasFromFirebase);
+      setLoading(false);
+    };
+
+    // return cleanup function
+    return () => subscriber();
+  }, []);
+
   return (
     <div className={styles.categories}>
       <div className={styles.top}>
@@ -26,46 +50,9 @@ function Categories() {
         </div>
       </div>
       <div className={styles.cards}>
-        <Category
-          tag="Fruits"
-          img="https://cdn-icons-png.flaticon.com/512/1625/1625048.png"
-        />
-        <Category
-          tag="Breads & Sweets"
-          img="https://cdn-icons-png.flaticon.com/512/3348/3348101.png"
-        />
-        <Category
-          tag="Vegetables"
-          img="https://cdn-icons-png.flaticon.com/512/2921/2921726.png"
-        />
-        <Category
-          tag="Frozen Seafoods"
-          img="https://cdn-icons-png.flaticon.com/512/2271/2271030.png"
-        />
-        <Category
-          tag="Raw Meats"
-          img="https://cdn-icons-png.flaticon.com/512/2224/2224325.png"
-        />
-        <Category
-          tag="Alcohol Drinks"
-          img="https://cdn-icons-png.flaticon.com/512/920/920582.png"
-        />
-        <Category
-          tag="Coffees & Teas"
-          img="https://cdn-icons-png.flaticon.com/512/3082/3082010.png"
-        />
-        <Category
-          tag="Snacks"
-          img="https://cdn-icons-png.flaticon.com/512/3050/3050268.png"
-        />
-        <Category
-          tag="Milks & Dairies"
-          img="https://cdn-icons-png.flaticon.com/512/373/373024.png"
-        />
-        <Category
-          tag="Cleaning"
-          img="https://cdn-icons-png.flaticon.com/512/994/994928.png"
-        />
+        {categorias.map((categoria) => (
+          <Category key={categoria.id} data={categoria} />
+        ))}
       </div>
     </div>
   );
