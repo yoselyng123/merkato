@@ -1,8 +1,7 @@
 import React from "react";
-import ProductoCarrito from "../components/ProductoCarrito/ProductoCarrito";
 import Carrito from "../components/Carrito/Carrito";
-const CarritoPage = () => {
-  return <Carrito />;
+const CarritoPage = ({ idComercio }) => {
+  return <Carrito idComercio={idComercio} />;
 };
 
 export default CarritoPage;

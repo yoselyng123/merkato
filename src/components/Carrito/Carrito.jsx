@@ -7,7 +7,7 @@ import { collection, getDocs, where } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
-const Carrito = () => {
+const Carrito = ({ idComercio }) => {
   const { carrito, setCarrito, eliminarProductoCarrito } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
@@ -19,30 +19,49 @@ const Carrito = () => {
   };
   useEffect(() => {
     setCarrito(JSON.parse(localStorage.getItem("carrito")));
+
+    const CategoriasFromFirebase = [];
+
     const getProductsFromFirebase = [];
     const subscriber = async () => {
       const querySnapshot = await getDocs(
-        collection(firebaseExports.db, "producto")
+        collection(firebaseExports.db, "comercio", idComercio, "categorias")
       );
       querySnapshot.forEach((doc) => {
-        //console.log(`${doc.id} => ${doc.data()}`);
-        if (
-          JSON.parse(localStorage.getItem("carrito")).findIndex(
-            (i) => i.id === doc.id
-          ) > -1
-        ) {
-          const numeroEnlaLista = JSON.parse(
-            localStorage.getItem("carrito")
-          ).findIndex((i) => i.id === doc.id);
-          getProductsFromFirebase.push({
-            ...doc.data(),
-            id: doc.id,
-            cantidad_solicitada: JSON.parse(localStorage.getItem("carrito"))[
-              numeroEnlaLista
-            ].quantity,
-          });
-        }
+        CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
       });
+
+      for (let i = 0; i < CategoriasFromFirebase.length; i++) {
+        const querySnapshot = await getDocs(
+          collection(
+            firebaseExports.db,
+            "comercio",
+            idComercio,
+            "categorias",
+            CategoriasFromFirebase[i].id,
+            "productos"
+          )
+        );
+        querySnapshot.forEach((doc) => {
+          if (
+            JSON.parse(localStorage.getItem("carrito")).findIndex(
+              (i) => i.id === doc.id
+            ) > -1
+          ) {
+            const numeroEnlaLista = JSON.parse(
+              localStorage.getItem("carrito")
+            ).findIndex((i) => i.id === doc.id);
+            getProductsFromFirebase.push({
+              ...doc.data(),
+              id: doc.id,
+              cantidad_solicitada: JSON.parse(localStorage.getItem("carrito"))[
+                numeroEnlaLista
+              ].quantity,
+            });
+          }
+        });
+      }
+
       console.log(getProductsFromFirebase);
       setProducts(getProductsFromFirebase);
     };

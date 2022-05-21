@@ -33,7 +33,11 @@ function Rutas() {
 
   return (
     <Routes>
-      <Route exact path="/carrito" element={<CarritoPage />}></Route>
+      <Route
+        exact
+        path="/carrito"
+        element={<CarritoPage idComercio={idComercio} />}
+      ></Route>
       <Route exact path="/inventario" element={<InventarioPage />}></Route>
       <Route
         exact
