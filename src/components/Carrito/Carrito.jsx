@@ -3,12 +3,12 @@ import Pago from "../Pago/Pago";
 import ProductoCarrito from "../ProductoCarrito/ProductoCarrito";
 import styles from "./Carrito.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
-import { collection, getDocs, where } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 const Carrito = ({ idComercio }) => {
-  const { carrito, setCarrito, eliminarProductoCarrito } =
+  const { setCarrito, eliminarProductoCarrito } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
 
@@ -68,7 +68,7 @@ const Carrito = ({ idComercio }) => {
 
     // return cleanup function
     return () => subscriber();
-  }, []);
+  }, [idComercio, setCarrito]);
 
   return (
     <div className={styles.containers}>

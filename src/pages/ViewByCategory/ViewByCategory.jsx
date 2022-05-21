@@ -9,6 +9,7 @@ import ListProducts from "../../components/ListProducts/ListProducts";
 function ViewByCategory({ idComercio, categorias }) {
   const [productByCategory, setProductByCategory] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
+  const [categoryName, setCategoryName] = useState(null);
 
   let { category } = useParams();
 
@@ -16,6 +17,7 @@ function ViewByCategory({ idComercio, categorias }) {
     categorias.forEach((element) => {
       if (element.name === category) {
         setCategoryId(element.id);
+        setCategoryName(element.name);
       }
     });
     categoryId && getProductosFromFirebase(idComercio, categoryId);
@@ -43,7 +45,7 @@ function ViewByCategory({ idComercio, categorias }) {
 
   return (
     <div className={styles.viewByCategory}>
-      <ListProducts products={productByCategory} />
+      <ListProducts title={categoryName} products={productByCategory} />
     </div>
   );
 }
