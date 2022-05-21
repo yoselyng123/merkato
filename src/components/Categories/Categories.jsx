@@ -1,33 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Category from "../Category/Category";
 import styles from "./categories.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
-import firebaseExports from "../../utils/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
 
-function Categories({ idComercio }) {
-
-  const [loading, setLoading] = useState(true);
-  const [categorias, setCategorias] = useState([]);
-
-  useEffect(() => {
-    const getCategoriasFromFirebase = [];
-    const subscriber = async () => {
-      const querySnapshot = await getDocs(
-        collection(firebaseExports.db, "comercio", idComercio, "categorias") 
-      );
-      querySnapshot.forEach((doc) => {
-        getCategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-      console.log(getCategoriasFromFirebase);
-      setCategorias(getCategoriasFromFirebase);
-      setLoading(false);
-    };
-
-    // return cleanup function
-    return () => subscriber();
-  }, []);
-
+function Categories({ categorias }) {
   return (
     <div className={styles.categories}>
       <div className={styles.top}>

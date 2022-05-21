@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Comercio from "../Comercio/Comercio";
 import styles from "./listComercios.module.css";
-import firebaseExports from "../../utils/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
 import NoMatch from "../NoMatch/NoMatch";
 
 function ListComercios({ comercios, handleClickComercio }) {

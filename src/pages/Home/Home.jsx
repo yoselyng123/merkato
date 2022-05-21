@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Categories from "../../components/Categories/Categories";
 import CurrentDeals from "../../components/CurrentDeals/CurrentDeals";
 import ListComercios from "../../components/ListComercios/ListComercios";
 import ListProducts from "../../components/ListProducts/ListProducts";
-import ListComercios from "../../components/ListComercios/ListComercios";
 import styles from "./home.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
-function Home({ comercios }) {
-  const [loading, setLoading] = useState(true);
-  const [idComercio, setIdComercio] = useState(null);
-  const [productos, setProductos] = useState([]);
-
+function Home({
+  comercios,
+  setProductos,
+  productos,
+  idComercio,
+  setIdComercio,
+  categorias,
+  setCategorias,
+}) {
   const handleClickComercio = (comercio) => {
     setIdComercio(comercio.id);
     getProductosFromFirebase(comercio.id);
@@ -28,7 +31,7 @@ function Home({ comercios }) {
     querySnapshot.forEach((doc) => {
       CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
     });
-    console.log(CategoriasFromFirebase);
+    setCategorias(CategoriasFromFirebase);
 
     for (let i = 0; i < CategoriasFromFirebase.length; i++) {
       const querySnapshot = await getDocs(
@@ -48,7 +51,6 @@ function Home({ comercios }) {
     console.log(ProductosFromFirebase);
 
     setProductos(ProductosFromFirebase);
-    setLoading(false);
   };
 
   return (
@@ -61,7 +63,7 @@ function Home({ comercios }) {
         />
       )}
 
-      {idComercio && <Categories idComercio={idComercio} />}
+      {idComercio && <Categories categorias={categorias} />}
 
       {idComercio && <ListProducts products={productos} />}
     </div>

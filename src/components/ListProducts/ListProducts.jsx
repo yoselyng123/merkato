@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Product from "../Product/Product";
 import styles from "./listProducts.module.css";
-import firebaseExports from "../../utils/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
 import NoMatch from "../NoMatch/NoMatch";
 
 function ListProducts({ products }) {
-  console.log(products);
   return (
     <div className={styles.listProducts}>
       {products.length > 0 ? (
