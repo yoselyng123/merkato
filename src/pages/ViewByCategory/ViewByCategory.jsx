@@ -14,13 +14,12 @@ function ViewByCategory({ idComercio, categorias }) {
 
   useEffect(() => {
     categorias.forEach((element) => {
-      if (element.name == category) {
+      if (element.name === category) {
         setCategoryId(element.id);
       }
     });
-    console.log(categoryId);
     categoryId && getProductosFromFirebase(idComercio, categoryId);
-  }, [categoryId]);
+  }, [categoryId, categorias, idComercio, category]);
 
   const getProductosFromFirebase = async (idComercio, categoryId) => {
     const ProductosFromFirebase = [];
