@@ -6,46 +6,43 @@ import InventarioPage from "./pages/InventarioPage";
 import Searcher from "./pages/Searcher/Searcher";
 import firebaseExports from "./utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-function Rutas() {;
-  const [products, setProducts] = useState([]);
+function Rutas() {
+  const [loading, setLoading] = useState(true);
   const [comercios, setComercios] = useState([]);
+
   useEffect(() => {
-    const getProductsFromFirebase = [];
     const getComerciosFromFirebase = [];
     const subscriber = async () => {
       const querySnapshot = await getDocs(
-        collection(firebaseExports.db, "producto")
+        collection(firebaseExports.db, "comercio")
       );
       const querySnapshot2 = await getDocs(
         collection(firebaseExports.db, "comercio")
       );
       querySnapshot.forEach((doc) => {
-        getProductsFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-      querySnapshot2.forEach((doc) => {
         getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
       });
-      console.log(getProductsFromFirebase);
       console.log(getComerciosFromFirebase);
-      setProducts(getProductsFromFirebase);
       setComercios(getComerciosFromFirebase);
+      setLoading(false);
     };
 
     // return cleanup function
     return () => subscriber();
   }, []); // empty dependency array means useEffect will only run once;
 
-
   return (
     <Routes>
       <Route exact path="/carrito" element={<CarritoPage />}></Route>
       <Route exact path="/inventario" element={<InventarioPage />}></Route>
-      <Route
+      {/*<Route
         exact
         path="/search/:name"
         element={<Searcher products={products} />}
-      ></Route>
-      <Route exact path="/" element={<Home products={products} comercios={comercios} />}></Route>
+  ></Route>*/}
+      {/*<Route exact path="/" element={<Home products={products} />}></Route>*/}
+
+      <Route exact path="/" element={<Home comercios={comercios} />}></Route>
     </Routes>
   );
 }

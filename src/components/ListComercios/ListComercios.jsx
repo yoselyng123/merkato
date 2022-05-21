@@ -5,16 +5,20 @@ import firebaseExports from "../../utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import NoMatch from "../NoMatch/NoMatch";
 
-function ListComercios({ comercios }) {
-  console.log(comercios);
+function ListComercios({ comercios, handleClickComercio }) {
   return (
-    <div className={styles.listProducts}>
+    <div className={styles.listComercios}>
       {comercios.length > 0 ? (
         <div>
-          <p className={styles.title}>All SuperMarkets</p>
+          <p className={styles.title}>All SuperMarket</p>
           <div className={styles.comerciosContainer}>
             {comercios.map((comercio) => (
-              <Comercio key={comercio.id} data={comercio} />
+              <div
+                key={comercio.id}
+                onClick={() => handleClickComercio(comercio)}
+              >
+                <Comercio data={comercio} />
+              </div>
             ))}
           </div>
         </div>

@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import styles from "./comercio.module.css";
-import DetalleProducto from "../DetalleProducto/DetalleProducto";
-import AddButton from "../AddButton/AddButton";
 
 function Comercio({ data }) {
-
   return (
-    <div className={styles.product}>
-
-      <div className={styles.productcontainer}>
+    <div className={styles.comercio}>
+      <div className={styles.comerciocontainer}>
         <div className={styles.imgContainer}>
           <img src={data.foto} alt="" />
         </div>
