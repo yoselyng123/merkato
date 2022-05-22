@@ -22,30 +22,26 @@ const Carrito = () => {
       if (JSON.parse(localStorage.getItem("carrito")) !== null) {
         setCarrito(JSON.parse(localStorage.getItem("carrito")));
       }
-      if (
-        carrito.length > 0 &&
-        JSON.parse(localStorage.getItem("carrito")) !== null
-      ) {
+      if (JSON.parse(localStorage.getItem("carrito")).length > 0) {
         setCarrito(JSON.parse(localStorage.getItem("carrito")));
+        localStorage.setItem(
+          "idProducto",
+          JSON.parse(localStorage.getItem("carrito"))[0].idComercio
+        );
         const CategoriasFromFirebase = [];
 
         const getProductsFromFirebase = [];
 
         const subscriber = async () => {
-          if (
-            JSON.parse(localStorage.getItem("carrito"))[0].idComercio !== null
-          ) {
-            console.log("HOLA");
-          }
           const querySnapshot = await getDocs(
             collection(
               firebaseExports.db,
               "comercio",
-              JSON.parse(localStorage.getItem("carrito"))[0].idComercio,
+              localStorage.getItem("idProducto"),
               "categorias"
             )
           );
-
+          console.log("Hola");
           querySnapshot.forEach((doc) => {
             CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
           });
@@ -55,13 +51,13 @@ const Carrito = () => {
               collection(
                 firebaseExports.db,
                 "comercio",
-                JSON.parse(localStorage.getItem("carrito"))[0].idComercio,
+                localStorage.getItem("idProducto"),
                 "categorias",
                 CategoriasFromFirebase[i].id,
                 "productos"
               )
             );
-            console.log(querySnapshot);
+
             querySnapshot.forEach((doc) => {
               if (
                 JSON.parse(localStorage.getItem("carrito")).findIndex(
@@ -92,7 +88,7 @@ const Carrito = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [setCarrito]);
+  }, []);
 
   return (
     <div className={styles.containers}>
