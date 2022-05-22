@@ -111,7 +111,7 @@ const Carrito = () => {
             />
           ))
         ) : (
-          <h1>No products found</h1>
+          <p className={styles.text}>Your cart is empty</p>
         )}
       </div>
       <Pago />

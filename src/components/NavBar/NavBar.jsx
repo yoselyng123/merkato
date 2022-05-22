@@ -6,12 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 
 function NavBar() {
-  const {
-    carrito,
-    modificarCantidadCarrito,
-    agregarACarrito,
-    eliminarProductoCarrito,
-  } = useContext(UserContext);
+  const { carrito } = useContext(UserContext);
 
   let navigate = useNavigate();
   const [numItems, setNumItems] = useState(0);
@@ -41,9 +36,6 @@ function NavBar() {
       </Link>
 
       <div className={styles.searchContainer}>
-        <select name="" id="">
-          <option value="All Categories">ALL CATEGORIES</option>
-        </select>
         <input
           type="text"
           placeholder="I'm searching for..."
