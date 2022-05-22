@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import styles from "./searcher.module.css";
 import { useParams } from "react-router-dom";
+import { list } from "firebase/storage";
 
-function Searcher({ products }) {
+function Searcher({ products, idComercio }) {
   const [listSearch, setListSearch] = useState([]);
-
+  console.log(idComercio);
   let { name } = useParams();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function Searcher({ products }) {
 
   return (
     <div className={styles.searcher}>
-      <ListProducts products={listSearch} />
+      <ListProducts products={listSearch} idComercio={idComercio} />
     </div>
   );
 }

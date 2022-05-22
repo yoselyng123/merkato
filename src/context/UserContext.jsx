@@ -10,6 +10,11 @@ export default function UserContextProvider({ children }) {
 
   const agregarACarrito = (idProducto, cantidad, precio, idComercio) => {
     if (carrito.findIndex((i) => i.id === idProducto) === -1) {
+      if (carrito.length >= 1) {
+        if (carrito[0].idComercio !== idComercio) {
+          setCarrito([]);
+        }
+      }
       carrito.push({
         id: idProducto,
         quantity: cantidad + 1,

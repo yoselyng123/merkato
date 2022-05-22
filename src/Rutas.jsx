@@ -29,6 +29,7 @@ function Rutas() {
         getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
       });
       setComercios(getComerciosFromFirebase);
+
       //setLoading(false);
     };
 
@@ -43,7 +44,7 @@ function Rutas() {
       <Route
         exact
         path="/search/:name"
-        element={<Searcher products={productos} />}
+        element={<Searcher products={productos} idComercio={idComercio} />}
       ></Route>
       <Route
         exact

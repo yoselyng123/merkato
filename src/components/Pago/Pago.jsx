@@ -1,6 +1,11 @@
 import React from "react";
 import styles from "./Pago.module.css";
-const Pago = () => {
+import { Link, useNavigate } from "react-router-dom";
+const Pago = ({ totalAmount }) => {
+  let navigate = useNavigate();
+  const handleClickHome = () => {
+    navigate("/", { replace: true });
+  };
   return (
     <div className={styles.pago}>
       <div className={styles.deliveryBox}>
@@ -23,24 +28,28 @@ const Pago = () => {
           <span className={styles.precio}>$2</span>
 
           <h2 className={styles.subTituloPrecio}>Delivery</h2>
-          <span className={styles.precio}>$0.0</span>
+          <span className={styles.precio}>${totalAmount}</span>
 
-          <h2 className={styles.subTituloPrecio}>Tax</h2>
-          <span className={styles.precio}>$0.99</span>
           <hr />
           <span></span>
           <h2 className={`${styles.subTituloPrecio} ${styles.tituloTotal}`}>
             Total
           </h2>
           <label className={`${styles.subTituloPrecio} ${styles.tituloTotal}`}>
-            $2.99
+            ${totalAmount}
           </label>
         </div>
         <div className={styles.buttons}>
-          <button className={`${styles.button} ${styles.btn1}`}>
+          <button
+            className={`${styles.button} ${styles.btn1}`}
+            onClick={handleClickHome}
+          >
             Proceder a Pagar
           </button>
-          <button className={`${styles.button} ${styles.btn2}`}>
+          <button
+            className={`${styles.button} ${styles.btn2}`}
+            onClick={handleClickHome}
+          >
             Seguir Comprando
           </button>
         </div>

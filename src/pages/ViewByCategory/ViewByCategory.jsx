@@ -45,7 +45,11 @@ function ViewByCategory({ idComercio, categorias }) {
 
   return (
     <div className={styles.viewByCategory}>
-      <ListProducts title={categoryName} products={productByCategory} />
+      <ListProducts
+        title={categoryName}
+        products={productByCategory}
+        idComercio={idComercio}
+      />
     </div>
   );
 }

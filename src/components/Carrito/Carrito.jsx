@@ -11,12 +11,18 @@ const Carrito = () => {
   const { carrito, setCarrito, eliminarProductoCarrito } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
-  console.log(carrito.length);
+  const [totalAmount, setTotalAmount] = useState(0);
+
   const handleDeleteCarrito = (id) => {
     const newArray = products.filter((item) => item.id !== id);
     setProducts(newArray);
     eliminarProductoCarrito(id);
   };
+
+  useEffect(() => {
+    setTotalAmount(carrito.reduce((a, b) => a + b.montoTotal, 0).toFixed(2));
+  }, [carrito]);
+
   useEffect(() => {
     try {
       if (JSON.parse(localStorage.getItem("carrito")) !== null) {
@@ -114,7 +120,7 @@ const Carrito = () => {
           <h1>No products found</h1>
         )}
       </div>
-      <Pago />
+      <Pago totalAmount={totalAmount} />
       {/* <div className={styles.pago}>
         <div className={styles.deliveryBox}>
           <h2>Delivery</h2>
