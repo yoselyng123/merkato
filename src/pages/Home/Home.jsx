@@ -1,25 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Categories from "../../components/Categories/Categories";
 import CurrentDeals from "../../components/CurrentDeals/CurrentDeals";
-import ListComercios from "../../components/ListComercios/ListComercios";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import styles from "./home.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
 function Home({
-  comercios,
   setProductos,
   productos,
   idComercio,
-  setIdComercio,
   categorias,
   setCategorias,
 }) {
-  const handleClickComercio = (comercio) => {
-    setIdComercio(comercio.id);
-    getProductosFromFirebase(comercio.id);
-  };
+  useEffect(() => {
+    getProductosFromFirebase(idComercio);
+  }, []);
 
   const getProductosFromFirebase = async (idComercio) => {
     const CategoriasFromFirebase = [];
@@ -56,18 +52,10 @@ function Home({
   return (
     <div className={styles.home}>
       <CurrentDeals />
-      {idComercio === null && (
-        <ListComercios
-          comercios={comercios}
-          handleClickComercio={handleClickComercio}
-        />
-      )}
 
-      {idComercio && <Categories categorias={categorias} />}
+      <Categories categorias={categorias} />
 
-      {idComercio && (
-        <ListProducts products={productos} idComercio={idComercio} />
-      )}
+      <ListProducts products={productos} idComercio={idComercio} />
     </div>
   );
 }

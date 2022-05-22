@@ -8,6 +8,7 @@ import firebaseExports from "./utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import ViewByCategory from "./pages/ViewByCategory/ViewByCategory";
 import { UserContext } from "./context/UserContext";
+import ListComercios from "./components/ListComercios/ListComercios";
 function Rutas() {
   //const [loading, setLoading] = useState(true);
   const [comercios, setComercios] = useState([]);
@@ -43,6 +44,13 @@ function Rutas() {
       <Route exact path="/inventario" element={<InventarioPage />}></Route>
       <Route
         exact
+        path="/"
+        element={
+          <ListComercios comercios={comercios} setIdComercio={setIdComercio} />
+        }
+      ></Route>
+      <Route
+        exact
         path="/search/:name"
         element={<Searcher products={productos} idComercio={idComercio} />}
       ></Route>
@@ -55,13 +63,11 @@ function Rutas() {
       ></Route>
       <Route
         exact
-        path="/"
+        path="/:comercio/shop"
         element={
           <Home
-            comercios={comercios}
             setProductos={setProductos}
             productos={productos}
-            setIdComercio={setIdComercio}
             idComercio={idComercio}
             categorias={categorias}
             setCategorias={setCategorias}

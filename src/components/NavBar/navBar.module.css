@@ -12,6 +12,7 @@
 
 .logo{ 
     text-decoration: none;
+    margin-right: 3rem;
 }
 
 .searchContainer{
@@ -25,13 +26,12 @@
 }
 
 .searchContainer > input {
-    padding: 0.1rem 0.6rem;
+    padding: 0.2rem 1rem;
     outline: none;
     border: none;
     background-color: inherit;
     flex: 1;
     font-size: 0.8rem;
-    border-left: 2px solid var(--gray);
 }
 
 .searchContainer > select {
