@@ -3,32 +3,51 @@ import styles from "./addbutton.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import { UserContext } from "../../context/UserContext";
 
-function AddButton({ data }) {
+function AddButton({ data, idComercio }) {
   const [click, setClick] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const { carrito, agregarACarrito, modificarCantidadCarrito } =
     useContext(UserContext);
 
   const handleClick = (type) => {
+    console.log(idComercio);
     if (type === "minus") {
       if (quantity === 1) {
         setClick(!click);
 
-        modificarCantidadCarrito("-", data.id, quantity, data.precio_unitario);
+        modificarCantidadCarrito(
+          "-",
+          data.id,
+          quantity,
+          data.precio_unitario,
+          idComercio
+        );
         setQuantity(0);
 
         // eliminarProductoCarrito(data.id);
       } else {
         setQuantity(quantity - 1);
-        modificarCantidadCarrito("-", data.id, quantity, data.precio_unitario);
+        modificarCantidadCarrito(
+          "-",
+          data.id,
+          quantity,
+          data.precio_unitario,
+          idComercio
+        );
       }
     } else {
       setQuantity(quantity + 1);
 
       if (carrito.findIndex((i) => i.id === data.id) === -1) {
-        agregarACarrito(data.id, quantity, data.precio_unitario);
+        agregarACarrito(data.id, quantity, data.precio_unitario, idComercio);
       } else {
-        modificarCantidadCarrito("+", data.id, quantity, data.precio_unitario);
+        modificarCantidadCarrito(
+          "+",
+          data.id,
+          quantity,
+          data.precio_unitario,
+          idComercio
+        );
       }
     }
   };

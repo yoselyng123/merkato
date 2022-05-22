@@ -65,7 +65,9 @@ function Home({
 
       {idComercio && <Categories categorias={categorias} />}
 
-      {idComercio && <ListProducts products={productos} />}
+      {idComercio && (
+        <ListProducts products={productos} idComercio={idComercio} />
+      )}
     </div>
   );
 }

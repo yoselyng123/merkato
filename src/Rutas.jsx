@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import CarritoPage from "./pages/CarritoPage";
 import Home from "./pages/Home/Home";
@@ -7,14 +7,19 @@ import Searcher from "./pages/Searcher/Searcher";
 import firebaseExports from "./utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import ViewByCategory from "./pages/ViewByCategory/ViewByCategory";
+import { UserContext } from "./context/UserContext";
 function Rutas() {
   //const [loading, setLoading] = useState(true);
   const [comercios, setComercios] = useState([]);
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [idComercio, setIdComercio] = useState(null);
+  const { setCarrito } = useContext(UserContext);
 
   useEffect(() => {
+    if (JSON.parse(localStorage.getItem("carrito")) !== null) {
+      setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    }
     const getComerciosFromFirebase = [];
     const subscriber = async () => {
       const querySnapshot = await getDocs(
@@ -33,11 +38,7 @@ function Rutas() {
 
   return (
     <Routes>
-      <Route
-        exact
-        path="/carrito"
-        element={<CarritoPage idComercio={idComercio} />}
-      ></Route>
+      <Route exact path="/carrito" element={<CarritoPage />}></Route>
       <Route exact path="/inventario" element={<InventarioPage />}></Route>
       <Route
         exact

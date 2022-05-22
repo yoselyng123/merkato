@@ -5,7 +5,7 @@ import SvgIcon from "@mui/material/SvgIcon";
 
 function DetalleProducto({ info_producto, click }) {
   const [mainImage, setmainImage] = useState(info_producto.foto_producto[0]);
-  console.log(info_producto);
+
   return (
     <div className={styles.infocontent}>
       <div className={styles.exitbutton} onClick={() => click()}>
@@ -42,7 +42,7 @@ function DetalleProducto({ info_producto, click }) {
           </div>
           <p className={styles.text2}>Final cost by weight</p>
         </div>
-        <AddButton data={info_producto} />
+        <AddButton data={info_producto} idComercio={info_producto.idComercio} />
       </div>
     </div>
   );

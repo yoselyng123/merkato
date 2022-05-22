@@ -11,19 +11,21 @@ const ProductoCarrito = ({
   stock,
   id,
   handleDeleteCarrito,
+  idComercio,
 }) => {
+  console.log(idComercio);
   const [quantity, setQuantity] = useState(cantidad);
   const { modificarCantidadCarrito } = useContext(UserContext);
   const handleClick = (type) => {
     if (type === "+") {
       if (quantity < stock) {
         setQuantity(quantity + 1);
-        modificarCantidadCarrito("+", id, quantity, precio);
+        modificarCantidadCarrito("+", id, quantity, precio, idComercio);
       }
     } else {
       if (quantity > 1) {
         setQuantity(quantity - 1);
-        modificarCantidadCarrito("-", id, quantity, precio);
+        modificarCantidadCarrito("-", id, quantity, precio, idComercio);
       }
     }
   };

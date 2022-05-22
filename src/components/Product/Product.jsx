@@ -3,7 +3,7 @@ import styles from "./product.module.css";
 import DetalleProducto from "../DetalleProducto/DetalleProducto";
 import AddButton from "../AddButton/AddButton";
 
-function Product({ data }) {
+function Product({ data, idComercio }) {
   const [info, setInfo] = useState(false);
   const [itemInfo, setItemInfo] = useState({
     nombre: "",
@@ -11,6 +11,7 @@ function Product({ data }) {
     id: 0,
     descripcion: "",
     precio_unitario: 0,
+    idComercio: idComercio,
   });
 
   const handleClose = () => {
@@ -55,7 +56,7 @@ function Product({ data }) {
         </div>
       </div>
 
-      <AddButton data={data} />
+      <AddButton data={data} idComercio={idComercio} />
     </div>
   );
 }

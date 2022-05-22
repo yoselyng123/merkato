@@ -7,68 +7,92 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
-const Carrito = ({ idComercio }) => {
-  const { setCarrito, eliminarProductoCarrito } =
+const Carrito = () => {
+  const { carrito, setCarrito, eliminarProductoCarrito } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
-
+  console.log(carrito.length);
   const handleDeleteCarrito = (id) => {
     const newArray = products.filter((item) => item.id !== id);
     setProducts(newArray);
     eliminarProductoCarrito(id);
   };
   useEffect(() => {
-    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    try {
+      if (JSON.parse(localStorage.getItem("carrito")) !== null) {
+        setCarrito(JSON.parse(localStorage.getItem("carrito")));
+      }
+      if (
+        carrito.length > 0 &&
+        JSON.parse(localStorage.getItem("carrito")) !== null
+      ) {
+        setCarrito(JSON.parse(localStorage.getItem("carrito")));
+        const CategoriasFromFirebase = [];
 
-    const CategoriasFromFirebase = [];
+        const getProductsFromFirebase = [];
 
-    const getProductsFromFirebase = [];
-    const subscriber = async () => {
-      const querySnapshot = await getDocs(
-        collection(firebaseExports.db, "comercio", idComercio, "categorias")
-      );
-      querySnapshot.forEach((doc) => {
-        CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-
-      for (let i = 0; i < CategoriasFromFirebase.length; i++) {
-        const querySnapshot = await getDocs(
-          collection(
-            firebaseExports.db,
-            "comercio",
-            idComercio,
-            "categorias",
-            CategoriasFromFirebase[i].id,
-            "productos"
-          )
-        );
-        querySnapshot.forEach((doc) => {
+        const subscriber = async () => {
           if (
-            JSON.parse(localStorage.getItem("carrito")).findIndex(
-              (i) => i.id === doc.id
-            ) > -1
+            JSON.parse(localStorage.getItem("carrito"))[0].idComercio !== null
           ) {
-            const numeroEnlaLista = JSON.parse(
-              localStorage.getItem("carrito")
-            ).findIndex((i) => i.id === doc.id);
-            getProductsFromFirebase.push({
-              ...doc.data(),
-              id: doc.id,
-              cantidad_solicitada: JSON.parse(localStorage.getItem("carrito"))[
-                numeroEnlaLista
-              ].quantity,
+            console.log("HOLA");
+          }
+          const querySnapshot = await getDocs(
+            collection(
+              firebaseExports.db,
+              "comercio",
+              JSON.parse(localStorage.getItem("carrito"))[0].idComercio,
+              "categorias"
+            )
+          );
+
+          querySnapshot.forEach((doc) => {
+            CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+          });
+
+          for (let i = 0; i < CategoriasFromFirebase.length; i++) {
+            const querySnapshot = await getDocs(
+              collection(
+                firebaseExports.db,
+                "comercio",
+                JSON.parse(localStorage.getItem("carrito"))[0].idComercio,
+                "categorias",
+                CategoriasFromFirebase[i].id,
+                "productos"
+              )
+            );
+            console.log(querySnapshot);
+            querySnapshot.forEach((doc) => {
+              if (
+                JSON.parse(localStorage.getItem("carrito")).findIndex(
+                  (i) => i.id === doc.id
+                ) > -1
+              ) {
+                const numeroEnlaLista = JSON.parse(
+                  localStorage.getItem("carrito")
+                ).findIndex((i) => i.id === doc.id);
+                getProductsFromFirebase.push({
+                  ...doc.data(),
+                  id: doc.id,
+                  cantidad_solicitada: JSON.parse(
+                    localStorage.getItem("carrito")
+                  )[numeroEnlaLista].quantity,
+                });
+              }
             });
           }
-        });
+
+          console.log(getProductsFromFirebase);
+          setProducts(getProductsFromFirebase);
+        };
+
+        // return cleanup function
+        return () => subscriber();
       }
-
-      console.log(getProductsFromFirebase);
-      setProducts(getProductsFromFirebase);
-    };
-
-    // return cleanup function
-    return () => subscriber();
-  }, [idComercio, setCarrito]);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [setCarrito]);
 
   return (
     <div className={styles.containers}>
@@ -85,6 +109,9 @@ const Carrito = ({ idComercio }) => {
               stock={product.stock}
               id={product.id}
               handleDeleteCarrito={handleDeleteCarrito}
+              idComercio={
+                JSON.parse(localStorage.getItem("carrito"))[0].idComercio
+              }
             />
           ))
         ) : (

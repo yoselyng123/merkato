@@ -8,12 +8,13 @@ export default function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [carrito, setCarrito] = useState([]);
 
-  const agregarACarrito = (idProducto, cantidad, precio) => {
+  const agregarACarrito = (idProducto, cantidad, precio, idComercio) => {
     if (carrito.findIndex((i) => i.id === idProducto) === -1) {
       carrito.push({
         id: idProducto,
         quantity: cantidad + 1,
         montoTotal: precio * (cantidad + 1),
+        idComercio: idComercio,
       });
       localStorage.setItem("carrito", JSON.stringify(carrito));
     }
@@ -32,7 +33,13 @@ export default function UserContextProvider({ children }) {
     setCarrito(JSON.parse(localStorage.getItem("carrito")));
   };
 
-  const modificarCantidadCarrito = (type, IdProducto, cantidad, precio) => {
+  const modificarCantidadCarrito = (
+    type,
+    IdProducto,
+    cantidad,
+    precio,
+    idComercio
+  ) => {
     const localStorageAux = JSON.parse(localStorage.getItem("carrito"));
     if (type === "-") {
       if (
@@ -57,7 +64,7 @@ export default function UserContextProvider({ children }) {
           carrito[carrito.findIndex((i) => i.id === IdProducto)].montoTotal +
           precio;
       } else {
-        agregarACarrito(IdProducto, cantidad, precio);
+        agregarACarrito(IdProducto, cantidad, precio, idComercio);
       }
     }
 
