@@ -50,9 +50,13 @@ function Product({ data, idComercio }) {
           <h1 className={styles.title}>{data.nombre}</h1>
           <div className={styles.infoWrapper}>
             <p className={styles.price}>${data.precio_unitario}</p>
-            <p className={styles.text}>average price $1.24/lb</p>
+            {data.pasillo === 1 || data.pasillo === 2 ? (
+              <p className={styles.text}>average price $1.24/lb</p>
+            ) : null}
           </div>
-          <p className={styles.text2}>Final cost by weight</p>
+          {data.pasillo === 1 || data.pasillo === 2 ? (
+            <p className={styles.text2}>Final cost by weight</p>
+          ) : null}
         </div>
       </div>
 
