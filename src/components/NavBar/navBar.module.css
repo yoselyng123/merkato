@@ -123,8 +123,41 @@
     font-size: 10px;
     font-weight:900;
     
-    
 }
 .numeritoCarrito span{
     color: var(--lightGreen);
+}
+
+.loginBtn{
+    background-color: var(--darkGreen);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.loginBtn > p {
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.infoContainer{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.infobackground{
+    background: rgba(0, 0, 0, .6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: default;
 }

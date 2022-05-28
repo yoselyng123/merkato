@@ -4,11 +4,28 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Rutas from "./Rutas";
 import UserContextProvider from "./context/UserContext";
 
+/* Utils */
+import firebaseExports from "./utils/firebaseConfig";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
+
+const auth = getAuth(firebaseExports);
+
 function App() {
+  const [user, setUser] = useState(null);
+
+  onAuthStateChanged(auth, (usuarioFirebase) => {
+    if (usuarioFirebase) {
+      setUser(usuarioFirebase);
+    } else {
+      setUser(null);
+    }
+  });
+
   return (
     <UserContextProvider>
       <Router>
-        <NavBar />
+        <NavBar user={user} />
         <div className={styles.app}>
           <Rutas />
         </div>

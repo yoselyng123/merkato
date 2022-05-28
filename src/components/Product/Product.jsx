@@ -16,7 +16,6 @@ function Product({ data, idComercio }) {
 
   const handleClose = () => {
     setInfo(false);
-    console.log("Info set to false");
   };
 
   const handleCardClick = (product, info) => {

@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
+/* Pages */
 import CarritoPage from "./pages/CarritoPage";
 import Home from "./pages/Home/Home";
 import InventarioPage from "./pages/InventarioPage";
 import Searcher from "./pages/Searcher/Searcher";
+import ViewByCategory from "./pages/ViewByCategory/ViewByCategory";
+import ListComercios from "./components/ListComercios/ListComercios";
+/* Utils */
 import firebaseExports from "./utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import ViewByCategory from "./pages/ViewByCategory/ViewByCategory";
 import { UserContext } from "./context/UserContext";
-import ListComercios from "./components/ListComercios/ListComercios";
+
 function Rutas() {
   //const [loading, setLoading] = useState(true);
   const [comercios, setComercios] = useState([]);

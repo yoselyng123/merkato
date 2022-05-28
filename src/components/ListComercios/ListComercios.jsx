@@ -16,7 +16,12 @@ function ListComercios({ comercios, setIdComercio }) {
     <div className={styles.listComercios}>
       {comercios.length > 0 ? (
         <div>
-          <p className={styles.title}>All Stores</p>
+          <p className={styles.title}>
+            Choose your preference store in
+            <p style={{ color: "var(--darkGreen)", fontWeight: "600" }}>
+              Caracas
+            </p>
+          </p>
           <div className={styles.comerciosContainer}>
             {comercios.map((comercio) => (
               <div
