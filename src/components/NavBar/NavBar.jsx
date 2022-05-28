@@ -2,16 +2,31 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "./navBar.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import Logo from "../Logo/Logo";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import Login from "../Login/Login";
+
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
 
 function NavBar({ user }) {
   const { carrito } = useContext(UserContext);
 
-  let navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
-  const { comercio } = useParams();
+  const handleLogout = () => {
+    setAnchorEl(null);
+  };
+
+  let navigate = useNavigate();
 
   const [numItems, setNumItems] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -79,11 +94,31 @@ function NavBar({ user }) {
       <div className={styles.rightSection}>
         {user ? (
           <>
-            <SvgIcon>
+            <SvgIcon
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClickMenu}
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path d="M272 304h-96C78.8 304 0 382.8 0 480c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32C448 382.8 369.2 304 272 304zM48.99 464C56.89 400.9 110.8 352 176 352h96c65.16 0 119.1 48.95 127 112H48.99zM224 256c70.69 0 128-57.31 128-128c0-70.69-57.31-128-128-128S96 57.31 96 128C96 198.7 153.3 256 224 256zM224 48c44.11 0 80 35.89 80 80c0 44.11-35.89 80-80 80S144 172.1 144 128C144 83.89 179.9 48 224 48z" />
               </svg>
             </SvgIcon>
+
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleCloseMenu}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+              <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
 
             <SvgIcon>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

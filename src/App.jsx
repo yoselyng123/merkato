@@ -3,13 +3,13 @@ import NavBar from "./components/NavBar/NavBar";
 import { BrowserRouter as Router } from "react-router-dom";
 import Rutas from "./Rutas";
 import UserContextProvider from "./context/UserContext";
+import { useState } from "react";
 
 /* Utils */
 import firebaseExports from "./utils/firebaseConfig";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useState } from "react";
 
-const auth = getAuth(firebaseExports);
+const auth = firebaseExports.auth;
 
 function App() {
   const [user, setUser] = useState(null);

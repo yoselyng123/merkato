@@ -18,9 +18,9 @@ function ListComercios({ comercios, setIdComercio }) {
         <div>
           <p className={styles.title}>
             Choose your preference store in
-            <p style={{ color: "var(--darkGreen)", fontWeight: "600" }}>
+            <span style={{ color: "var(--darkGreen)", fontWeight: "600" }}>
               Caracas
-            </p>
+            </span>
           </p>
           <div className={styles.comerciosContainer}>
             {comercios.map((comercio) => (
