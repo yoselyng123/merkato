@@ -5,7 +5,7 @@
     padding: 15px;
     margin-left: 20px;
     border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.222);
+    border: 1px solid var(--lightestGreen);
 }
 
 .productos {
@@ -39,7 +39,7 @@
     background-color: white;
     outline: none;
     height: 40px;
-    border: 1px solid rgba(0, 0, 0, 0.154);
+    border: 1px solid var(--lightestGreen);
     padding: 10px;
    
     border-radius: 5px 0px 0px 5px;
@@ -68,9 +68,10 @@
 }
 
 hr{
-   border: 1px solid rgba(0, 0, 0, 0.159);
+   border: 1px solid var(--lightestGreen);
    margin-top: 15px;
    margin-bottom: 15px;
+   opacity: 40%;
 }
 .precio{
     color: rgba(0, 0, 0, 0.356);
@@ -93,10 +94,10 @@ hr{
     border-radius: 5px;
 }
 .btn1{
-    background-color: rgb(59, 101, 241);
+    background-color: var(--darkGreen);
     color: white;
 }
 .btn2{
     background-color: white;
-    border: 1px solid rgb(209, 208, 208);
+    border: 1px solid var(--lightestGreen);
 }
