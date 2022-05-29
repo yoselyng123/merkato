@@ -1,6 +1,6 @@
 .category
 {
-  background: var(--lightGray);
+  background: #fff;
   width: 120px;
   height: 160px;
   border-radius: 25px;
@@ -16,7 +16,8 @@
 
 .category:hover{
   transform: scale(1.15);
-  background-color: #FFF;
+  background-color: var(--lightGray);
+  box-shadow: none;
 }
 
 .imgWrapper{
