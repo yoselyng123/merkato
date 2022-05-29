@@ -5,20 +5,20 @@ import { useNavigate } from "react-router-dom";
 function Category({ data }) {
   let navigate = useNavigate();
 
-  const handleCategoryClick = (name) => {
-    navigate(`../searchBy/categories/${name}`, { replace: true });
+  const handleCategoryClick = (nombre) => {
+    navigate(`../searchBy/categories/${nombre}`, { replace: true });
   };
 
   return (
     <div
       className={styles.category}
-      onClick={() => handleCategoryClick(data.name)}
+      onClick={() => handleCategoryClick(data.nombre)}
     >
       <div className={styles.imgWrapper}>
         <img src={data.icono} alt="" />
       </div>
       <div className={styles.text}>
-        <p>{data.name}</p>
+        <p>{data.nombre}</p>
       </div>
     </div>
   );
