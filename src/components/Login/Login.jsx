@@ -3,9 +3,16 @@ import styles from "./login.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 /* Utils */
 import firebaseExports from "../../utils/firebaseConfig";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const auth = firebaseExports.auth;
+const firestore = firebaseExports.db;
+const provider = new GoogleAuthProvider();
 
 function Login({ click }) {
   const [isRegistrando, setIsRegistrando] = useState(false);
@@ -22,19 +29,32 @@ function Login({ click }) {
       registrarUsuario(email, password);
     } else {
       // login
+      signInWithEmailAndPassword(auth, email, password).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
     }
   };
 
   const registrarUsuario = async (email, password) => {
-    const infoUsuario = createUserWithEmailAndPassword(
+    const infoUsuario = await createUserWithEmailAndPassword(
       auth,
       email,
       password
-    ).then((usuarioFirebase) => {
-      return usuarioFirebase;
+    ).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
     });
 
-    console.log(infoUsuario);
+    const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+    const consulta = await getDoc(docuRef);
+    if (!consulta.exists()) {
+      setDoc(docuRef, { email: email, rol: "cliente" });
+      const infoDocu = consulta.data();
+      return infoDocu;
+    }
   };
 
   return (

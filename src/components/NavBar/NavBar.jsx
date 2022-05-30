@@ -8,7 +8,11 @@ import Login from "../Login/Login";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import IconButton from "@mui/material/IconButton";
+
+import firebaseExports from "../../utils/firebaseConfig";
+import { signOut } from "firebase/auth";
+
+const auth = firebaseExports.auth;
 
 function NavBar({ user }) {
   const { carrito } = useContext(UserContext);
@@ -24,6 +28,7 @@ function NavBar({ user }) {
 
   const handleLogout = () => {
     setAnchorEl(null);
+    signOut(auth);
   };
 
   let navigate = useNavigate();
