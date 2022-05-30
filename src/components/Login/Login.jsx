@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styles from "./login.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 /* Utils */
@@ -6,13 +5,13 @@ import firebaseExports from "../../utils/firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const auth = firebaseExports.auth;
 const firestore = firebaseExports.db;
-const provider = new GoogleAuthProvider();
 
 function Login({ click, isRegistrando, setIsRegistrando }) {
   const submitHandler = (e) => {
@@ -55,6 +54,34 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
     }
   };
 
+  const handleSignInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+        if (result && user) {
+          setDoc(doc(firestore, "users", user.uid), {
+            email: user.email,
+            rol: "cliente",
+          });
+        }
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        console.log(errorCode, errorMessage, email, credential);
+      });
+  };
+
   return (
     <div className={styles.login}>
       <div className={styles.exitbutton} onClick={() => click()}>
@@ -89,7 +116,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
 
         <hr />
 
-        <div className={styles.otherLogInBtn}>
+        <div className={styles.otherLogInBtn} onClick={handleSignInWithGoogle}>
           <img
             src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
             alt=""
