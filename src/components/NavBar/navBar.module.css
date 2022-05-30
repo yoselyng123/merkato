@@ -128,17 +128,24 @@
     color: var(--lightGreen);
 }
 
-.loginBtn{
+.signInBtn{
     background-color: var(--darkGreen);
     padding: 0.4rem 1rem;
     border-radius: 20px;
     cursor: pointer;
 }
 
-.loginBtn > p {
+.signInBtn > p {
     color: #fff;
     font-weight: 600;
     font-size: 0.9rem;
+}
+
+.loginBtn > p{
+    color: #000;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .infoContainer{

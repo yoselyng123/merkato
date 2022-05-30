@@ -14,9 +14,7 @@ const auth = firebaseExports.auth;
 const firestore = firebaseExports.db;
 const provider = new GoogleAuthProvider();
 
-function Login({ click }) {
-  const [isRegistrando, setIsRegistrando] = useState(false);
-
+function Login({ click, isRegistrando, setIsRegistrando }) {
   const submitHandler = (e) => {
     e.preventDefault();
     const email = e.target.elements.email.value;
@@ -66,23 +64,63 @@ function Login({ click }) {
           </svg>
         </SvgIcon>
       </div>
-      <p>{isRegistrando ? "Sign Up" : "Log in"}</p>
-      <form onSubmit={submitHandler}>
+      <p className={styles.title}>{isRegistrando ? "Sign Up" : "Log in"}</p>
+      <p style={{ fontSize: "0.9rem" }}>
+        {isRegistrando ? "Enter your email and password to get started." : null}
+      </p>
+      <form onSubmit={submitHandler} className={styles.form}>
         <input type="text" placeholder="email" id="email" />
         <input type="text" placeholder="password" id="password" />
-        <input type="submit" value={isRegistrando ? "Sign Up" : "Log in"} />
+        {isRegistrando ? (
+          <p style={{ fontSize: "0.8rem", textAlign: "center" }}>
+            By continuing, you agree to our Terms of Service
+          </p>
+        ) : (
+          <p>
+            Forgot password? <span className={styles.link}>Reset it</span>
+          </p>
+        )}
+
+        <input
+          className={styles.submit}
+          type="submit"
+          value={isRegistrando ? "Sign Up" : "Log in"}
+        />
+
+        <hr />
+
+        <div className={styles.otherLogInBtn}>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
+            alt=""
+            className={styles.icon}
+          />
+          <p>Continue with Google</p>
+        </div>
+
+        <hr />
 
         <div>
           {isRegistrando ? (
-            <>
+            <div className={styles.bottom}>
               <p>Already have an account</p>
-              <p onClick={() => setIsRegistrando(!isRegistrando)}>Log in</p>
-            </>
+              <p
+                className={styles.link}
+                onClick={() => setIsRegistrando(!isRegistrando)}
+              >
+                Log in
+              </p>
+            </div>
           ) : (
-            <>
+            <div className={styles.bottom}>
               <p>Don't have an account</p>
-              <p onClick={() => setIsRegistrando(!isRegistrando)}>Sign Up</p>
-            </>
+              <p
+                className={styles.link}
+                onClick={() => setIsRegistrando(!isRegistrando)}
+              >
+                Sign Up
+              </p>
+            </div>
           )}
         </div>
       </form>

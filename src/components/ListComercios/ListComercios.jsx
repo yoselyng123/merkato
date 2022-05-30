@@ -17,7 +17,7 @@ function ListComercios({ comercios, setIdComercio }) {
       {comercios.length > 0 ? (
         <div>
           <p className={styles.title}>
-            Choose your preference store in
+            Choose your store in
             <span style={{ color: "var(--darkGreen)", fontWeight: "600" }}>
               Caracas
             </span>

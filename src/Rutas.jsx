@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 /* Pages */
-import CarritoPage from "./pages/CarritoPage";
+import CarritoPage from "./pages/Cart/CarritoPage";
 import Home from "./pages/Home/Home";
 import InventarioPage from "./pages/InventarioPage";
 import Searcher from "./pages/Searcher/Searcher";
 import ViewByCategory from "./pages/ViewByCategory/ViewByCategory";
-import ListComercios from "./components/ListComercios/ListComercios";
+import Stores from "./pages/Stores/Stores";
 /* Utils */
 import firebaseExports from "./utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
@@ -48,9 +48,7 @@ function Rutas() {
       <Route
         exact
         path="/"
-        element={
-          <ListComercios comercios={comercios} setIdComercio={setIdComercio} />
-        }
+        element={<Stores comercios={comercios} setIdComercio={setIdComercio} />}
       ></Route>
       <Route
         exact

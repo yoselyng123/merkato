@@ -48,12 +48,12 @@ function Product({ data, idComercio }) {
         <div className={styles.infoContainer}>
           <h1 className={styles.title}>{data.nombre}</h1>
           <div className={styles.infoWrapper}>
-            <p className={styles.price}>${data.precio_unitario}</p>
-            {data.pasillo === 1 || data.pasillo === 2 ? (
+            <p className={styles.price}>${data.precio_unitario.toFixed(2)}</p>
+            {data.pasillo === 0 || data.pasillo === 1 ? (
               <p className={styles.text}>average price $1.24/lb</p>
             ) : null}
           </div>
-          {data.pasillo === 1 || data.pasillo === 2 ? (
+          {data.pasillo === 0 || data.pasillo === 1 ? (
             <p className={styles.text2}>Final cost by weight</p>
           ) : null}
         </div>
