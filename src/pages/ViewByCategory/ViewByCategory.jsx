@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styles from "./viewByCategory.module.css";
 
 import firebaseExports from "../../utils/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { query, where, collection, getDocs } from "firebase/firestore";
 import ListProducts from "../../components/ListProducts/ListProducts";
 
 function ViewByCategory({ idComercio, categorias }) {
@@ -15,9 +15,9 @@ function ViewByCategory({ idComercio, categorias }) {
 
   useEffect(() => {
     categorias.forEach((element) => {
-      if (element.name === category) {
+      if (element.nombre === category) {
         setCategoryId(element.id);
-        setCategoryName(element.name);
+        setCategoryName(element.nombre);
       }
     });
     categoryId && getProductosFromFirebase(idComercio, categoryId);
@@ -27,14 +27,11 @@ function ViewByCategory({ idComercio, categorias }) {
     const ProductosFromFirebase = [];
 
     const querySnapshot = await getDocs(
-      collection(
-        firebaseExports.db,
-        "comercio",
-        idComercio,
-        "categorias",
-        categoryId,
-        "productos"
-      )
+      query(
+        collection(firebaseExports.db, "producto"), 
+        where("id_categoria", "==", categoryId),
+        where("id_comercio", "==", idComercio)
+        )
     );
     querySnapshot.forEach((doc) => {
       ProductosFromFirebase.push({ ...doc.data(), id: doc.id });

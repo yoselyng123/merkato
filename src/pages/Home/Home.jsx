@@ -4,49 +4,46 @@ import CurrentDeals from "../../components/CurrentDeals/CurrentDeals";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import styles from "./home.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { query, where, collection, getDocs } from "firebase/firestore";
 
 function Home({
   setProductos,
   productos,
   idComercio,
   categorias,
-  setCategorias,
+  setCategorias
 }) {
   useEffect(() => {
     getProductosFromFirebase(idComercio);
+    getCategoriasFromFirebase();
   }, []);
 
   const getProductosFromFirebase = async (idComercio) => {
-    const CategoriasFromFirebase = [];
     const ProductosFromFirebase = [];
 
     const querySnapshot = await getDocs(
-      collection(firebaseExports.db, "comercio", idComercio, "categorias")
+      query(collection(firebaseExports.db, "producto"), where("id_comercio", "==", idComercio))
+    );
+    querySnapshot.forEach((doc) => {
+      ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+    });
+    setProductos(ProductosFromFirebase);
+
+    console.log(ProductosFromFirebase);
+  };
+
+  const getCategoriasFromFirebase = async () => {
+    const CategoriasFromFirebase = [];
+
+    const querySnapshot = await getDocs(
+      collection(firebaseExports.db, "categoria")
     );
     querySnapshot.forEach((doc) => {
       CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
     });
     setCategorias(CategoriasFromFirebase);
 
-    for (let i = 0; i < CategoriasFromFirebase.length; i++) {
-      const querySnapshot = await getDocs(
-        collection(
-          firebaseExports.db,
-          "comercio",
-          idComercio,
-          "categorias",
-          CategoriasFromFirebase[i].id,
-          "productos"
-        )
-      );
-      querySnapshot.forEach((doc) => {
-        ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-    }
-    console.log(ProductosFromFirebase);
-
-    setProductos(ProductosFromFirebase);
+    console.log(CategoriasFromFirebase);
   };
 
   return (
