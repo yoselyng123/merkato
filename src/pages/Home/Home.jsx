@@ -11,7 +11,7 @@ function Home({
   productos,
   idComercio,
   categorias,
-  setCategorias
+  setCategorias,
 }) {
   useEffect(() => {
     getProductosFromFirebase(idComercio);
@@ -22,7 +22,10 @@ function Home({
     const ProductosFromFirebase = [];
 
     const querySnapshot = await getDocs(
-      query(collection(firebaseExports.db, "producto"), where("id_comercio", "==", idComercio))
+      query(
+        collection(firebaseExports.db, "producto"),
+        where("id_comercio", "==", idComercio)
+      )
     );
     querySnapshot.forEach((doc) => {
       ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
@@ -48,10 +51,8 @@ function Home({
 
   return (
     <div className={styles.home}>
-      <CurrentDeals />
-
       <Categories categorias={categorias} />
-
+      <CurrentDeals />
       <ListProducts products={productos} idComercio={idComercio} />
     </div>
   );

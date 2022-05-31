@@ -2,12 +2,94 @@
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    width: 410px;
     position: relative;
-    padding: 10%;
+    padding: 4% 5%;
     gap: 1rem;
     border-radius: 10px;
     justify-content: center;
+    align-items: flex-start;
+}
+
+.contentContainer{
+    width: 100%;
+}
+
+
+
+.topSec{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+.exitbutton > svg{
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.title{
+    font-weight: 700;
+    font-size: 1.9rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.form > input {
+    padding: 1rem 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--gray);
+    width: 100%;
+    font-size: 1rem;
+}
+
+.link{
+    color: var(--lightGreen);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.submit{
+    background-color: var(--lightGreen);
+    color: #fff;
+    font-weight: 600;
+}
+
+.form > p {
+    font-weight: 400;
+    padding: 0.5rem 0rem;
+}
+
+.icon{
+    width: 1.5rem;
+}
+
+.otherLogInBtn{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--lightGray);
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.otherLogInBtn > p{
+    flex: 2;
+    text-align: center;
+    font-weight: 700;
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
 }
