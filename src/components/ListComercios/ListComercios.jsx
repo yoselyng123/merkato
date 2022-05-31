@@ -9,6 +9,7 @@ function ListComercios({ comercios, setIdComercio }) {
 
   const handleClickComercio = (comercio) => {
     setIdComercio(comercio.id);
+    //hacer que dependiendo del rol manda a home o a homeAdmin
     navigate(`../${comercio.nombre}/shop`, { replace: true });
   };
 

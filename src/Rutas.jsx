@@ -39,34 +39,16 @@ function Rutas() {
 
     // return cleanup function
     return () => subscriber();
-  }, []); // empty dependency array means useEffect will only run once;
+  }, [setCarrito]);
 
   return (
     <Routes>
-      <Route exact path="/carrito" element={<CarritoPage />}></Route>
-      <Route exact path="/inventario" element={<InventarioPage />}></Route>
-      <Route
-        exact
-        path="/"
-        element={
-          <ListComercios comercios={comercios} setIdComercio={setIdComercio} />
-        }
-      ></Route>
-      <Route
-        exact
-        path="/search/:name"
-        element={<Searcher products={productos} idComercio={idComercio} />}
-      ></Route>
-      <Route
-        exact
-        path="/searchBy/categories/:category"
-        element={
-          <ViewByCategory idComercio={idComercio} categorias={categorias} />
-        }
-      ></Route>
-      <Route
-        exact
-        path="/:comercio/shop"
+      <Route exact path="/carrito" element={<CarritoPage />} />
+      <Route exact path="/inventario" element={<InventarioPage />} />
+      <Route exact path="/" element={<ListComercios comercios={comercios} setIdComercio={setIdComercio} />} />
+      <Route exact path="/search/:name" element={<Searcher products={productos} idComercio={idComercio} />} />
+      <Route exact path="/searchBy/categories/:category" element={<ViewByCategory idComercio={idComercio} categorias={categorias} />} />
+      <Route exact path="/:comercio/shop" 
         element={
           <Home
             setProductos={setProductos}
@@ -74,9 +56,8 @@ function Rutas() {
             idComercio={idComercio}
             categorias={categorias}
             setCategorias={setCategorias}
-          />
-        }
-      ></Route>
+        />} 
+      />
     </Routes>
   );
 }
