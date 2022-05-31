@@ -18,6 +18,7 @@ const firestore = firebaseExports.db;
 function Login({ click, isRegistrando, setIsRegistrando }) {
   const [rol, setRol] = useState("");
   const [userUid, setUserUid] = useState("");
+  const [newLoginGoogle, setNewLoginGoogle] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -77,7 +78,9 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
           });
           setUserUid(user.uid);
           setRol("");
-          setIsRegistrando(true);
+          setNewLoginGoogle(true);
+        } else {
+          setNewLoginGoogle(false);
         }
       })
       .catch((error) => {
