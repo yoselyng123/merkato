@@ -20,6 +20,8 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
   const [userUid, setUserUid] = useState("");
   const [newLoginGoogle, setNewLoginGoogle] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [wrongData, setWrongData] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -31,38 +33,47 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
       registrarUsuario(email, password);
     } else {
       // login
-      signInWithEmailAndPassword(auth, email, password).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-      click();
+      signInWithEmailAndPassword(auth, email, password)
+        .then(async (result) => {
+          if (result) {
+            click();
+          }
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if (
+            errorCode === "auth/wrong-password" ||
+            errorCode === "auth/user-not-found"
+          ) {
+            setWrongData(true);
+          }
+          console.log(errorCode, errorMessage);
+        });
     }
   };
 
   const registrarUsuario = async (email, password) => {
-    const infoUsuario = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      if (errorCode === "auth/weak-password") {
-        setInvalidPassword(true);
-      }
-    });
-
-    if (!invalidPassword && infoUsuario) {
-      const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
-      const consulta = await getDoc(docuRef);
-      if (!consulta.exists()) {
-        setDoc(docuRef, { email: email, rol: rol });
-        const infoDocu = consulta.data();
-        return infoDocu;
-      }
-    }
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(async (infoUsuario) => {
+        const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+        const consulta = await getDoc(docuRef);
+        if (!consulta.exists()) {
+          setDoc(docuRef, { email: email, rol: rol });
+          click();
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        if (errorCode === "auth/weak-password") {
+          setInvalidPassword(true);
+        }
+        if (errorCode === "auth/invalid-email") {
+          setInvalidEmail(true);
+        }
+      });
   };
 
   const handleSignInWithGoogle = async () => {
@@ -184,19 +195,19 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
               : null}
           </p>
           <form onSubmit={submitHandler} className={styles.form}>
-            <input type="text" placeholder="email" id="email" />
-            <input type="text" placeholder="password" id="password" />
+            <div className={styles.inputWrapper}>
+              <input type="text" placeholder="email" id="email" />
+              <input type="text" placeholder="password" id="password" />
+            </div>
             {invalidPassword && (
-              <p
-                style={{
-                  fontSize: "0.8rem",
-                  color: "red",
-                  textAlign: "center",
-                }}
-              >
-                ** Password should be at least 6 characters **
+              <p className={styles.errorMsg}>
+                Password should be at least 6 characters
               </p>
             )}
+            {wrongData && (
+              <p className={styles.errorMsg}>Invalid email or password</p>
+            )}
+            {invalidEmail && <p className={styles.errorMsg}>Invalid email </p>}
 
             {isRegistrando ? (
               <p style={{ fontSize: "0.8rem", textAlign: "center" }}>
