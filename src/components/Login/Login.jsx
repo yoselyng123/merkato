@@ -19,13 +19,12 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
   const [rol, setRol] = useState("");
   const [userUid, setUserUid] = useState("");
   const [newLoginGoogle, setNewLoginGoogle] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
-
-    console.log("submit", email, password);
 
     if (isRegistrando) {
       // Register
@@ -37,6 +36,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
       });
+      click();
     }
   };
 
@@ -49,40 +49,46 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+      if (errorCode === "auth/weak-password") {
+        setInvalidPassword(true);
+      }
     });
 
-    const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
-    const consulta = await getDoc(docuRef);
-    if (!consulta.exists()) {
-      setDoc(docuRef, { email: email, rol: rol });
-      const infoDocu = consulta.data();
-      return infoDocu;
+    if (!invalidPassword && infoUsuario) {
+      const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+      const consulta = await getDoc(docuRef);
+      if (!consulta.exists()) {
+        setDoc(docuRef, { email: email, rol: rol });
+        const infoDocu = consulta.data();
+        return infoDocu;
+      }
     }
   };
 
   const handleSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         // The signed-in user info.
         const user = result.user;
         // ...
-        const querySnapshot = getDoc(doc(firestore, "users", user.uid));
-        console.log(querySnapshot.exists);
 
-        if (querySnapshot.exists) {
-          console.log("EXISTE");
-          setDoc(doc(firestore, "users", user.uid), {
+        const docuRef = doc(firestore, `users/${user.uid}`);
+        const consulta = await getDoc(docuRef);
+
+        if (consulta.exists()) {
+          console.log("YA EXISTE");
+          click();
+        } else {
+          console.log("NO EXISTE");
+          await setDoc(doc(firestore, "users", user.uid), {
             email: user.email,
             rol: "",
           });
-          setUserUid(user.uid);
-          setRol("");
+
           setNewLoginGoogle(true);
-        } else {
-          setNewLoginGoogle(false);
-          console.log("NOEXISTE");
+          setIsRegistrando(true);
+          setUserUid(user.uid);
         }
       })
       .catch((error) => {
@@ -121,6 +127,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
             firestore={firestore}
             userUid={userUid}
             setRol={setRol}
+            click={click}
           />
 
           <hr />
@@ -179,6 +186,18 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
           <form onSubmit={submitHandler} className={styles.form}>
             <input type="text" placeholder="email" id="email" />
             <input type="text" placeholder="password" id="password" />
+            {invalidPassword && (
+              <p
+                style={{
+                  fontSize: "0.8rem",
+                  color: "red",
+                  textAlign: "center",
+                }}
+              >
+                ** Password should be at least 6 characters **
+              </p>
+            )}
+
             {isRegistrando ? (
               <p style={{ fontSize: "0.8rem", textAlign: "center" }}>
                 By continuing, you agree to our Terms of Service
