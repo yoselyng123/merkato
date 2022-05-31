@@ -11,6 +11,19 @@
     align-items: flex-start;
 }
 
+.contentContainer{
+    width: 100%;
+}
+
+
+
+.topSec{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .exitbutton > svg{
     font-size: 1.2rem;
     cursor: pointer;

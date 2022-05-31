@@ -1,0 +1,15 @@
+.btn {
+    padding: 1rem 0.5rem;
+    border-radius: 10px;
+    background-color: var(--lightGreen);
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.btn > p {
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+}
