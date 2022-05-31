@@ -71,7 +71,8 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
         const querySnapshot = getDoc(doc(firestore, "users", user.uid));
         console.log(querySnapshot.exists);
 
-        if (!querySnapshot.exists) {
+        if (querySnapshot.exists) {
+          console.log("EXISTE");
           setDoc(doc(firestore, "users", user.uid), {
             email: user.email,
             rol: "",
@@ -81,6 +82,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
           setNewLoginGoogle(true);
         } else {
           setNewLoginGoogle(false);
+          console.log("NOEXISTE");
         }
       })
       .catch((error) => {
@@ -115,7 +117,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
             </SvgIcon>
           </div>
           <RoleTypes
-            newLoginGoogle={isRegistrando}
+            newLoginGoogle={newLoginGoogle}
             firestore={firestore}
             userUid={userUid}
             setRol={setRol}
