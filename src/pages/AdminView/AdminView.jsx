@@ -9,6 +9,7 @@ function AdminView({
   productos,
   idComercio,
   setCategorias,
+  userRol
 }) {
   useEffect(() => {
     const ProductosFromFirebase = [];
@@ -45,7 +46,7 @@ function AdminView({
 
   return (
     <div className={styles.adminview}>
-      <ListProducts products={productos} idComercio={idComercio} />
+      <ListProducts products={productos} setProductos={setProductos} idComercio={idComercio} userRol={userRol} />
     </div>
   );
 }

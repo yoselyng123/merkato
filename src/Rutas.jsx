@@ -76,8 +76,8 @@ function Rutas() {
 
   return (
     <Routes>
-      <Route exact path="/carrito" element={<CarritoPage />}></Route>
-      <Route exact path="/inventario" element={<InventarioPage />}></Route>
+      <Route exact path="/carrito" element={<CarritoPage />} />
+      <Route exact path="/inventario" element={<InventarioPage />} />
       <Route
         exact
         path="/"
@@ -129,8 +129,8 @@ function Rutas() {
           <AdminView
             setProductos={setProductos}
             productos={productos}
+            userRol={userRol}
             idComercio={idComercio}
-            categorias={categorias}
             setCategorias={setCategorias}
           />
         }
