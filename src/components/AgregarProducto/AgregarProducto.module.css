@@ -6,14 +6,13 @@
 button:hover{
     cursor: pointer;
 }
-.pago {
-
-
-    height: 500px;
+.container {
+    height: fit-content;
+    width: 30rem;
     padding: 15px;
-    margin-left: 20px;
     border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.222);
+    border: 1px solid var(--lightestGreen);
+    position: fixed;
 }
 
 .boxFotoProducto{
@@ -28,11 +27,11 @@ button:hover{
     border-radius: 10px;
     font-size: 16px;
     font-weight: 600;
-    background-color: #28AF61;
+    background-color: var(--darkGreen);
     color: white;
 }
 .buttonFoto:hover{
-    background-color: #20914f;
+    background-color: var(--lightGreen);
 }
 .boxImg{
     display: block;
@@ -50,7 +49,7 @@ button:hover{
     outline: none;
     height: 20px;
     border: none;
-    border-bottom: 1px solid rgb(198, 198, 198);
+    border-bottom: 1px solid var(--lightGray);
     font-size: 16px;
     
 }
@@ -73,12 +72,15 @@ button:hover{
     font-weight: 600;
 }
 .btnAgregarProd{
-    background-color: #28AF61;
+    background-color: var(--darkGreen);
     color: white;
 }
 .btnAgregarProd:hover {
-    background-color: #20914f;
+    background-color: var(--lightGreen);
+}
+.btnLimpiarProd{
+    background-color: var(--lightGray);
 }
 .btnLimpiarProd:hover{
-    background-color: rgb(200, 197, 197);
+    background-color: var(--gray);
 }

@@ -132,6 +132,7 @@ function Rutas() {
             userRol={userRol}
             idComercio={idComercio}
             setCategorias={setCategorias}
+            categorias={categorias}
           />
         }
       />
