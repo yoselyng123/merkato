@@ -24,76 +24,37 @@ const Carrito = () => {
   }, [carrito]);
 
   useEffect(() => {
-    try {
-      if (JSON.parse(localStorage.getItem("carrito")) !== null) {
-        setCarrito(JSON.parse(localStorage.getItem("carrito")));
-      }
-      if (JSON.parse(localStorage.getItem("carrito")).length > 0) {
-        setCarrito(JSON.parse(localStorage.getItem("carrito")));
-        localStorage.setItem(
-          "idProducto",
-          JSON.parse(localStorage.getItem("carrito"))[0].idComercio
-        );
-        const CategoriasFromFirebase = [];
-
-        const getProductsFromFirebase = [];
-
-        const subscriber = async () => {
-          const querySnapshot = await getDocs(
-            collection(
-              firebaseExports.db,
-              "comercio",
-              localStorage.getItem("idProducto"),
-              "categorias"
-            )
-          );
-          console.log("Hola");
-          querySnapshot.forEach((doc) => {
-            CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    const getProductsFromFirebase = [];
+    const subscriber = async () => {
+      const querySnapshot = await getDocs(
+        collection(firebaseExports.db, "producto")
+      );
+      querySnapshot.forEach((doc) => {
+        //console.log(`${doc.id} => ${doc.data()}`);
+        if (
+          JSON.parse(localStorage.getItem("carrito")).findIndex(
+            (i) => i.id === doc.id
+          ) > -1
+        ) {
+          const numeroEnlaLista = JSON.parse(
+            localStorage.getItem("carrito")
+          ).findIndex((i) => i.id === doc.id);
+          getProductsFromFirebase.push({
+            ...doc.data(),
+            id: doc.id,
+            cantidad_solicitada: JSON.parse(localStorage.getItem("carrito"))[
+              numeroEnlaLista
+            ].quantity,
           });
+        }
+      });
+      console.log(getProductsFromFirebase);
+      setProducts(getProductsFromFirebase);
+    };
 
-          for (let i = 0; i < CategoriasFromFirebase.length; i++) {
-            const querySnapshot = await getDocs(
-              collection(
-                firebaseExports.db,
-                "comercio",
-                localStorage.getItem("idProducto"),
-                "categorias",
-                CategoriasFromFirebase[i].id,
-                "productos"
-              )
-            );
-
-            querySnapshot.forEach((doc) => {
-              if (
-                JSON.parse(localStorage.getItem("carrito")).findIndex(
-                  (i) => i.id === doc.id
-                ) > -1
-              ) {
-                const numeroEnlaLista = JSON.parse(
-                  localStorage.getItem("carrito")
-                ).findIndex((i) => i.id === doc.id);
-                getProductsFromFirebase.push({
-                  ...doc.data(),
-                  id: doc.id,
-                  cantidad_solicitada: JSON.parse(
-                    localStorage.getItem("carrito")
-                  )[numeroEnlaLista].quantity,
-                });
-              }
-            });
-          }
-
-          console.log(getProductsFromFirebase);
-          setProducts(getProductsFromFirebase);
-        };
-
-        // return cleanup function
-        return () => subscriber();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // return cleanup function
+    return () => subscriber();
   }, []);
 
   return (

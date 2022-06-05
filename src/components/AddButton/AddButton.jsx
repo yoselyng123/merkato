@@ -20,7 +20,7 @@ function AddButton({ data, idComercio }) {
           data.id,
           quantity,
           data.precio_unitario,
-          idComercio
+          data.idComercio
         );
         setQuantity(0);
 
@@ -32,21 +32,26 @@ function AddButton({ data, idComercio }) {
           data.id,
           quantity,
           data.precio_unitario,
-          idComercio
+          data.idComercio
         );
       }
     } else {
       setQuantity(quantity + 1);
 
       if (carrito.findIndex((i) => i.id === data.id) === -1) {
-        agregarACarrito(data.id, quantity, data.precio_unitario, idComercio);
+        agregarACarrito(
+          data.id,
+          quantity,
+          data.precio_unitario,
+          data.idComercio
+        );
       } else {
         modificarCantidadCarrito(
           "+",
           data.id,
           quantity,
           data.precio_unitario,
-          idComercio
+          data.idComercio
         );
       }
     }
