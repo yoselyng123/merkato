@@ -6,21 +6,7 @@
 button:hover{
     cursor: pointer;
 }
-.container {
-    height: fit-content;
-    width: 30rem;
-    padding: 15px;
-    border-radius: 20px;
-    border: 1px solid var(--lightestGreen);
-    position: fixed;
-}
 
-.boxFotoProducto{
-    display: grid;
-    grid-template-columns: 1fr .7fr;
-    margin-bottom: 20px;
-    align-items: center;
-}
 .buttonFoto{
     border: none;
     height: 40px;
@@ -34,16 +20,29 @@ button:hover{
     background-color: var(--lightGreen);
 }
 .boxImg{
-    display: block;
+    display: flex;
     height: 160px;
-    width: 80%;
-    background-color: red;
-    border-radius: 10px;
+    width: 100%;
+    background-color: var(--lightGray);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.boxImg img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
 }
 .inputsBox{
     display: grid;
     gap: 10px;
-
+    height: fit-content;
+    width: 30rem;
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid var(--lightestGreen);
+    position: fixed;
 }
 .inputsBox input{
     outline: none;
@@ -55,8 +54,7 @@ button:hover{
 }
 .inputsBox label{
     font-size: 16px;
-
-    
+    font-weight: 600;  
 }
 .inputButtons{
     display: grid;
@@ -83,4 +81,77 @@ button:hover{
 }
 .btnLimpiarProd:hover{
     background-color: var(--gray);
+}
+
+.selectMenu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid var(--lightestGreen);
+    border-radius: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+}
+.selectMenu::after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--gray);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    justify-self: end;
+}
+select, .selectMenu::after {
+    grid-area: select;
+}
+
+.selectMenu > svg {
+    fill: var(--lightGreen);
+    position: absolute;
+    right: 1rem;
+}
+.selectMenu > svg:hover {
+    fill: var(--lightestGreen);
+}
+
+
+/*}.selectOption {
+    -webkit-appearance: none;
+    padding: 7px 40px 7px 12px;
+    width: 100%;
+    border: 1px solid #E8EAED;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 1px 3px -2px #9098A9;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    transition: all 150ms ease;
+}*/
+
+.selectOption {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+}
+.selectOption::-ms-expand {
+    display: none;
+}
+
+.categoryOption {
+    color: #223254;
+}
+.categoryOption:disabled {
+    display: none;
 }
