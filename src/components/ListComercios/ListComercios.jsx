@@ -4,13 +4,18 @@ import styles from "./listComercios.module.css";
 import NoMatch from "../NoMatch/NoMatch";
 import { useNavigate } from "react-router-dom";
 
-function ListComercios({ comercios, setIdComercio }) {
+function ListComercios({ comercios, setIdComercio, userRol }) {
   let navigate = useNavigate();
 
   const handleClickComercio = (comercio) => {
     setIdComercio(comercio.id);
-    //hacer que dependiendo del rol manda a home o a homeAdmin
-    navigate(`../${comercio.nombre}/shop`, { replace: true });
+
+    if (userRol === "admin") {
+      navigate(`../${comercio.nombre}/admin`, { replace: true });
+    } 
+    else {
+      navigate(`../${comercio.nombre}/shop`, { replace: true });
+    }
   };
 
   return (

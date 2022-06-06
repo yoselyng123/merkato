@@ -1,0 +1,13 @@
+.adminview{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    padding: 3rem 3rem;
+}
+.listproducts{
+    flex-grow: 1;
+}
+.agregarproducto{
+    width: 30%;
+}

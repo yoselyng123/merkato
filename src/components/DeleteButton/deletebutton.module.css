@@ -1,0 +1,35 @@
+.deleteContainer {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    height: 100%;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.deleteProductContainer{
+    background-color: var(--lightGreen);
+    padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+    gap: 0.2rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteProductContainer:hover {
+    background-color: var(--darkGreen);
+}
+
+.deleteText{
+    color: #FFF;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.deleteProductContainer > svg {
+    font-size: 1.3rem;
+    fill: #FFF;
+    cursor: pointer;
+}

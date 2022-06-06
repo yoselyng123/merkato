@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import styles from "./product.module.css";
 import DetalleProducto from "../DetalleProducto/DetalleProducto";
 import AddButton from "../AddButton/AddButton";
+import DeleteButton from "../DeleteButton/DeleteButton";
 
-function Product({ data, idComercio }) {
+function Product({ setProductos, data, idComercio, userRol }) {
   const [info, setInfo] = useState(false);
   const [itemInfo, setItemInfo] = useState({
     nombre: "",
@@ -59,7 +60,8 @@ function Product({ data, idComercio }) {
         </div>
       </div>
 
-      <AddButton data={data} idComercio={idComercio} />
+      {userRol === "admin" ? (<DeleteButton data={data} setProductos={setProductos} idComercio={idComercio} />) : (<AddButton data={data} idComercio={idComercio} />)}
+      
     </div>
   );
 }

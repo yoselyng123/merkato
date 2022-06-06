@@ -2,21 +2,35 @@ import React, { useState, useEffect } from "react";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import styles from "./searcher.module.css";
 import { useParams } from "react-router-dom";
-import { list } from "firebase/storage";
 
-function Searcher({ products, idComercio }) {
+function Searcher({ products, idComercio, categorias }) {
   const [listSearch, setListSearch] = useState([]);
-  console.log(idComercio);
+
   let { name } = useParams();
 
   useEffect(() => {
-    filtrar(name);
+    let idCat = "";
+
+    categorias.map((element) => {
+      if (
+        element.nombre.toString().toLowerCase() ===
+        name.toString().toLowerCase()
+      ) {
+        idCat = element.id.toString();
+      }
+    });
+
+    if (idCat !== "") {
+      filtrarByCategory(idCat);
+    } else {
+      filtrarByName(name);
+    }
 
     // return cleanup function
     /* return () => subscriber(); */
   }, [name]); // empty dependency array means useEffect will only run once;
 
-  const filtrar = (terminoBusqueda) => {
+  const filtrarByName = (terminoBusqueda) => {
     var resultadosBusqueda = products.filter((product) => {
       if (
         product.nombre
@@ -24,6 +38,15 @@ function Searcher({ products, idComercio }) {
           .toLowerCase()
           .includes(terminoBusqueda.toLowerCase())
       ) {
+        return product;
+      }
+    });
+    setListSearch(resultadosBusqueda);
+  };
+
+  const filtrarByCategory = (terminoBusqueda) => {
+    var resultadosBusqueda = products.filter((product) => {
+      if (product.id_categoria === terminoBusqueda) {
         return product;
       }
     });
