@@ -111,7 +111,9 @@ const AgregarProducto = ({ setProductos, idComercio, categorias }) => {
               value={item.value}
               id={index}
               type="text"
-              onChange={handleChange} 
+              onChange={handleChange}
+              key={index}
+
               required 
             />
 

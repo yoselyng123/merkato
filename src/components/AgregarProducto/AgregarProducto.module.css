@@ -1,7 +1,23 @@
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
+.inputsBox{
+    display: grid;
+    gap: 10px;
+    height: fit-content;
+    width: 100%;
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid var(--lightestGreen);
+}
+.inputsBox input{
+    outline: none;
+    height: 20px;
+    border: none;
+    border-bottom: 1px solid var(--lightGray);
+    font-size: 16px;
+    
+}
+.inputsBox label{
+    font-size: 16px;
+    font-weight: 600;  
 }
 button:hover{
     cursor: pointer;
@@ -34,28 +50,7 @@ button:hover{
     object-fit: contain;
     border-radius: 20px;
 }
-.inputsBox{
-    display: grid;
-    gap: 10px;
-    height: fit-content;
-    width: 30rem;
-    padding: 15px;
-    border-radius: 20px;
-    border: 1px solid var(--lightestGreen);
-    position: fixed;
-}
-.inputsBox input{
-    outline: none;
-    height: 20px;
-    border: none;
-    border-bottom: 1px solid var(--lightGray);
-    font-size: 16px;
-    
-}
-.inputsBox label{
-    font-size: 16px;
-    font-weight: 600;  
-}
+
 .inputButtons{
     display: grid;
     gap: 10px;
