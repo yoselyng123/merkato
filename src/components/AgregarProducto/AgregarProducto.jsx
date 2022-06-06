@@ -69,8 +69,8 @@ const AgregarProducto = ({ setProductos, idComercio, categorias }) => {
 
       <label htmlFor="categoriaProducto">Category: </label>
       <div className={styles.selectMenu}>
-        <select type="text" ref={categoriaRef} className={styles.selectOption} id="categoriaProducto" name="categoriaProducto" >
-          <option key="unselected" value="" disabled selected className={styles.categoryOption}>Select Option</option>
+        <select defaultValue="unselected" type="text" ref={categoriaRef} className={styles.selectOption} id="categoriaProducto" name="categoriaProducto" >
+          <option key="unselected" value="unselected" disabled className={styles.categoryOption}>Select Option</option>
           {categorias.map((categoria) => (
             <option key={categoria.id} value={categoria.id} className={styles.categoryOption}>{categoria.nombre}</option>
           ))}

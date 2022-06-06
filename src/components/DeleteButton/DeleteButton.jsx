@@ -8,7 +8,7 @@ function DeleteButton({ data, setProductos, idComercio }) {
 
   const handleClick = async (productdata) => {
     await deleteDoc(doc(firebaseExports.db, "producto", productdata.id));
-    console.log("Product added with ID: ", productdata.id);
+    console.log("Product deleted with ID: ", productdata.id);
 
     const ProductosFromFirebase = [];
 
