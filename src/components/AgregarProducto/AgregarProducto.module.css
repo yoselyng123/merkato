@@ -70,11 +70,11 @@ button:hover{
     font-weight: 600;
 }
 .btnAgregarProd{
-    background-color: var(--darkGreen);
+    background-color: var(--lightGreen);
     color: white;
 }
 .btnAgregarProd:hover {
-    background-color: var(--lightGreen);
+    background-color: var(--darkGreen);
 }
 .btnLimpiarProd{
     background-color: var(--lightGray);
@@ -116,22 +116,6 @@ select, .selectMenu::after {
 .selectMenu > svg:hover {
     fill: var(--lightestGreen);
 }
-
-
-/*}.selectOption {
-    -webkit-appearance: none;
-    padding: 7px 40px 7px 12px;
-    width: 100%;
-    border: 1px solid #E8EAED;
-    border-radius: 5px;
-    background: white;
-    box-shadow: 0 1px 3px -2px #9098A9;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 16px;
-    transition: all 150ms ease;
-}*/
-
 .selectOption {
     appearance: none;
     background-color: transparent;
@@ -154,4 +138,35 @@ select, .selectMenu::after {
 }
 .categoryOption:disabled {
     display: none;
+}
+
+.imageInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.imageInput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+.imageInput > input {
+    flex-grow: 1;
+}
+
+.button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 30%;
+    background-color: var(--lightGreen);
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button:hover {
+    background-color: var(--darkGreen);
 }
