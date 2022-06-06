@@ -8,7 +8,7 @@ const AgregarProducto = ({ setProductos, idComercio, categorias }) => {
   const [imagen, setImagen] = useState(null);
   const nombreRef = useRef(null);
   const descripcionRef = useRef(null);
-  const precioRef = useRef(0);
+  const precioRef = useRef(0.1);
   const categoriaRef = useRef(null);
   const stockRef = useRef(1);
   const imagenRef = useRef(null);
@@ -16,7 +16,7 @@ const AgregarProducto = ({ setProductos, idComercio, categorias }) => {
   const cleanFields = () => {
     nombreRef.current.value = "";
     descripcionRef.current.value = "";
-    precioRef.current.value = 0;
+    precioRef.current.value = 0.1;
     categoriaRef.current.value = "unselected";
     stockRef.current.value = 1;
     imagenRef.current.value = "";
@@ -81,7 +81,7 @@ const AgregarProducto = ({ setProductos, idComercio, categorias }) => {
       <input type="number" defaultValue={1} min={1} ref={stockRef} id="stockProducto" name="stockProducto" />
       
       <label htmlFor="precioProducto">Price $:</label>
-      <input type="number" defaultValue={0} min={0.1} ref={precioRef} id="precioProducto" name="precioProducto" />
+      <input type="number" defaultValue={0.1} min={0.1} step={0.1} ref={precioRef} id="precioProducto" name="precioProducto" />
       
       <label htmlFor="descripcionProducto">Description: </label>
       <input type="text" ref={descripcionRef} id="descripcionProducto" name="descripcionProducto" />
