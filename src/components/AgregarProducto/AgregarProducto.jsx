@@ -17,7 +17,7 @@ const AgregarProducto = ({ setProductos, idComercio, categorias }) => {
     nombreRef.current.value = "";
     descripcionRef.current.value = "";
     precioRef.current.value = 0;
-    categoriaRef.current.value = "";
+    categoriaRef.current.value = "unselected";
     stockRef.current.value = 1;
     imagenRef.current.value = "";
     setImagen(null);
