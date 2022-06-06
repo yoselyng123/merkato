@@ -60,7 +60,7 @@ const Carrito = () => {
   return (
     <div className={styles.containers}>
       <div className={styles.productos}>
-        <h1>Carrito</h1>
+        <h1 className={styles.title}>Carrito</h1>
         {products.length > 0 ? (
           products.map((product) => (
             <ProductoCarrito

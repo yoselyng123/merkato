@@ -14,7 +14,11 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { UserContext } from "./context/UserContext";
 import AdminView from "./pages/AdminView/AdminView";
 
+import { useNavigate } from "react-router-dom";
+
 function Rutas() {
+  let navigate = useNavigate();
+
   //const [loading, setLoading] = useState(true);
   const [comercios, setComercios] = useState([]);
   const [productos, setProductos] = useState([]);
@@ -68,6 +72,7 @@ function Rutas() {
         setUserLogged(null);
         setUserRol(null);
       }
+      navigate(`/`, { replace: true });
     });
 
     // return cleanup function
