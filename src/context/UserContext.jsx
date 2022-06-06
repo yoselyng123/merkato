@@ -1,7 +1,8 @@
 import { useState, useEffect, createContext } from "react";
 import { db, auth } from "../utils/firebaseConfig";
 import { getFirstElementArrayCollection } from "../utils/parser";
-
+import { doc, getDocs, collection, where, query } from "firebase/firestore";
+import { SouthWestTwoTone } from "@mui/icons-material";
 export const UserContext = createContext(null);
 
 export default function UserContextProvider({ children }) {
@@ -83,8 +84,10 @@ export default function UserContextProvider({ children }) {
   };
 
   const getUserByEmail = async (email) => {
-    const usersReference = db.collection("users");
-    const snapshot = await usersReference.where("email", "==", email).get();
+    const usersReference = collection(db, "users");
+    const snapshot = await getDocs(
+      query(usersReference, where("email", "==", email))
+    );
 
     if (!snapshot.size) return null;
 
@@ -97,24 +100,11 @@ export default function UserContextProvider({ children }) {
     const unlisten = auth.onAuthStateChanged(async (loggedUser) => {
       if (loggedUser) {
         const profile = await getUserByEmail(loggedUser.email);
-
+        console.log(profile);
         if (!profile) {
           const newProfile = {
             name: loggedUser.displayName,
             email: loggedUser.email,
-            role: "",
-            number: "",
-            pais: "",
-            photo:
-              "https://us.123rf.com/450wm/thesomeday123/thesomeday1231712/thesomeday123171200009/91087331-icono-de-perfil-de-avatar-predeterminado-para-hombre-marcador-de-posici%C3%B3n-de-foto-gris-vector-de-ilu.jpg?ver=6",
-            description: "",
-            gender: "",
-            birthday: "",
-            problemas: [],
-            appointments: [],
-            incidencias: [],
-            pdf: "",
-            ratings: [],
           };
           await createUser(newProfile, loggedUser.uid);
           setUser(newProfile);
