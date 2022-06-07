@@ -14,10 +14,10 @@ import { signOut } from "firebase/auth";
 
 const auth = firebaseExports.auth;
 
-function NavBar({ user }) {
+function NavBar() {
   const location = useLocation().pathname;
 
-  const { carrito } = useContext(UserContext);
+  const { carrito, user, setCarrito } = useContext(UserContext);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -30,6 +30,8 @@ function NavBar({ user }) {
 
   const handleLogout = () => {
     setAnchorEl(null);
+    localStorage.setItem("carrito", "[]");
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
     signOut(auth);
   };
 

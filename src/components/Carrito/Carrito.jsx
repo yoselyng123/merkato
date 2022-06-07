@@ -8,7 +8,7 @@ import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 const Carrito = () => {
-  const { carrito, setCarrito, eliminarProductoCarrito } =
+  const { carrito, setCarrito, eliminarProductoCarrito, user } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -32,23 +32,37 @@ const Carrito = () => {
       );
       querySnapshot.forEach((doc) => {
         //console.log(`${doc.id} => ${doc.data()}`);
-        if (
-          JSON.parse(localStorage.getItem("carrito")).findIndex(
-            (i) => i.id === doc.id
-          ) > -1
-        ) {
-          const numeroEnlaLista = JSON.parse(
-            localStorage.getItem("carrito")
-          ).findIndex((i) => i.id === doc.id);
-          getProductsFromFirebase.push({
-            ...doc.data(),
-            id: doc.id,
-            cantidad_solicitada: JSON.parse(localStorage.getItem("carrito"))[
-              numeroEnlaLista
-            ].quantity,
-          });
+        if (user == null) {
+          if (
+            JSON.parse(localStorage.getItem("carrito")).findIndex(
+              (i) => i.id === doc.id
+            ) > -1
+          ) {
+            const numeroEnlaLista = JSON.parse(
+              localStorage.getItem("carrito")
+            ).findIndex((i) => i.id === doc.id);
+            getProductsFromFirebase.push({
+              ...doc.data(),
+              id: doc.id,
+              cantidad_solicitada: JSON.parse(localStorage.getItem("carrito"))[
+                numeroEnlaLista
+              ].quantity,
+            });
+          }
+        } else {
+          if (user.carrito.findIndex((i) => i.id === doc.id) > -1) {
+            const numeroEnlaLista = user.carrito.findIndex(
+              (i) => i.id === doc.id
+            );
+            getProductsFromFirebase.push({
+              ...doc.data(),
+              id: doc.id,
+              cantidad_solicitada: user.carrito[numeroEnlaLista].quantity,
+            });
+          }
         }
       });
+
       console.log(getProductsFromFirebase);
       setProducts(getProductsFromFirebase);
     };
@@ -72,9 +86,7 @@ const Carrito = () => {
               stock={product.stock}
               id={product.id}
               handleDeleteCarrito={handleDeleteCarrito}
-              idComercio={
-                JSON.parse(localStorage.getItem("carrito"))[0].idComercio
-              }
+              idComercio={product.id_comercio}
             />
           ))
         ) : (

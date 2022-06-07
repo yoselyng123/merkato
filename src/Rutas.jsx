@@ -24,13 +24,17 @@ function Rutas() {
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [idComercio, setIdComercio] = useState(null);
-  const { setCarrito } = useContext(UserContext);
+  const { setCarrito, user } = useContext(UserContext);
   const [userLogged, setUserLogged] = useState(null);
   const [userRol, setUserRol] = useState(null);
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("carrito")) !== null) {
-      setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    if (user === null) {
+      if (JSON.parse(localStorage.getItem("carrito")) !== null) {
+        setCarrito(JSON.parse(localStorage.getItem("carrito")));
+      }
+    } else {
+      setCarrito(user.carrito);
     }
 
     const getUserRol = async () => {

@@ -12,6 +12,9 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import RoleTypes from "../RoleTypes/RoleTypes";
 
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+
 const auth = firebaseExports.auth;
 const firestore = firebaseExports.db;
 
@@ -22,6 +25,8 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [wrongData, setWrongData] = useState(false);
+
+  const { carrito, createUser } = useContext(UserContext);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -54,31 +59,36 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
   };
 
   const registrarUsuario = async (email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then(async (infoUsuario) => {
-        const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
-        const consulta = await getDoc(docuRef);
-        if (!consulta.exists()) {
-          setDoc(docuRef, { email: email, rol: rol });
-          click();
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        if (errorCode === "auth/weak-password") {
-          setInvalidPassword(true);
-        }
-        if (errorCode === "auth/invalid-email") {
-          setInvalidEmail(true);
-        }
-      });
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      await createUser(
+        { email: email, rol: rol, carrito: carrito },
+        response.user.uid
+      );
+      // setDoc(docuRef, { email: email, rol: rol, carrito: carrito });
+      click();
+    } catch (error) {
+      console.log(error.code);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      if (errorCode === "auth/weak-password") {
+        setInvalidPassword(true);
+      }
+      if (errorCode === "auth/invalid-email") {
+        setInvalidEmail(true);
+      }
+    }
   };
 
   const handleSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    const aux = signInWithPopup(auth, provider)
       .then(async (result) => {
         // The signed-in user info.
         const user = result.user;
@@ -101,6 +111,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
           setIsRegistrando(true);
           setUserUid(user.uid);
         }
+        console.log(aux);
       })
       .catch((error) => {
         // Handle Errors here.
