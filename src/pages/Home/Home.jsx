@@ -13,41 +13,33 @@ function Home({
   categorias,
   setCategorias,
 }) {
+
   useEffect(() => {
-    getProductosFromFirebase(idComercio);
-    getCategoriasFromFirebase();
-  }, []);
-
-  const getProductosFromFirebase = async (idComercio) => {
     const ProductosFromFirebase = [];
+    const CategoriasFromFirebase = [];
 
-    const querySnapshot = await getDocs(
+    getDocs(
       query(
         collection(firebaseExports.db, "producto"),
         where("id_comercio", "==", idComercio)
       )
-    );
-    querySnapshot.forEach((doc) => {
-      ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
-    });
-    setProductos(ProductosFromFirebase);
+    ).then(querySnapshot => {
+      querySnapshot.forEach((doc) => {
+        ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+      });
+      setProductos(ProductosFromFirebase);
+    })
 
-    console.log(ProductosFromFirebase);
-  };
-
-  const getCategoriasFromFirebase = async () => {
-    const CategoriasFromFirebase = [];
-
-    const querySnapshot = await getDocs(
+    getDocs(
       collection(firebaseExports.db, "categoria")
-    );
-    querySnapshot.forEach((doc) => {
-      CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-    });
-    setCategorias(CategoriasFromFirebase);
+    ).then(querySnapshot2 => {
+      querySnapshot2.forEach((doc) => {
+        CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+      });
+      setCategorias(CategoriasFromFirebase);
+    })
 
-    console.log(CategoriasFromFirebase);
-  };
+  }, [idComercio, setCategorias, setProductos]);
 
   return (
     <div className={styles.home}>

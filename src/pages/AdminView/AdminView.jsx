@@ -49,7 +49,7 @@ function AdminView({
   return (
     <div className={styles.adminview}>
       <div className={styles.listproducts}>
-        <ListProducts products={productos} setProductos={setProductos} idComercio={idComercio} userRol={userRol} />
+        <ListProducts products={productos} setProductos={setProductos} idComercio={idComercio} userRol={userRol} categorias={categorias} />
       </div>
       <div className={styles.agregarproducto}>
         <AgregarProducto setProductos={setProductos} idComercio={idComercio} categorias={categorias} />
