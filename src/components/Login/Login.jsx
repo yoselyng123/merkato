@@ -88,7 +88,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
 
   const handleSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    const aux = signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider)
       .then(async (result) => {
         // The signed-in user info.
         const user = result.user;
@@ -111,7 +111,6 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
           setIsRegistrando(true);
           setUserUid(user.uid);
         }
-        console.log(aux);
       })
       .catch((error) => {
         // Handle Errors here.
