@@ -24,7 +24,9 @@ const Carrito = () => {
   }, [carrito]);
 
   useEffect(() => {
-    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    if (user === null) {
+      setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    }
     const getProductsFromFirebase = [];
     const subscriber = async () => {
       const querySnapshot = await getDocs(
