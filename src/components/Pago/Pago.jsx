@@ -73,7 +73,8 @@ const Pago = ({ totalAmount }) => {
   const compraRealizada = async () => {
     console.log("ENTRA");
     await setDoc(doc(db, `historial`, uniqid()), {
-      fecha: Date1,
+      fecha:
+        Date1.getFullYear() + "-" + Date1.getMonth() + "-" + Date1.getDate(),
       carrito: carrito,
       total: totalAmount,
       idUser: user.id,

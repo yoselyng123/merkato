@@ -15,6 +15,7 @@ import { UserContext } from "./context/UserContext";
 import AdminView from "./pages/AdminView/AdminView";
 
 import { useNavigate } from "react-router-dom";
+import HistorialPage from "./pages/HistorialPage/HistorialPage";
 
 function Rutas() {
   let navigate = useNavigate();
@@ -37,16 +38,16 @@ function Rutas() {
       setCarrito(user.carrito);
     }
 
-    const getUserRol = async () => {
-      const docSnapshot = await getDoc(
-        doc(firebaseExports.db, "users", userLogged)
-      );
-      const userData = docSnapshot.data();
-      const userRole = userData.rol;
-      setUserRol(userRole);
-      console.log("userData: ", userData);
-      console.log("userRol: ", userRol);
-    };
+    // const getUserRol = async () => {
+    //   const docSnapshot = await getDoc(
+    //     doc(firebaseExports.db, "users", userLogged)
+    //   );
+    //   const userData = docSnapshot.data();
+    //   const userRole = userData.rol;
+    //   setUserRol(userRole);
+    //   console.log("userData: ", userData);
+    //   console.log("userRol: ", userRol);
+    // };
 
     const getComerciosFromFirebase = [];
     const subscriber = async () => {
@@ -69,14 +70,14 @@ function Rutas() {
         // User is signed in.
         setUserLogged(user.uid);
         console.log("userLogged: ", userLogged);
-        getUserRol();
+        // getUserRol();
       } else {
         // User is signed out.
         console.log("no user logged");
         setUserLogged(null);
         setUserRol(null);
       }
-      navigate(`/`, { replace: true });
+      // navigate(`/`, { replace: true });
     });
 
     // return cleanup function
@@ -145,6 +146,7 @@ function Rutas() {
           />
         }
       />
+      <Route exact path="/historial" element={<HistorialPage />} />
     </Routes>
   );
 }
