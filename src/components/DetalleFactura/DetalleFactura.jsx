@@ -2,11 +2,12 @@ import React from "react";
 import styles from "./DetalleFactura.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useEffect, useState, useContext } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
 import { UserContext } from "../../context/UserContext";
 import ProductoCarrito from "../ProductoCarrito/ProductoCarrito";
 import ProductoFactura from "../ProductoFactura/ProductoFactura";
+import { useNavigate } from "react-router-dom";
 const DetalleFactura = ({
   total,
   fecha,
@@ -16,8 +17,19 @@ const DetalleFactura = ({
   descripcion,
   click,
 }) => {
-  const { user } = useContext(UserContext);
+  const { user, setCarrito } = useContext(UserContext);
   const [products, setProducts] = useState([]);
+  let navigate = useNavigate();
+  const volverComprar = async () => {
+    const userRef = doc(db, "users", user.id);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    user.carrito = JSON.parse(localStorage.getItem("carrito"));
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    await updateDoc(userRef, {
+      carrito: JSON.parse(localStorage.getItem("carrito")),
+    });
+    navigate("/carrito", { replace: true });
+  };
   useEffect(() => {
     if (user) {
       const getProductsFromFirebase = [];
@@ -75,7 +87,9 @@ const DetalleFactura = ({
               <h3 className={styles.titleUp}>Orden # </h3>
               <h3 className={styles.nombre}>{idCarrito}</h3>
             </div>
-            <button className={styles.comprar}>Volver a Comprar</button>
+            <button className={styles.comprar} onClick={() => volverComprar()}>
+              Volver a Comprar
+            </button>
           </div>
         </div>
         <div className={styles.priceContainer}>
