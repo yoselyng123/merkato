@@ -3,6 +3,10 @@ import styles from "./HistorialCarrito.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+import { db } from "../../utils/firebaseConfig";
+import { doc, updateDoc } from "firebase/firestore";
 const HistorialCarrito = ({
   total,
   fecha,
@@ -13,6 +17,18 @@ const HistorialCarrito = ({
   click,
 }) => {
   const Date1 = new Date(fecha);
+  const { setCarrito, user, setUser } = useContext(UserContext);
+  let navigate = useNavigate();
+  const volverComprar = async () => {
+    const userRef = doc(db, "users", user.id);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    user.carrito = JSON.parse(localStorage.getItem("carrito"));
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    await updateDoc(userRef, {
+      carrito: JSON.parse(localStorage.getItem("carrito")),
+    });
+    navigate("/carrito", { replace: true });
+  };
   return (
     <div className={styles.containers}>
       {/* <picture className={styles.boxImg}>
@@ -57,10 +73,7 @@ const HistorialCarrito = ({
               Agregar a favoritos
             </button>
             {/* <button className={styles.buttonSave}>Save</button> */}
-            <button
-              className={styles.comprar}
-              //   onClick={() => handleDeleteCarrito(id)}
-            >
+            <button className={styles.comprar} onClick={() => volverComprar()}>
               Volver a Comprar
             </button>
           </div>

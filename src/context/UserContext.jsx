@@ -212,7 +212,7 @@ export default function UserContextProvider({ children }) {
             const userRef = doc(db, "users", profile.id);
 
             profile.carrito = JSON.parse(localStorage.getItem("carrito"));
-            updateDoc(userRef, {
+            await updateDoc(userRef, {
               carrito: JSON.parse(localStorage.getItem("carrito")),
             });
             setUser(profile);
