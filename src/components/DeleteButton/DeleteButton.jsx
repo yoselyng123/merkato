@@ -7,8 +7,8 @@ import { doc, deleteDoc, getDocs, query, collection, where } from "firebase/fire
 function DeleteButton({ data, setProductos, idComercio }) {
 
   const handleClick = async (productdata) => {
-    const docDelete = await deleteDoc(doc(firebaseExports.db, "producto", productdata.id));
-    console.log(docDelete);
+    await deleteDoc(doc(firebaseExports.db, "producto", productdata.id));
+    console.log("Product added with ID: ", productdata.id);
 
     const ProductosFromFirebase = [];
 
@@ -22,8 +22,6 @@ function DeleteButton({ data, setProductos, idComercio }) {
       ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
     });
     setProductos(ProductosFromFirebase);
-
-    console.log(ProductosFromFirebase);
   };
 
   return (

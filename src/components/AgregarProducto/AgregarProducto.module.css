@@ -6,58 +6,55 @@
 button:hover{
     cursor: pointer;
 }
-.pago {
 
-
-    height: 500px;
-    padding: 15px;
-    margin-left: 20px;
-    border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.222);
-}
-
-.boxFotoProducto{
-    display: grid;
-    grid-template-columns: 1fr .7fr;
-    margin-bottom: 20px;
-    align-items: center;
-}
 .buttonFoto{
     border: none;
     height: 40px;
     border-radius: 10px;
     font-size: 16px;
     font-weight: 600;
-    background-color: #28AF61;
+    background-color: var(--darkGreen);
     color: white;
 }
 .buttonFoto:hover{
-    background-color: #20914f;
+    background-color: var(--lightGreen);
 }
 .boxImg{
-    display: block;
+    display: flex;
     height: 160px;
-    width: 80%;
-    background-color: red;
-    border-radius: 10px;
+    width: 100%;
+    background-color: var(--lightGray);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.boxImg img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
 }
 .inputsBox{
     display: grid;
     gap: 10px;
-
+    height: fit-content;
+    width: 30rem;
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid var(--lightestGreen);
+    position: fixed;
 }
 .inputsBox input{
     outline: none;
     height: 20px;
     border: none;
-    border-bottom: 1px solid rgb(198, 198, 198);
+    border-bottom: 1px solid var(--lightGray);
     font-size: 16px;
     
 }
 .inputsBox label{
     font-size: 16px;
-
-    
+    font-weight: 600;  
 }
 .inputButtons{
     display: grid;
@@ -73,12 +70,88 @@ button:hover{
     font-weight: 600;
 }
 .btnAgregarProd{
-    background-color: #28AF61;
+    background-color: var(--darkGreen);
     color: white;
 }
 .btnAgregarProd:hover {
-    background-color: #20914f;
+    background-color: var(--lightGreen);
+}
+.btnLimpiarProd{
+    background-color: var(--lightGray);
 }
 .btnLimpiarProd:hover{
-    background-color: rgb(200, 197, 197);
+    background-color: var(--gray);
+}
+
+.selectMenu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid var(--lightestGreen);
+    border-radius: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+}
+.selectMenu::after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--gray);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    justify-self: end;
+}
+select, .selectMenu::after {
+    grid-area: select;
+}
+
+.selectMenu > svg {
+    fill: var(--lightGreen);
+    position: absolute;
+    right: 1rem;
+}
+.selectMenu > svg:hover {
+    fill: var(--lightestGreen);
+}
+
+
+/*}.selectOption {
+    -webkit-appearance: none;
+    padding: 7px 40px 7px 12px;
+    width: 100%;
+    border: 1px solid #E8EAED;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 1px 3px -2px #9098A9;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    transition: all 150ms ease;
+}*/
+
+.selectOption {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+}
+.selectOption::-ms-expand {
+    display: none;
+}
+
+.categoryOption {
+    color: #223254;
+}
+.categoryOption:disabled {
+    display: none;
 }

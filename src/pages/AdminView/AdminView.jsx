@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import ListProducts from "../../components/ListProducts/ListProducts";
+import AgregarProducto from "../../components/AgregarProducto/AgregarProducto";
 import styles from "./adminview.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
 import { query, where, collection, getDocs } from "firebase/firestore";
@@ -8,6 +9,7 @@ function AdminView({
   setProductos,
   productos,
   idComercio,
+  categorias,
   setCategorias,
   userRol
 }) {
@@ -46,7 +48,12 @@ function AdminView({
 
   return (
     <div className={styles.adminview}>
-      <ListProducts products={productos} setProductos={setProductos} idComercio={idComercio} userRol={userRol} />
+      <div className={styles.listproducts}>
+        <ListProducts products={productos} setProductos={setProductos} idComercio={idComercio} userRol={userRol} />
+      </div>
+      <div className={styles.agregarproducto}>
+        <AgregarProducto setProductos={setProductos} idComercio={idComercio} categorias={categorias} />
+      </div>
     </div>
   );
 }
