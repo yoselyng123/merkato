@@ -62,6 +62,20 @@ function Rutas() {
       //setLoading(false);
     };
 
+    const getCategoriasFromFirebase = async () => {
+      const CategoriasFromFirebase = [];
+
+      const querySnapshot = await getDocs(
+        collection(firebaseExports.db, "categoria")
+      );
+      querySnapshot.forEach((doc) => {
+        CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+      });
+      setCategorias(CategoriasFromFirebase);
+
+      console.log(CategoriasFromFirebase);
+    };
+
     //AQUI ESTOY CREANDO LA REVISION DE SI EL USUARIO ESTA LOGUEADO PARA BUSCAR SU ID EN LA COLLECION Y SU ROL
     const auth = getAuth(firebaseExports.firebaseApp);
     onAuthStateChanged(auth, (user) => {
@@ -79,6 +93,8 @@ function Rutas() {
       }
       // navigate(`/`, { replace: true });
     });
+
+    getCategoriasFromFirebase();
 
     // return cleanup function
     return () => subscriber();
@@ -126,7 +142,6 @@ function Rutas() {
             productos={productos}
             idComercio={idComercio}
             categorias={categorias}
-            setCategorias={setCategorias}
           />
         }
       ></Route>

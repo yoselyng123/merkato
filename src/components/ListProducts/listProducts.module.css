@@ -16,3 +16,60 @@
     grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
     grid-gap: 2rem;
 }
+
+.topSec{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filterBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(232, 233, 235);
+    padding: 0.5rem;
+    border-radius: 10px;
+    gap: 0.6rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.filterBtn > p {
+    font-size: 0.95rem;
+    color: rgb(52, 53, 56);
+    font-weight: 600;
+}
+
+.filterBtn > svg {
+    font-size: 1.2rem;
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    overflow: hidden;
+    padding: 0.5rem;
+    background-color: rgb(232, 233, 235);
+    position: absolute;
+    border-radius: 10px;
+    transform: translateX(522%);
+    bottom: 25px;
+    width: 13.75rem;
+    z-index: 5;
+}
+
+.dropdown > li {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    border-radius: inherit;
+    transition: all ease 0.2s;
+}
+
+.dropdown > li:hover {
+    background-color: var(--gray);
+    color: #fff;
+    cursor: pointer;
+}
