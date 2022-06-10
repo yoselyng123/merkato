@@ -11,12 +11,17 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { HolidayVillage, SouthWestTwoTone } from "@mui/icons-material";
+import {
+  HolidayVillage,
+  LocalSeeOutlined,
+  SouthWestTwoTone,
+} from "@mui/icons-material";
 export const UserContext = createContext(null);
 
 export default function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [carrito, setCarrito] = useState([]);
+  const [rol, setRol] = useState("");
 
   const agregarACarrito = async (idProducto, cantidad, precio, idComercio) => {
     //SIN USUARIO GUARDA EN LOCAL STORAGE
@@ -190,19 +195,20 @@ export default function UserContextProvider({ children }) {
   };
 
   useEffect(() => {
+    localStorage.setItem("rol", "");
     const unlisten = onAuthStateChanged(auth, async (loggedUser) => {
       if (loggedUser) {
         const profile = await getUserByEmail(loggedUser.email);
-        // console.log(profile, "Hola");
-        // console.log(loggedUser.email, "Use EFFECT");
         if (!profile) {
           const newProfile = {
             name: loggedUser.displayName,
             email: loggedUser.email,
-            carrito: carrito,
+            carrito: JSON.parse(localStorage.getItem("carrito")),
+            rol: localStorage.getItem("rol"),
           };
           await createUser(newProfile, loggedUser.uid);
-          setUser(newProfile);
+          setUser({ ...newProfile, id: loggedUser.uid });
+          localStorage.setItem("rol", "");
         } else {
           if (JSON.parse(localStorage.getItem("carrito")).length === 0) {
             console.log("Entra");
@@ -240,6 +246,8 @@ export default function UserContextProvider({ children }) {
         agregarACarrito,
         eliminarProductoCarrito,
         modificarCantidadCarrito,
+        rol,
+        setRol,
       }}
     >
       {children}

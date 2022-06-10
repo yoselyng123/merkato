@@ -38,16 +38,16 @@ function Rutas() {
       setCarrito(user.carrito);
     }
 
-    const getUserRol = async () => {
-      const docSnapshot = await getDoc(
-        doc(firebaseExports.db, "users", userLogged)
-      );
-      const userData = docSnapshot.data();
-      const userRole = userData.rol;
-      setUserRol(userRole);
-      console.log("userData: ", userData);
-      console.log("userRol: ", userRol);
-    };
+    // const getUserRol = async () => {
+    //   const docSnapshot = await getDoc(
+    //     doc(firebaseExports.db, "users", userLogged)
+    //   );
+    //   const userData = docSnapshot.data();
+    //   const userRole = userData.rol;
+    //   setUserRol(userRole);
+    //   console.log("userData: ", userData);
+    //   console.log("userRol: ", userRol);
+    // };
 
     const getComerciosFromFirebase = [];
     const subscriber = async () => {

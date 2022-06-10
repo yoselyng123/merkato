@@ -11,13 +11,14 @@ import MenuItem from "@mui/material/MenuItem";
 
 import firebaseExports from "../../utils/firebaseConfig";
 import { signOut } from "firebase/auth";
+import RoleTypes from "../RoleTypes/RoleTypes";
 
 const auth = firebaseExports.auth;
 
 function NavBar() {
   const location = useLocation().pathname;
 
-  const { carrito, user, setCarrito } = useContext(UserContext);
+  const { carrito, user, setCarrito, rol, setRol } = useContext(UserContext);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -33,6 +34,8 @@ function NavBar() {
     localStorage.setItem("carrito", "[]");
     setCarrito(JSON.parse(localStorage.getItem("carrito")));
     signOut(auth);
+    setRol("");
+    setClick(false);
   };
 
   let navigate = useNavigate();
@@ -61,6 +64,7 @@ function NavBar() {
 
   const handleClose = () => {
     setClick(false);
+    setRol("");
   };
 
   const handleLoginClick = () => {
@@ -75,13 +79,26 @@ function NavBar() {
 
   return (
     <div className={styles.navbar}>
-      {click && (
+      {!user && click && (
         <div className={styles.infobackground}>
           <div className={styles.infocontainer}>
             <Login
               click={handleClose}
               isRegistrando={isRegistrando}
               setIsRegistrando={setIsRegistrando}
+              setClick={setClick}
+            />
+          </div>
+        </div>
+      )}
+      {user && user.rol === "" && (
+        <div className={styles.infobackground}>
+          <div className={styles.infocontainer}>
+            <Login
+              click={handleClose}
+              isRegistrando={isRegistrando}
+              setIsRegistrando={setIsRegistrando}
+              setClick={setClick}
             />
           </div>
         </div>
