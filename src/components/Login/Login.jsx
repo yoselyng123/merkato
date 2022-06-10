@@ -8,7 +8,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import RoleTypes from "../RoleTypes/RoleTypes";
 
