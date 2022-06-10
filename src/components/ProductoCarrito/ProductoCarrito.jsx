@@ -13,7 +13,6 @@ const ProductoCarrito = ({
   handleDeleteCarrito,
   idComercio,
 }) => {
-  console.log(idComercio);
   const [quantity, setQuantity] = useState(cantidad);
   const { modificarCantidadCarrito } = useContext(UserContext);
   const handleClick = (type) => {

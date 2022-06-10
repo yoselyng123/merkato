@@ -83,6 +83,7 @@ export default function UserContextProvider({ children }) {
       });
     }
   };
+  const cambiarCarrito = async () => {};
 
   const modificarCantidadCarrito = async (
     type,
@@ -203,8 +204,19 @@ export default function UserContextProvider({ children }) {
           await createUser(newProfile, loggedUser.uid);
           setUser(newProfile);
         } else {
-          setUser(profile);
-          setCarrito(profile.carrito);
+          if (JSON.parse(localStorage.getItem("carrito")).length === 0) {
+            console.log("Entra");
+            setCarrito(profile.carrito);
+            setUser(profile);
+          } else {
+            const userRef = doc(db, "users", profile.id);
+
+            profile.carrito = JSON.parse(localStorage.getItem("carrito"));
+            updateDoc(userRef, {
+              carrito: JSON.parse(localStorage.getItem("carrito")),
+            });
+            setUser(profile);
+          }
         }
       } else {
         setUser(null);

@@ -11,11 +11,18 @@ import uniqid from "uniqid";
 
 // const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
-const Pago = ({ totalAmount }) => {
+const Pago = ({ totalAmount, click, values, setValues }) => {
   const Date1 = new Date();
   let navigate = useNavigate();
   const handleClickHome = () => {
-    navigate("/", { replace: true });
+    if (
+      (values.direccion !== "" && values.descripcion !== "") ||
+      (!delivery && values.descripcion !== "")
+    ) {
+      navigate("/", { replace: true });
+    } else {
+      console.log("Epa Epa Epa");
+    }
   };
   const [error, setError] = useState(null);
   const { user, setCarrito, carrito } = useContext(UserContext);
@@ -40,6 +47,24 @@ const Pago = ({ totalAmount }) => {
   //   month: "numeric",
   //   day: "numeric",
   // };
+  const [delivery, setDelivery] = useState(true);
+  const deliveryFunction = () => {
+    if (values.delivery === true) {
+      setValues({ ...values, delivery: false });
+    } else {
+      setValues({ ...values, delivery: true });
+    }
+  };
+  // const [values, setValues] = useState({
+  //   promocode: "",
+  //   direccion: "",
+  //   descripcion: "",
+  // });
+  const handleOnChange = (event) => {
+    const { value, name: inputName } = event.target;
+    // console.log({ inputName, value });
+    setValues({ ...values, [inputName]: value });
+  };
   useEffect(() => {
     calcularTotales();
     // console.log(Date1.toLocaleDateString("es-ES"));
@@ -111,17 +136,43 @@ const Pago = ({ totalAmount }) => {
     <div className={styles.pago}>
       <div className={styles.deliveryBox}>
         <h2>Delivery</h2>
-        <button className={styles.buttonD}>Si</button>
-        <button className={styles.buttonD}>No</button>
+        <button
+          className={values.delivery ? styles.buttonLActive : styles.buttonL}
+          onClick={deliveryFunction}
+        >
+          Si
+        </button>
+        <button
+          className={!values.delivery ? styles.buttonDActive : styles.buttonD}
+          onClick={deliveryFunction}
+        >
+          No
+        </button>
       </div>
-      <div className={styles.promo}>
+      {values.delivery && (
+        <div className={styles.direccionBox}>
+          <label htmlFor="" className={styles.subTituloPrecio}>
+            Direccion
+          </label>
+          <input
+            type="text"
+            className={styles.inputPromo}
+            id="direccion"
+            name="direccion"
+            values={values.direccion}
+            onChange={handleOnChange}
+          />
+        </div>
+      )}
+
+      {/* <div className={styles.promo}>
         <input
           type="text"
           placeholder="PromoCode"
           className={styles.inputPromo}
         />
         <button className={styles.buttonPromo}>Apply</button>
-      </div>
+      </div> */}
       <div style={styles.total}>
         <hr />
         <div className={styles.subtotal}>
@@ -140,6 +191,20 @@ const Pago = ({ totalAmount }) => {
             ${totalAmount}
           </label>
         </div>
+        <hr />
+        <div className={styles.direccionBox}>
+          <label htmlFor="" className={styles.subTituloPrecio}>
+            Descripcion de la compra
+          </label>
+          <input
+            type="text"
+            className={styles.inputPromo}
+            id="descripcion"
+            name="descripcion"
+            values={values.descripcion}
+            onChange={handleOnChange}
+          />
+        </div>
         <div className={styles.buttons}>
           {!user ? (
             <button
@@ -150,22 +215,28 @@ const Pago = ({ totalAmount }) => {
             </button>
           ) : (
             user.carrito.length > 0 && (
-              <PaypalExpressBtn
-                env={env}
-                client={client}
-                currency={currency}
-                total={totalAmount}
-                onError={onError}
-                onSuccess={onSuccess}
-                onCancel={onCancel}
-                className={styles.btnPaypal}
-                style={{
-                  color: "white",
-                  size: "responsive",
-                  shape: "pill",
-                  label: "pay",
-                }}
-              />
+              <button
+                className={`${styles.button} ${styles.btn1}`}
+                onClick={() => click()}
+              >
+                Proceder a Pagar
+              </button>
+              // <PaypalExpressBtn
+              //   env={env}
+              //   client={client}
+              //   currency={currency}
+              //   total={totalAmount}
+              //   onError={onError}
+              //   onSuccess={onSuccess}
+              //   onCancel={onCancel}
+              //   className={styles.btnPaypal}
+              //   style={{
+              //     color: "white",
+              //     size: "responsive",
+              //     shape: "pill",
+              //     label: "pay",
+              //   }}
+              // />
               // <PayPalButton
               //   createOrder={(data, actions) => createOrder(data, actions)}
               //   onApprove={(data, actions) => onApprove(data, actions)}
@@ -181,7 +252,6 @@ const Pago = ({ totalAmount }) => {
             Seguir Comprando
           </button>
         </div>
-        <div></div>
       </div>
     </div>
   );

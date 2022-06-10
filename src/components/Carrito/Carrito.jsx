@@ -6,12 +6,40 @@ import firebaseExports from "../../utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-
+import { Link, useNavigate } from "react-router-dom";
 const Carrito = () => {
+  let navigate = useNavigate();
   const { carrito, setCarrito, eliminarProductoCarrito, user } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
+  const [values, setValues] = useState({
+    promocode: "",
+    direccion: "",
+    descripcion: "",
+    delivery: true,
+  });
+  const handleOnChange = (event) => {
+    const { value, name: inputName } = event.target;
+    // console.log({ inputName, value });
+    setValues({ ...values, [inputName]: value });
+  };
   const [totalAmount, setTotalAmount] = useState(0);
+  const [info, setInfo] = useState(true);
+  const handleClose = () => {
+    if (
+      (values.direccion !== "" && values.descripcion !== "") ||
+      (!values.delivery && values.descripcion !== "")
+    ) {
+      if (info === true) {
+        setInfo(false);
+      } else {
+        setInfo(true);
+      }
+      // navigate("/", { replace: true });
+    } else {
+      console.log("Epa Epa Epa");
+    }
+  };
 
   const handleDeleteCarrito = (id) => {
     const newArray = products.filter((item) => item.id !== id);
@@ -75,28 +103,36 @@ const Carrito = () => {
 
   return (
     <div className={styles.containers}>
-      <div className={styles.productos}>
-        <h1 className={styles.title}>Carrito</h1>
-        {products.length > 0 ? (
-          products.map((product) => (
-            <ProductoCarrito
-              key={product.id}
-              img={product.foto_producto}
-              nombreProducto={product.nombre}
-              cantidad={product.cantidad_solicitada}
-              precio={product.precio_unitario}
-              stock={product.stock}
-              id={product.id}
-              handleDeleteCarrito={handleDeleteCarrito}
-              idComercio={product.id_comercio}
-            />
-          ))
-        ) : (
-          <p className={styles.text}>Your cart is empty</p>
-        )}
-      </div>
-      <Pago totalAmount={totalAmount} />
-      {/* <div className={styles.pago}>
+      {info && (
+        <>
+          <div className={styles.productos}>
+            <h1 className={styles.title}>Carrito</h1>
+            {products.length > 0 ? (
+              products.map((product) => (
+                <ProductoCarrito
+                  key={product.id}
+                  img={product.foto_producto}
+                  nombreProducto={product.nombre}
+                  cantidad={product.cantidad_solicitada}
+                  precio={product.precio_unitario}
+                  stock={product.stock}
+                  id={product.id}
+                  handleDeleteCarrito={handleDeleteCarrito}
+                  idComercio={product.id_comercio}
+                />
+              ))
+            ) : (
+              <p className={styles.text}>Your cart is empty</p>
+            )}
+          </div>
+          <Pago
+            totalAmount={totalAmount}
+            click={handleClose}
+            values={values}
+            setValues={setValues}
+          />
+
+          {/* <div className={styles.pago}>
         <div className={styles.deliveryBox}>
           <h2>Delivery</h2>
           <button className={styles.button}>Si</button>
@@ -117,6 +153,8 @@ const Carrito = () => {
           </div>
         </div>
       </div> */}
+        </>
+      )}
     </div>
   );
 };
