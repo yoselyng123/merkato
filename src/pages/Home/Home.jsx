@@ -12,6 +12,7 @@ function Home({
   idComercio,
   categorias,
 }) {
+
   useEffect(() => {
     const ProductosFromFirebase = [];
     const subscriber = async () => {

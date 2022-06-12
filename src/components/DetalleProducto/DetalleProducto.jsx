@@ -3,7 +3,7 @@ import styles from "./detalleProducto.module.css";
 import AddButton from "../AddButton/AddButton";
 import SvgIcon from "@mui/material/SvgIcon";
 
-function DetalleProducto({ info_producto, click }) {
+function DetalleProducto({ info_producto, click, userRol }) {
   const [mainImage, setmainImage] = useState(info_producto.foto_producto[0]);
 
   return (
@@ -42,7 +42,8 @@ function DetalleProducto({ info_producto, click }) {
           </div>
           <p className={styles.text2}>Final cost by weight</p>
         </div>
-        <AddButton data={info_producto} idComercio={info_producto.idComercio} />
+        {userRol !== "admin" && <AddButton data={info_producto} idComercio={info_producto.idComercio} />}
+
       </div>
     </div>
   );

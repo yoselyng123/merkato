@@ -52,7 +52,7 @@
     opacity: 1;
 }
 .bigImage{
-    height: 20rem;
+    width: 20rem;
     cursor: pointer;
 }
 .infoContainer{

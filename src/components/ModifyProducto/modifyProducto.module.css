@@ -1,0 +1,196 @@
+.infocontent
+{
+    background: #ffff;
+    width: 60rem;
+    padding: 2rem 2rem;
+    min-height: fit-content;
+    max-height: 100%;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: auto;
+}
+.exitbutton {
+    
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    position: absolute;
+}
+.exitbutton > svg{
+    fill: var(--lightGreen);
+}
+.exitbutton > svg:hover {
+    fill: var(--lightestGreen);
+}
+
+.inputsBox{
+    display: grid;
+    gap: 10px;
+    height: fit-content;
+    width: 100%;
+    padding: 15px;
+}
+.inputsBox input,textarea{
+    outline: none;
+    height: 20px;
+    border: none;
+    border-bottom: 1px solid var(--lightGray);
+    font-size: 16px;
+}
+.inputsBox input:focus,textarea:focus{
+    border-bottom: 1px solid var(--lightestGreen);
+}
+.inputsBox textarea{
+    resize: none;
+    height: 4rem;
+}
+
+
+.inputsBox label{
+    font-size: 16px;
+    font-weight: 600;  
+}
+button:hover{
+    cursor: pointer;
+}
+
+.buttonFoto{
+    border: none;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: var(--darkGreen);
+    color: white;
+}
+.buttonFoto:hover{
+    background-color: var(--lightGreen);
+}
+.boxImg{
+    display: flex;
+    height: 160px;
+    width: 100%;
+    background-color: var(--lightGray);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.boxImg img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.inputButtons{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.inputButtons button{
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 50%;
+}
+.btnModifyProd{
+    background-color: var(--lightGreen);
+    color: white;
+}
+.btnModifyProd:hover {
+    background-color: var(--darkGreen);
+}
+.selectMenu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid var(--lightestGreen);
+    border-radius: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+}
+.selectMenu::after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--gray);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    justify-self: end;
+}
+select, .selectMenu::after {
+    grid-area: select;
+}
+
+.selectMenu > svg {
+    fill: var(--lightGreen);
+    position: absolute;
+    right: 1rem;
+}
+.selectMenu > svg:hover {
+    fill: var(--lightestGreen);
+}
+.selectOption {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+}
+.selectOption::-ms-expand {
+    display: none;
+}
+
+.categoryOption {
+    color: #223254;
+}
+.categoryOption:disabled {
+    display: none;
+}
+
+.imageInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.imageInput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+.imageInput > input {
+    flex-grow: 1;
+}
+
+.button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 30%;
+    background-color: var(--lightGreen);
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button:hover {
+    background-color: var(--darkGreen);
+}
