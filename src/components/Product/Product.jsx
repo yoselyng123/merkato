@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./product.module.css";
 import DetalleProducto from "../DetalleProducto/DetalleProducto";
+import ModifyProducto from "../ModifyProducto/ModifyProducto";
 import AddButton from "../AddButton/AddButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
+import ModifyButton from "../ModifyButton/ModifyButton";
+import { UserContext } from "../../context/UserContext";
 
-function Product({ setProductos, data, idComercio, userRol }) {
+function Product({ setProductos, data, idComercio, categorias }) {
+
+  const { user } = useContext(UserContext);
   const [info, setInfo] = useState(false);
+  const [modify, setModify] = useState(false);
   const [itemInfo, setItemInfo] = useState({
     nombre: "",
     foto_producto: "",
@@ -13,19 +19,36 @@ function Product({ setProductos, data, idComercio, userRol }) {
     descripcion: "",
     precio_unitario: 0,
     idComercio: idComercio,
+    stock: 0,
+    id_categoria: "",
+    pasillo: 0,
   });
 
   const handleClose = () => {
     setInfo(false);
+    setModify(false);
   };
 
   const handleCardClick = (product, info) => {
     setInfo(!info);
+    setItemInfoToState(product);
+  };
+
+  const handleModifyClick = (product, modify) => {
+    setModify(!modify);
+    setItemInfoToState(product);
+  };
+
+  const setItemInfoToState = (product) => {
     itemInfo.nombre = product.nombre;
     itemInfo.descripcion = product.descripcion;
     itemInfo.id = product.id;
     itemInfo.foto_producto = product.foto_producto;
     itemInfo.precio_unitario = product.precio_unitario;
+    itemInfo.id_categoria = product.id_categoria;
+    itemInfo.id_comercio = product.id_comercio;
+    itemInfo.stock = product.stock;
+    itemInfo.pasillo = product.pasillo;
     setItemInfo(itemInfo);
   };
 
@@ -36,6 +59,12 @@ function Product({ setProductos, data, idComercio, userRol }) {
           <div className={styles.infocontainer}>
             <DetalleProducto info_producto={itemInfo} click={handleClose} />
           </div>
+        </div>
+      )}
+
+      {modify === true && (
+        <div className={styles.infobackground}>
+          <ModifyProducto info_producto={itemInfo} click={handleClose} categorias={categorias} setProductos={setProductos}/>
         </div>
       )}
 
@@ -60,7 +89,16 @@ function Product({ setProductos, data, idComercio, userRol }) {
         </div>
       </div>
 
-      {userRol === "admin" ? (<DeleteButton data={data} setProductos={setProductos} idComercio={idComercio} />) : (<AddButton data={data} idComercio={idComercio} />)}
+      {user && user.rol === "admin" ? (
+        <div className={styles.buttonContainer}>
+          <DeleteButton data={data} setProductos={setProductos} idComercio={idComercio} />
+          <div className={styles.modifybutton} onClick={(e) => handleModifyClick(data)} >
+            <ModifyButton />
+          </div>
+        </div>
+      ) : (
+        <AddButton data={data} idComercio={idComercio} />
+      )}
       
     </div>
   );

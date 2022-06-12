@@ -6,12 +6,40 @@ import firebaseExports from "../../utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-
+import { Link, useNavigate } from "react-router-dom";
 const Carrito = () => {
-  const { carrito, setCarrito, eliminarProductoCarrito } =
+  let navigate = useNavigate();
+  const { carrito, setCarrito, eliminarProductoCarrito, user } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
+  const [values, setValues] = useState({
+    promocode: "",
+    direccion: "",
+    descripcion: "",
+    delivery: true,
+  });
+  const handleOnChange = (event) => {
+    const { value, name: inputName } = event.target;
+    // console.log({ inputName, value });
+    setValues({ ...values, [inputName]: value });
+  };
   const [totalAmount, setTotalAmount] = useState(0);
+  const [info, setInfo] = useState(true);
+  const handleClose = () => {
+    if (
+      (values.direccion !== "" && values.descripcion !== "") ||
+      (!values.delivery && values.descripcion !== "")
+    ) {
+      if (info === true) {
+        setInfo(false);
+      } else {
+        setInfo(true);
+      }
+      // navigate("/", { replace: true });
+    } else {
+      console.log("Epa Epa Epa");
+    }
+  };
 
   const handleDeleteCarrito = (id) => {
     const newArray = products.filter((item) => item.id !== id);
@@ -24,104 +52,87 @@ const Carrito = () => {
   }, [carrito]);
 
   useEffect(() => {
-    try {
-      if (JSON.parse(localStorage.getItem("carrito")) !== null) {
-        setCarrito(JSON.parse(localStorage.getItem("carrito")));
-      }
-      if (JSON.parse(localStorage.getItem("carrito")).length > 0) {
-        setCarrito(JSON.parse(localStorage.getItem("carrito")));
-        localStorage.setItem(
-          "idProducto",
-          JSON.parse(localStorage.getItem("carrito"))[0].idComercio
-        );
-        const CategoriasFromFirebase = [];
-
-        const getProductsFromFirebase = [];
-
-        const subscriber = async () => {
-          const querySnapshot = await getDocs(
-            collection(
-              firebaseExports.db,
-              "comercio",
-              localStorage.getItem("idProducto"),
-              "categorias"
-            )
-          );
-          console.log("Hola");
-          querySnapshot.forEach((doc) => {
-            CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-          });
-
-          for (let i = 0; i < CategoriasFromFirebase.length; i++) {
-            const querySnapshot = await getDocs(
-              collection(
-                firebaseExports.db,
-                "comercio",
-                localStorage.getItem("idProducto"),
-                "categorias",
-                CategoriasFromFirebase[i].id,
-                "productos"
-              )
-            );
-
-            querySnapshot.forEach((doc) => {
-              if (
-                JSON.parse(localStorage.getItem("carrito")).findIndex(
-                  (i) => i.id === doc.id
-                ) > -1
-              ) {
-                const numeroEnlaLista = JSON.parse(
-                  localStorage.getItem("carrito")
-                ).findIndex((i) => i.id === doc.id);
-                getProductsFromFirebase.push({
-                  ...doc.data(),
-                  id: doc.id,
-                  cantidad_solicitada: JSON.parse(
-                    localStorage.getItem("carrito")
-                  )[numeroEnlaLista].quantity,
-                });
-              }
+    if (user === null) {
+      setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    }
+    const getProductsFromFirebase = [];
+    const subscriber = async () => {
+      const querySnapshot = await getDocs(
+        collection(firebaseExports.db, "producto")
+      );
+      querySnapshot.forEach((doc) => {
+        //console.log(`${doc.id} => ${doc.data()}`);
+        if (user == null) {
+          if (
+            JSON.parse(localStorage.getItem("carrito")).findIndex(
+              (i) => i.id === doc.id
+            ) > -1
+          ) {
+            const numeroEnlaLista = JSON.parse(
+              localStorage.getItem("carrito")
+            ).findIndex((i) => i.id === doc.id);
+            getProductsFromFirebase.push({
+              ...doc.data(),
+              id: doc.id,
+              cantidad_solicitada: JSON.parse(localStorage.getItem("carrito"))[
+                numeroEnlaLista
+              ].quantity,
             });
           }
+        } else {
+          if (user.carrito.findIndex((i) => i.id === doc.id) > -1) {
+            const numeroEnlaLista = user.carrito.findIndex(
+              (i) => i.id === doc.id
+            );
+            getProductsFromFirebase.push({
+              ...doc.data(),
+              id: doc.id,
+              cantidad_solicitada: user.carrito[numeroEnlaLista].quantity,
+            });
+          }
+        }
+      });
 
-          console.log(getProductsFromFirebase);
-          setProducts(getProductsFromFirebase);
-        };
+      console.log(getProductsFromFirebase);
+      setProducts(getProductsFromFirebase);
+    };
 
-        // return cleanup function
-        return () => subscriber();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // return cleanup function
+    return () => subscriber();
   }, []);
 
   return (
     <div className={styles.containers}>
-      <div className={styles.productos}>
-        <h1>Carrito</h1>
-        {products.length > 0 ? (
-          products.map((product) => (
-            <ProductoCarrito
-              key={product.id}
-              img={product.foto_producto}
-              nombreProducto={product.nombre}
-              cantidad={product.cantidad_solicitada}
-              precio={product.precio_unitario}
-              stock={product.stock}
-              id={product.id}
-              handleDeleteCarrito={handleDeleteCarrito}
-              idComercio={
-                JSON.parse(localStorage.getItem("carrito"))[0].idComercio
-              }
-            />
-          ))
-        ) : (
-          <p className={styles.text}>Your cart is empty</p>
-        )}
-      </div>
-      <Pago totalAmount={totalAmount} />
-      {/* <div className={styles.pago}>
+      {info && (
+        <>
+          <div className={styles.productos}>
+            <h1 className={styles.title}>Carrito</h1>
+            {products.length > 0 ? (
+              products.map((product) => (
+                <ProductoCarrito
+                  key={product.id}
+                  img={product.foto_producto}
+                  nombreProducto={product.nombre}
+                  cantidad={product.cantidad_solicitada}
+                  precio={product.precio_unitario}
+                  stock={product.stock}
+                  id={product.id}
+                  handleDeleteCarrito={handleDeleteCarrito}
+                  idComercio={product.id_comercio}
+                />
+              ))
+            ) : (
+              <p className={styles.text}>Your cart is empty</p>
+            )}
+          </div>
+          <Pago
+            totalAmount={totalAmount}
+            click={handleClose}
+            values={values}
+            setValues={setValues}
+          />
+
+          {/* <div className={styles.pago}>
         <div className={styles.deliveryBox}>
           <h2>Delivery</h2>
           <button className={styles.button}>Si</button>
@@ -142,6 +153,8 @@ const Carrito = () => {
           </div>
         </div>
       </div> */}
+        </>
+      )}
     </div>
   );
 };

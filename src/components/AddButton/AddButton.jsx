@@ -6,11 +6,11 @@ import { UserContext } from "../../context/UserContext";
 function AddButton({ data, idComercio }) {
   const [click, setClick] = useState(false);
   const [quantity, setQuantity] = useState(0);
-  const { carrito, agregarACarrito, modificarCantidadCarrito } =
+  const { carrito, agregarACarrito, modificarCantidadCarrito, user } =
     useContext(UserContext);
 
   const handleClick = (type) => {
-    console.log(idComercio);
+    // console.log(data.id_comercio);
     if (type === "minus") {
       if (quantity === 1) {
         setClick(!click);
@@ -20,7 +20,7 @@ function AddButton({ data, idComercio }) {
           data.id,
           quantity,
           data.precio_unitario,
-          idComercio
+          data.id_comercio
         );
         setQuantity(0);
 
@@ -32,22 +32,45 @@ function AddButton({ data, idComercio }) {
           data.id,
           quantity,
           data.precio_unitario,
-          idComercio
+          data.id_comercio
         );
       }
     } else {
       setQuantity(quantity + 1);
-
-      if (carrito.findIndex((i) => i.id === data.id) === -1) {
-        agregarACarrito(data.id, quantity, data.precio_unitario, idComercio);
+      if (user == null) {
+        if (carrito.findIndex((i) => i.id === data.id) === -1) {
+          agregarACarrito(
+            data.id,
+            quantity,
+            data.precio_unitario,
+            data.id_comercio
+          );
+        } else {
+          modificarCantidadCarrito(
+            "+",
+            data.id,
+            quantity,
+            data.precio_unitario,
+            data.id_comercio
+          );
+        }
       } else {
-        modificarCantidadCarrito(
-          "+",
-          data.id,
-          quantity,
-          data.precio_unitario,
-          idComercio
-        );
+        if (user.carrito.findIndex((i) => i.id === data.id) === -1) {
+          agregarACarrito(
+            data.id,
+            quantity,
+            data.precio_unitario,
+            data.id_comercio
+          );
+        } else {
+          modificarCantidadCarrito(
+            "+",
+            data.id,
+            quantity,
+            data.precio_unitario,
+            data.id_comercio
+          );
+        }
       }
     }
   };

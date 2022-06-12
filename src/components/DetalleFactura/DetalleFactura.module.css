@@ -1,0 +1,98 @@
+.infocontent {
+    font-size: 25px;
+    font-weight: normal;
+    height: 100%;
+    width: 100%;
+    color: #33353B;
+    padding: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+.infoContainer {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 25px;
+    padding: 2rem;
+}
+.upContainer {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    justify-content:space-between;
+    margin-bottom: 10px;
+}
+.containerColumnas{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    margin-right: 30px;
+}
+.containerFila{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+}
+.leftSide{
+    display: flex;
+}
+.rightSide{
+    display: flex;
+    flex-direction: column;
+}
+.titleUp{
+    /* background-color: red; */
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+.exitbutton {
+
+    top: 1rem;
+    left: 5rem;
+    cursor: pointer;
+    position: absolute;
+}
+.comprar{
+    background-color: var(--lightGreen);
+    padding: 5px;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    font-weight: bolder;
+}
+.comprar:hover{
+    background-color: var(--lightestGreen);
+}
+
+.exitbutton>svg {
+    fill: var(--lightGreen);
+}
+
+.exitbutton>svg:hover {
+    fill: var(--lightestGreen);
+}
+
+
+.text {
+  
+    color: var(--gray);
+}
+
+.text2 {
+    
+    color: var(--gray);
+}
+
+.price {
+    color: var(--lightGreen);
+    font-weight: 700;
+}
+

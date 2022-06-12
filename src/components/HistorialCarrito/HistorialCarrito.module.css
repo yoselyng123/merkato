@@ -1,145 +1,162 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-.containers{
-    
-    width: 100%;
+
+.containers {
+
+    width:60%;
     height: 150px;
     display: flex;
     flex-direction: row;
-    justify-content:flex-start;
-    align-items: center;
+    justify-content: flex-start;
+    /* align-items:center; */
     padding: 10px;
-    border-top: 1px solid var(--lightestGreen); 
-      
+    border-top: 1px solid var(--lightestGreen);
+
 }
 
-.boxImg{
-    
-    
+.boxImg {
+
+
     height: 120px;
     width: 120px;
     border-radius: 10px;
     background-size: cover;
 }
-.img{
+
+.img {
     position: relative;
     width: 100%;
     height: 100%;
 }
-.nombreProducto{
+
+.nombreProducto {
     font-size: 20px;
     margin-bottom: 3px;
-    cursor: default;
+    cursor: pointer;
+    color: var(--lightGreen);
 }
-.precioUnitario{
+.nombreProducto:hover{
+    color: var(--lightestGreen);
+}
+
+.precioUnitario {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.258);
     cursor: default;
 }
-.info{
-   
+
+.info {
+
     width: 100%;
     display: flex;
     flex-direction: column;
     padding: 10px;
     cursor: default;
-    
+
 }
-.upInfo{
+
+.upInfo {
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 10px;
-    
+
 }
-.precioDisponible{
+
+.precioDisponible {
     display: grid;
     grid-template-columns: .5fr 1fr;
-    
-    
+
+
 }
-.disponible{
-    color: green;
-    cursor: default;
+
+.descripcion{
+    font-size: 10px;
 }
-.noDisponible{
-    color: red;
-}
-.addMore{
+
+.addMore {
     width: 25%;
-   
+
     background-color: var(--lightGreen);
     padding: 0.1rem 0.6rem 0.1rem 0.6rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 20px;
-   
+
 }
 
-.addMoreSpan{
+.addMoreSpan {
     color: white;
     font-weight: 600;
-    cursor:default;
-    
+    cursor: default;
+
 }
-.addMoreIconsBox{
-    
-    
+
+.addMoreIconsBox {
+
+
     width: 15px;
     height: 15px;
     background-size: cover;
 
 }
-.addMoreIcons{
-    
-    
-    
+
+.addMoreIcons {
+
+
+
     cursor: pointer;
-    
-    
-}
-.addMoreIcons > svg{
-    fill: white;
-   
-   
-    
-    
+
+
 }
 
-.downInfo{
+.addMoreIcons>svg {
+    fill: white;
+
+
+
+
+}
+
+.downInfo {
     display: flex;
     justify-content: space-between;
 }
 
-.buttonDelete{
+.buttonDelete {
     background-color: #f4f4f4;
-    width: 100px;
+    /* width: 100px; */
+    padding: 5px;
     height: 25px;
     margin-right: 20px;
     border: none;
     border-radius: 5px;
 
 }
+
 .buttonDelete:hover {
     background-color: rgb(232, 232, 232);
 
 }
-.buttonSave{
+
+.buttonSave {
     background-color: #f4f4f4;
     width: 100px;
     height: 25px;
     border: none;
     border-radius: 5px;
 }
+
 .buttonSave:hover {
     background-color: rgb(232, 232, 232);
 
 }
-.cantidad{
+
+.cantidad {
     border: 1px solid rgba(0, 0, 0, 0.074);
     border-radius: 5px;
     padding: 5px;
@@ -147,4 +164,34 @@
     width: 50px;
 
 }
+.divDescripcion{
+    display: flex;
+    flex-direction: column;
+}
 
+.comprar {
+    background-color: var(--lightGreen);
+    padding: 5px;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    font-weight: bolder;
+}
+
+.comprar:hover {
+    background-color: var(--lightestGreen);
+}
+.ver {
+    background-color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 100px;
+    color: var(--lightGreen);
+    font-weight: bolder;
+    border: 1px solid var(--lightGreen);
+}
+
+.ver:hover {
+    /* background-color: var(--lightestGreen); */
+    /* color: white; */
+}

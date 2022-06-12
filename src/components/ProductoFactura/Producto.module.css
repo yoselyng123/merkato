@@ -1,145 +1,133 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-.containers{
-    
+
+.containers {
+
     width: 100%;
     height: 150px;
     display: flex;
     flex-direction: row;
-    justify-content:flex-start;
+    justify-content: flex-start;
     align-items: center;
     padding: 10px;
-    border-top: 1px solid var(--lightestGreen); 
-      
+    border-top: 1px solid var(--lightestGreen);
+
 }
 
-.boxImg{
-    
-    
+.boxImg {
+
+
     height: 120px;
     width: 120px;
     border-radius: 10px;
     background-size: cover;
 }
-.img{
+
+.img {
     position: relative;
     width: 100%;
     height: 100%;
 }
-.nombreProducto{
+
+.nombreProducto {
     font-size: 20px;
     margin-bottom: 3px;
     cursor: default;
 }
-.precioUnitario{
+
+.precioUnitario {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.258);
     cursor: default;
 }
-.info{
-   
+
+.info {
+
     width: 100%;
     display: flex;
     flex-direction: column;
     padding: 10px;
     cursor: default;
-    
+
 }
-.upInfo{
+
+.upInfo {
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 10px;
-    
+
 }
-.precioDisponible{
+
+.precioDisponible {
     display: grid;
     grid-template-columns: .5fr 1fr;
-    
-    
+
+
 }
-.disponible{
+
+.disponible {
     color: green;
     cursor: default;
 }
-.noDisponible{
+
+.noDisponible {
     color: red;
 }
-.addMore{
-    width: 25%;
-   
+
+.addMore {
+    width: 15%;
     background-color: var(--lightGreen);
     padding: 0.1rem 0.6rem 0.1rem 0.6rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     border-radius: 20px;
-   
+
 }
 
-.addMoreSpan{
+.addMoreSpan {
     color: white;
     font-weight: 600;
-    cursor:default;
-    
+    cursor: default;
+    font-size: 18px;
 }
-.addMoreIconsBox{
-    
-    
-    width: 15px;
-    height: 15px;
-    background-size: cover;
 
-}
-.addMoreIcons{
-    
-    
-    
-    cursor: pointer;
-    
-    
-}
-.addMoreIcons > svg{
+
+.addMoreIcons>svg {
     fill: white;
-   
-   
-    
-    
+
+
+
+
 }
 
-.downInfo{
+.downInfo {
     display: flex;
     justify-content: space-between;
 }
 
-.buttonDelete{
-    background-color: #f4f4f4;
-    width: 100px;
-    height: 25px;
-    margin-right: 20px;
-    border: none;
-    border-radius: 5px;
 
-}
-.buttonDelete:hover {
-    background-color: rgb(232, 232, 232);
 
-}
-.buttonSave{
+
+
+.buttonSave {
     background-color: #f4f4f4;
     width: 100px;
     height: 25px;
     border: none;
     border-radius: 5px;
 }
+
 .buttonSave:hover {
     background-color: rgb(232, 232, 232);
 
 }
-.cantidad{
+
+.cantidad {
     border: 1px solid rgba(0, 0, 0, 0.074);
     border-radius: 5px;
     padding: 5px;
@@ -147,4 +135,19 @@
     width: 50px;
 
 }
+.precioTotal{
+    
+    font-size: 20px;
+}
+.comprar {
+    background-color: var(--lightGreen);
+    padding: 5px;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    font-weight: bolder;
+}
 
+.comprar:hover {
+    background-color: var(--lightestGreen);
+}

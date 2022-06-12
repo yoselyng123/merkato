@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import Comercio from "../Comercio/Comercio";
 import styles from "./listComercios.module.css";
 import NoMatch from "../NoMatch/NoMatch";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
-function ListComercios({ comercios, setIdComercio, userRol }) {
+function ListComercios({ comercios, setIdComercio }) {
+  const { user } = useContext(UserContext);
   let navigate = useNavigate();
 
   const handleClickComercio = (comercio) => {
     setIdComercio(comercio.id);
 
-    if (userRol === "admin") {
-      navigate(`../${comercio.nombre}/admin`, { replace: true });
+    if (user && user.rol === "admin") {
+      navigate(`../${comercio.nombre}/${comercio.id}/admin`, { replace: true });
     } 
     else {
-      navigate(`../${comercio.nombre}/shop`, { replace: true });
+      navigate(`../${comercio.nombre}/${comercio.id}/shop`, { replace: true });
     }
   };
 

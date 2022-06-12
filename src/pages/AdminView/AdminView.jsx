@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import AgregarProducto from "../../components/AgregarProducto/AgregarProducto";
 import styles from "./adminview.module.css";
@@ -8,51 +9,52 @@ import { query, where, collection, getDocs } from "firebase/firestore";
 function AdminView({
   setProductos,
   productos,
-  idComercio,
   categorias,
-  setCategorias,
-  userRol
+  setCategorias
 }) {
+
+  const { idcomercio } = useParams();
+
   useEffect(() => {
     const ProductosFromFirebase = [];
+    const CategoriasFromFirebase = [];
 
     const subscriber = async () => {
-      const querySnapshot = await getDocs(
+      await getDocs(
         query(
           collection(firebaseExports.db, "producto"),
-          where("id_comercio", "==", idComercio)
+          where("id_comercio", "==", idcomercio)
         )
-      );
-      querySnapshot.forEach((doc) => {
-        ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-      setProductos(ProductosFromFirebase);
-
+      ).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setProductos(ProductosFromFirebase);
+      })
       console.log(ProductosFromFirebase);
 
-      const CategoriasFromFirebase = [];
-
-      const querySnapshot2 = await getDocs(
+      await getDocs(
         collection(firebaseExports.db, "categoria")
-      );
-      querySnapshot2.forEach((doc) => {
-        CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-      setCategorias(CategoriasFromFirebase);
-
+      ).then((querySnapshot2) => {
+        querySnapshot2.forEach((doc) => {
+          CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setCategorias(CategoriasFromFirebase);
+      })
       console.log(CategoriasFromFirebase);
+
     };
     return () => subscriber();
-  }, [idComercio, setCategorias, setProductos]);
+  }, [idcomercio, setCategorias, setProductos]);
 
 
   return (
     <div className={styles.adminview}>
       <div className={styles.listproducts}>
-        <ListProducts products={productos} setProductos={setProductos} idComercio={idComercio} userRol={userRol} />
+        <ListProducts products={productos} setProductos={setProductos} idComercio={idcomercio} categorias={categorias} />
       </div>
       <div className={styles.agregarproducto}>
-        <AgregarProducto setProductos={setProductos} idComercio={idComercio} categorias={categorias} />
+        <AgregarProducto setProductos={setProductos} idComercio={idcomercio} categorias={categorias} />
       </div>
     </div>
   );
