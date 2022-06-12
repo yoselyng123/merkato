@@ -11,11 +11,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import {
-  HolidayVillage,
-  LocalSeeOutlined,
-  SouthWestTwoTone,
-} from "@mui/icons-material";
 export const UserContext = createContext(null);
 
 export default function UserContextProvider({ children }) {
@@ -88,7 +83,6 @@ export default function UserContextProvider({ children }) {
       });
     }
   };
-  const cambiarCarrito = async () => {};
 
   const modificarCantidadCarrito = async (
     type,

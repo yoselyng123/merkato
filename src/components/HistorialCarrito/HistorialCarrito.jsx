@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./HistorialCarrito.module.css";
-import SvgIcon from "@mui/material/SvgIcon";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { db } from "../../utils/firebaseConfig";
@@ -13,11 +11,10 @@ const HistorialCarrito = ({
   idCarrito,
   idUser,
   carrito,
-  descripcion,
   click,
 }) => {
   const Date1 = new Date(fecha);
-  const { setCarrito, user, setUser } = useContext(UserContext);
+  const { setCarrito, user } = useContext(UserContext);
   let navigate = useNavigate();
   const volverComprar = async () => {
     const userRef = doc(db, "users", user.id);

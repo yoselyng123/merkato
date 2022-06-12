@@ -105,14 +105,13 @@ const AgregarProducto = ({ setProductos, idComercio, categorias }) => {
       <label htmlFor="imagenProducto">Image Link: </label>
 
       {imageList.map((item, index) => (
-        <div className={styles.imageInputs}>
+        <div key={index} className={styles.imageInputs}>
           <div className={styles.imageInput}>
             <input 
               value={item.value}
               id={index}
               type="text"
               onChange={handleChange}
-              key={index}
 
               required 
             />
