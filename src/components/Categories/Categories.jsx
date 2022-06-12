@@ -3,7 +3,7 @@ import Category from "../Category/Category";
 import styles from "./categories.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 
-function Categories({ categorias }) {
+function Categories({ categorias, idcomercio }) {
   return (
     <div className={styles.categories}>
       <div className={styles.top}>
@@ -27,7 +27,7 @@ function Categories({ categorias }) {
       </div>
       <div className={styles.cards}>
         {categorias.map((categoria) => (
-          <Category key={categoria.id} data={categoria} />
+          <Category key={categoria.id} data={categoria} idcomercio={idcomercio} />
         ))}
       </div>
     </div>

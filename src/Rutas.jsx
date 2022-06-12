@@ -76,9 +76,9 @@ function Rutas() {
       />
       <Route
         exact
-        path="/searchBy/categories/:category"
+        path="/searchBy/:idcomercio/categories/:category"
         element={
-          <ViewByCategory idComercio={idComercio} categorias={categorias} />
+          <ViewByCategory categorias={categorias} />
         }
       />
       <Route

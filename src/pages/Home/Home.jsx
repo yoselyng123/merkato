@@ -53,7 +53,7 @@ function Home({
         <img className={styles.comercio_foto} src={fotoComercio} alt="foto comercio" />
         <h2 className={styles.comercio_nombre}>{nombreComercio}</h2>
       </div>
-      <Categories categorias={categorias} />
+      <Categories categorias={categorias} idcomercio={idcomercio} />
       <CurrentDeals />
       <ListProducts products={productos} idComercio={idcomercio} />
     </div>
