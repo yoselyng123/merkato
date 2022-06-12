@@ -105,7 +105,7 @@ const Carrito = () => {
               products.map((product) => (
                 <ProductoCarrito
                   key={product.id}
-                  img={product.foto_producto}
+                  img={product.foto_producto[0]}
                   nombreProducto={product.nombre}
                   cantidad={product.cantidad_solicitada}
                   precio={product.precio_unitario}
