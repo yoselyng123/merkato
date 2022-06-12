@@ -28,7 +28,7 @@ function Categories({ categorias, idcomercio, pasillos }) {
 
       <div className={styles.cards}>
         {pasillos.map((pasillo) => (
-            <Category key={pasillo.id} pasillo={pasillo} idcomercio={idcomercio} />
+            <Category key={pasillo.id} categorias={categorias} pasillo={pasillo} idcomercio={idcomercio} />
           ))}
       </div>
 

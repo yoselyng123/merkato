@@ -1,8 +1,8 @@
-.category
+.pasillo
 {
   background: #fff;
   width: 120px;
-  height: 160px;
+  height: 120px;
   border-radius: 25px;
   display: flex;
   flex-direction: column;
@@ -12,24 +12,13 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: all ease 0.2s;
+  margin-bottom: 0.3rem;
 }
 
-.category:hover{
+.pasillo:hover{
   transform: scale(1.15);
   background-color: var(--lightGray);
   box-shadow: none;
-}
-
-.imgWrapper{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 30%;
-}
-
-.category img
-{
-  height: 100%;
 }
 
 .text{
@@ -45,4 +34,13 @@
   font-weight: 500;
   color: #33353B;
   text-align: center;
+}
+.dropdowncategorias {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dropdowncategorias > svg {
+  cursor: pointer;
 }
