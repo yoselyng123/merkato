@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./Historial.module.css";
 import HistorialCarrito from "../HistorialCarrito/HistorialCarrito";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { db } from "../../utils/firebaseConfig";
 import DetalleFactura from "../DetalleFactura/DetalleFactura";
+import AddNameFavorite from "../AddNameFavorite/AddNameFavorite";
+import uniqid from "uniqid";
 const Historial = () => {
   const [info, setInfo] = useState(false);
   const { user } = useContext(UserContext);
@@ -17,8 +19,9 @@ const Historial = () => {
     descripcion: "",
     idUser: "",
     idCarrito: "",
+    nombre: "",
   });
-
+  const [isNombre, setIsNombre] = useState(false);
   const handleClose = (
     carrito,
     fecha,
@@ -42,6 +45,63 @@ const Historial = () => {
 
       setInfo(true);
     }
+  };
+  const handleCloseFavorite = (
+    fecha,
+    carrito,
+    descripcion,
+    idUser,
+    idCarrito,
+    total
+  ) => {
+    if (isNombre) {
+      setIsNombre(false);
+    } else {
+      setValues({
+        nombre: "",
+        fecha: fecha,
+        carrito: carrito,
+        descripcion: descripcion,
+        idUser: idUser,
+        idCarrito: idCarrito,
+      });
+      setTotal(total);
+      setIsNombre(true);
+      console.log(values);
+    }
+  };
+  const agregarFavoritoCarrito = async () => {
+    console.log("ENTRA");
+    if (values.nombre) {
+      await setDoc(doc(db, "favorites", uniqid()), {
+        nombre: values.nombre,
+        carrito: values.carrito,
+        total: total,
+        idUser: user.id,
+        idCarrito: values.idCarrito,
+      });
+      console.log(values);
+      alert("Su carrito ha sido anadido en favoritos");
+      setValues({
+        nombre: "",
+        fecha: "",
+        carrito: "",
+        descripcion: "",
+        idUser: "",
+        idCarrito: "",
+      });
+      setTotal(0);
+      setIsNombre(false);
+    }
+
+    // const userRef = doc(db, "users", user.id);
+    // await updateDoc(userRef, {
+    //   carrito: [],
+    // });
+    // localStorage.setItem("carrito", "[]");
+    // setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    // user.carrito = JSON.parse(localStorage.getItem("carrito"));
+    // handleClickHome();
   };
   useEffect(() => {
     const getProductsFromFirebase = [];
@@ -71,8 +131,26 @@ const Historial = () => {
     // return cleanup function
     return () => subscriber();
   }, [user]);
+
+  const handleOnChange = (event) => {
+    const { value, name: inputName } = event.target;
+    console.log(values);
+    setValues({ ...values, [inputName]: value });
+  };
   return (
     <div className={styles.container}>
+      {isNombre && (
+        <div className={styles.container2}>
+          <AddNameFavorite
+            handleClose={handleCloseFavorite}
+            values={values}
+            setValues={setValues}
+            value={values.nombre}
+            agregarFavoritoCarrito={agregarFavoritoCarrito}
+          />
+        </div>
+      )}
+
       {user && productos.length > 0 ? (
         productos.findIndex((i) => i.idUser === user.id) !== -1 ? (
           <>
@@ -90,6 +168,8 @@ const Historial = () => {
                         carrito={product.carrito}
                         click={handleClose}
                         values={product.id}
+                        handleFavoritos={handleCloseFavorite}
+                        agregarFavorito={agregarFavoritoCarrito}
                       />
                     )
                 )}

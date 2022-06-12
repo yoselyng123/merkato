@@ -17,6 +17,8 @@ const HistorialCarrito = ({
   carrito,
   descripcion,
   click,
+  handleFavoritos,
+  agregarFavorito,
 }) => {
   const Date1 = new Date(fecha);
   const { setCarrito, user, setUser } = useContext(UserContext);
@@ -91,7 +93,16 @@ const HistorialCarrito = ({
           <div className={styles.downRightSide}>
             <button
               className={styles.buttonDelete}
-              onClick={() => agregarFavoritoCarrito()}
+              onClick={() =>
+                handleFavoritos(
+                  fecha,
+                  carrito,
+                  descripcion,
+                  user.id,
+                  idCarrito,
+                  total
+                )
+              }
               //   onClick={() => handleDeleteCarrito(id)}
             >
               Agregar a favoritos
