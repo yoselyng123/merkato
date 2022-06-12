@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./product.module.css";
 import DetalleProducto from "../DetalleProducto/DetalleProducto";
 import ModifyProducto from "../ModifyProducto/ModifyProducto";
 import AddButton from "../AddButton/AddButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import ModifyButton from "../ModifyButton/ModifyButton";
+import { UserContext } from "../../context/UserContext";
 
-function Product({ setProductos, data, idComercio, userRol, categorias }) {
+function Product({ setProductos, data, idComercio, categorias }) {
+
+  const { user } = useContext(UserContext);
   const [info, setInfo] = useState(false);
   const [modify, setModify] = useState(false);
   const [itemInfo, setItemInfo] = useState({
@@ -54,7 +57,7 @@ function Product({ setProductos, data, idComercio, userRol, categorias }) {
       {info === true && (
         <div className={styles.infobackground}>
           <div className={styles.infocontainer}>
-            <DetalleProducto info_producto={itemInfo} userRol={userRol} click={handleClose} />
+            <DetalleProducto info_producto={itemInfo} click={handleClose} />
           </div>
         </div>
       )}
@@ -86,7 +89,7 @@ function Product({ setProductos, data, idComercio, userRol, categorias }) {
         </div>
       </div>
 
-      {userRol === "admin" ? (
+      {user && user.rol === "admin" ? (
         <div className={styles.buttonContainer}>
           <DeleteButton data={data} setProductos={setProductos} idComercio={idComercio} />
           <div className={styles.modifybutton} onClick={(e) => handleModifyClick(data)} >

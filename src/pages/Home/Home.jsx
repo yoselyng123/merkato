@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Categories from "../../components/Categories/Categories";
 import CurrentDeals from "../../components/CurrentDeals/CurrentDeals";
 import ListProducts from "../../components/ListProducts/ListProducts";
@@ -9,9 +10,10 @@ import { query, where, collection, getDocs } from "firebase/firestore";
 function Home({
   setProductos,
   productos,
-  idComercio,
   categorias,
 }) {
+
+  const { idcomercio } = useParams();
 
   useEffect(() => {
     const ProductosFromFirebase = [];
@@ -19,7 +21,7 @@ function Home({
       await getDocs(
         query(
           collection(firebaseExports.db, "producto"),
-          where("id_comercio", "==", idComercio)
+          where("id_comercio", "==", idcomercio)
         )
       ).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -31,14 +33,14 @@ function Home({
     }
     
     return () => subscriber();
-  }, [setProductos, idComercio]);
+  }, [setProductos, idcomercio]);
 
 
   return (
     <div className={styles.home}>
       <Categories categorias={categorias} />
       <CurrentDeals />
-      <ListProducts products={productos} idComercio={idComercio} />
+      <ListProducts products={productos} idComercio={idcomercio} />
     </div>
   );
 }

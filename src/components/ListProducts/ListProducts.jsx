@@ -3,7 +3,7 @@ import Product from "../Product/Product";
 import styles from "./listProducts.module.css";
 import NoMatch from "../NoMatch/NoMatch";
 
-function ListProducts({ products, setProductos, title, idComercio, userRol, categorias }) {
+function ListProducts({ products, setProductos, title, idComercio, categorias }) {
   return (
     <div className={styles.listProducts}>
       {products.length > 0 ? (
@@ -19,7 +19,6 @@ function ListProducts({ products, setProductos, title, idComercio, userRol, cate
                 key={product.id}
                 data={product}
                 idComercio={idComercio}
-                userRol={userRol}
                 setProductos={setProductos}
                 categorias={categorias}
               />

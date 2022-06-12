@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./detalleProducto.module.css";
 import AddButton from "../AddButton/AddButton";
 import SvgIcon from "@mui/material/SvgIcon";
+import { UserContext } from "../../context/UserContext";
 
-function DetalleProducto({ info_producto, click, userRol }) {
+function DetalleProducto({ info_producto, click }) {
+  const { user } = useContext(UserContext);
   const [mainImage, setmainImage] = useState(info_producto.foto_producto[0]);
 
   return (
@@ -42,7 +44,7 @@ function DetalleProducto({ info_producto, click, userRol }) {
           </div>
           <p className={styles.text2}>Final cost by weight</p>
         </div>
-        {userRol !== "admin" && <AddButton data={info_producto} idComercio={info_producto.idComercio} />}
+        {user && user.rol !== "admin" && <AddButton data={info_producto} idComercio={info_producto.idComercio} />}
 
       </div>
     </div>
