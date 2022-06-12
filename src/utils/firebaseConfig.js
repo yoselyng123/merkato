@@ -9,14 +9,14 @@ import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyANG5Iy3Lot9HLuymfAo8xtf-sYYQUSAqM",
-  authDomain: "merkato-ed078.firebaseapp.com",
-  databaseURL: "https://merkato-ed078-default-rtdb.firebaseio.com",
-  projectId: "merkato-ed078",
-  storageBucket: "merkato-ed078.appspot.com",
-  messagingSenderId: "2430167457",
-  appId: "1:2430167457:web:2ab96ee7664bcc06d583e0",
-  measurementId: "G-9LJM0YLC4C"
+  apiKey: "AIzaSyCQONy8NcJa3EeEXOZywbUm8OSnUHHwhbg",
+  authDomain: "merkatonew.firebaseapp.com",
+  databaseURL: "https://merkatonew-default-rtdb.firebaseio.com",
+  projectId: "merkatonew",
+  storageBucket: "merkatonew.appspot.com",
+  messagingSenderId: "1053078180899",
+  appId: "1:1053078180899:web:4ea06484f12e1223138d96",
+  measurementId: "G-7YV1W1H958"
 };
 
 // Initialize Firebase
