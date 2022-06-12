@@ -190,7 +190,7 @@ export default function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem("carrito"))) {
-      localStorage.setItem("carrito", "[");
+      localStorage.setItem("carrito", "[]");
     }
     localStorage.setItem("rol", "");
     const unlisten = onAuthStateChanged(auth, async (loggedUser) => {
