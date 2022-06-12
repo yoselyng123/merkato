@@ -16,6 +16,7 @@ import AdminView from "./pages/AdminView/AdminView";
 
 import { useNavigate } from "react-router-dom";
 import HistorialPage from "./pages/HistorialPage/HistorialPage";
+import Checkout from "./pages/Checkout/Checkout";
 
 function Rutas() {
   let navigate = useNavigate();
@@ -103,6 +104,7 @@ function Rutas() {
   return (
     <Routes>
       <Route exact path="/carrito" element={<CarritoPage />} />
+      <Route exact path="/store/checkout" element={<Checkout />} />
       <Route exact path="/inventario" element={<InventarioPage />} />
       <Route
         exact

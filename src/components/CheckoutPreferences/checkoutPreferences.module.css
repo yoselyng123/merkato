@@ -1,0 +1,35 @@
+.directionsTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.directionsTopLeft{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.directionsTopLeft > svg {
+    fill: var(--lightGreen);
+}
+
+.directionsTopLeft > p {
+    font-weight: 500;
+}
+
+.directionInfoWrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3rem;
+}
+.directionTitle{
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.directionSubTitle{
+    font-weight: 400;
+    font-size: 0.85rem;
+}

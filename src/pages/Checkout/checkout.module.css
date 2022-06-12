@@ -1,0 +1,93 @@
+.checkout{
+    background-color: #F7F7F7;
+    display: flex;
+    height: fit-content;
+    padding: 2% 10%;
+    gap: 2rem;
+}
+
+.left{
+    display: flex;
+    flex: 2;
+    background-color: #fff;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.right{
+    flex: 1;
+    background-color: #fff;
+    padding: 2%;
+    height: fit-content;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+}
+.rightTitle{
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.rightText{
+    font-weight: 400;
+    color: #393939;
+}
+
+.directions{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    cursor: pointer;
+    padding: 4%;
+    margin-bottom: 3px solid #BDBDBD;
+}
+
+.DeliveryTime{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 4%;
+    margin-bottom: 3px solid #BDBDBD;
+}
+
+.deliveryInstructionsText{
+    padding: 1%;
+    border: 1px solid #BDBDBD;
+}
+
+.deliveryInstructionsText:focus{
+    outline: none;
+}
+
+.directionsTop{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.directionsTop > svg {
+    fill: var(--lightGreen);
+}
+
+.directionsTop > p {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.submitBtn{
+    color: #fff;
+    background-color: var(--lightGreen);
+    border: #BDBDBD;
+    outline: none;
+    padding: 1.5% 3%;
+    font-weight: 600;
+    width: fit-content;
+    border-radius: 5px;
+    margin: 0.8rem 0rem;
+}
+
+
