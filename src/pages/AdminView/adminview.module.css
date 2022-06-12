@@ -11,3 +11,14 @@
 .agregarproducto{
     width: 30%;
 }
+.comercio{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.comercio > img{
+    height: 5rem;
+}

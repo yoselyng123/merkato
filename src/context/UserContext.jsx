@@ -208,7 +208,6 @@ export default function UserContextProvider({ children }) {
           localStorage.setItem("rol", "");
         } else {
           if (JSON.parse(localStorage.getItem("carrito")).length === 0) {
-            console.log("Entra");
             setCarrito(profile.carrito);
             setUser(profile);
           } else {
@@ -221,8 +220,10 @@ export default function UserContextProvider({ children }) {
             setUser(profile);
           }
         }
+        console.log("Logged user: ", loggedUser.displayName, loggedUser.uid)
       } else {
         setUser(null);
+        console.log("No user logged");
       }
     });
 
