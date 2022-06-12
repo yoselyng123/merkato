@@ -73,3 +73,14 @@
 .btnsWrapper > input:hover {
     background-color: var(--darkGreen);
 }
+
+.newAddressBtn{
+    color: var(--lightGreen);
+    font-size: 0.9rem;
+}
+
+.listAddressesWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

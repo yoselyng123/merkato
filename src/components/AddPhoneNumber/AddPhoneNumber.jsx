@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./addPhoneNumber.module.css";
 import { SvgIcon } from "@mui/material";
 
-function AddPhoneNumber() {
+function AddPhoneNumber({
+  setDirectionClick,
+  setNext,
+  setPhoneNumber,
+  phoneNumber,
+}) {
+  const [disabled, setDisabled] = useState(true);
+  const [provisionalValue, setProvisionalValue] = useState(phoneNumber);
+
+  const handleInputPhone = (e) => {
+    if (!isNaN(e.target.value)) {
+      setProvisionalValue(e.target.value);
+    }
+    if (e.target.value.length === 10) {
+      if (!isNaN(e.target.value)) {
+        setPhoneNumber(e.target.value);
+        setDisabled(false);
+        console.log(phoneNumber);
+      }
+    } else {
+      setDisabled(true);
+    }
+  };
+
   return (
     <div className={styles.directions}>
       <div className={styles.directionsTop}>
@@ -25,11 +48,26 @@ function AddPhoneNumber() {
         <input
           type="tel"
           placeholder="Phone number"
-          autocomplete="tel-national"
+          autoComplete="tel-national"
+          maxLength={10}
+          size={12}
+          onChange={(e) => {
+            handleInputPhone(e);
+          }}
+          value={provisionalValue}
         />
       </div>
 
-      <input type="submit" value="Save" disabled />
+      <input
+        type="submit"
+        value="Save"
+        disabled={disabled}
+        onClick={() => {
+          setDirectionClick(false);
+          setNext(true);
+        }}
+        style={{ cursor: "pointer" }}
+      />
     </div>
   );
 }

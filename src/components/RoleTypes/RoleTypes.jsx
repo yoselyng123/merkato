@@ -4,13 +4,10 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
-function RoleTypes({
-  click
-}) {
+function RoleTypes({ click }) {
   const { setRol, user, setUser } = useContext(UserContext);
   const handleClick = async (type) => {
     if (user) {
-      console.log("Entra");
       console.log(user.id);
       const userRef = doc(db, "users", user.id);
       setUser({ ...user, rol: type });

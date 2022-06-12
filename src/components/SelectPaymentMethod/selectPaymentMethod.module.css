@@ -1,0 +1,111 @@
+.directionsTop{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.directionsTop > svg {
+    fill: var(--lightGreen);
+}
+
+.directionsTop > p {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #F2F6F5;
+    padding: 3%;
+    border-radius: 10px;
+    transition: all ease .2s;
+    margin-bottom: 1rem;
+}
+
+.option:hover{
+    background-color: #F6F7F8;
+    cursor: pointer;
+}
+.topLeft {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.topLeft > img {
+    width: 6%;
+}
+
+.linkPaypal{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.linkPaypal > p{
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #393939;
+}
+.btnsWrapper{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #0070ba;
+    padding: 1.5% 6%;
+    border-radius: 5px;
+    transition: all ease .2s;
+}
+
+.btnCancel {
+    background-color: #F1F1F1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 1.5% 6%;
+    border-radius: 5px;
+    transition: all ease .2s;
+
+}
+
+.btnCancel > p {
+    color: #323232;
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+.btn:hover{
+    background-color: #004AB1;
+}
+.btnCancel:hover{
+    background-color: #F9F9F9;
+}
+
+.btn > p {
+    color: #FFF;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.linkPaypal > button {
+    padding: 1.5% 10%;
+    text-align: center;
+    width: fit-content;
+    outline: none;
+    border: none;
+    background-color: var(--lightGreen);
+    color: #FFF;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 5px;
+}

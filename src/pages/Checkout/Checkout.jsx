@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import styles from "./checkout.module.css";
 import { SvgIcon } from "@mui/material";
 import AddDirection from "../../components/AddDirection/AddDirection";
 import CheckoutPreferences from "../../components/CheckoutPreferences/CheckoutPreferences";
 import DeliveryTime from "../../components/DeliveryTime/DeliveryTime";
 import AddPhoneNumber from "../../components/AddPhoneNumber/AddPhoneNumber";
+import SelectPaymentMethod from "../../components/SelectPaymentMethod/SelectPaymentMethod";
+import { UserContext } from "../../context/UserContext";
 
 function Checkout() {
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user) {
+      setAddresses(user.direcciones);
+    }
+  }, [user]);
+
   const [directionClick, setDirectionClick] = useState(false);
   const [deliveryTimeClick, setDeliveryTimeClick] = useState(false);
   const [deliveryInstructionsClick, setDeliveryInstructionsClick] =
@@ -15,6 +25,16 @@ function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState(false);
 
   const [deliveryInstructions, setDeliveryInstructions] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [addresses, setAddresses] = useState("");
+  const [address, setAddress] = useState({
+    lineAddress1: "",
+    lineAddress2: "",
+    zipCode: "",
+    deliveryInstructions: "",
+  });
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [payment, setPayment] = useState("");
 
   return (
     <div className={styles.checkout}>
@@ -22,6 +42,10 @@ function Checkout() {
         <div className={styles.directions}>
           {directionClick ? (
             <AddDirection
+              addresses={addresses}
+              setAddresses={setAddresses}
+              address={address}
+              setAddress={setAddress}
               setDirectionClick={setDirectionClick}
               directionClick={directionClick}
               setNext={setDeliveryTimeClick}
@@ -33,8 +57,8 @@ function Checkout() {
                   <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                 </svg>
               }
-              title="4720 16th Ave S"
-              subtitle="Minneapolis, MN 55417"
+              title={address.lineAddress1}
+              subtitle={"Caracas"}
               setDirectionClick={setDirectionClick}
               directionClick={directionClick}
             />
@@ -47,6 +71,7 @@ function Checkout() {
               setDirectionClick={setDeliveryTimeClick}
               directionClick={deliveryTimeClick}
               setNext={setDeliveryInstructionsClick}
+              setSelectedTime={setSelectedTime}
             />
           ) : (
             <CheckoutPreferences
@@ -55,8 +80,8 @@ function Checkout() {
                   <path d="M256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512zM232 256C232 264 236 271.5 242.7 275.1L338.7 339.1C349.7 347.3 364.6 344.3 371.1 333.3C379.3 322.3 376.3 307.4 365.3 300L280 243.2V120C280 106.7 269.3 96 255.1 96C242.7 96 231.1 106.7 231.1 120L232 256z" />
                 </svg>
               }
-              title="Tiempo del Delivery"
-              subtitle="Today"
+              title="Hora de entrega"
+              subtitle={selectedTime}
               setDirectionClick={setDeliveryTimeClick}
               directionClick={deliveryTimeClick}
             />
@@ -114,7 +139,13 @@ function Checkout() {
 
         <div className={styles.directions}>
           {phoneNumberClick ? (
-            <AddPhoneNumber /* setNext={} */ />
+            <AddPhoneNumber
+              setNext={setPaymentMethod}
+              setDirectionClick={setPhoneNumberClick}
+              directionClick={phoneNumberClick}
+              setPhoneNumber={setPhoneNumber}
+              phoneNumber={phoneNumber}
+            />
           ) : (
             <CheckoutPreferences
               icon={
@@ -131,7 +162,10 @@ function Checkout() {
         </div>
         <div className={styles.directions}>
           {paymentMethod ? (
-            <AddPhoneNumber /* setNext={} */ />
+            <SelectPaymentMethod
+              setDirectionClick={setPaymentMethod}
+              directionClick={paymentMethod}
+            />
           ) : (
             <CheckoutPreferences
               icon={
