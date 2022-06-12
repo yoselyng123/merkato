@@ -1,0 +1,60 @@
+.directions{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.directions > p {
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.directions > input {
+    padding: 1.5% 3%;
+    width: fit-content;
+    border-radius: 5px;
+    background-color: var(--lightGreen);
+    color: #fff;
+    outline: none;
+    border: none;
+}
+
+.directionsTop{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.directionsTop > svg {
+    fill: var(--lightGreen);
+}
+
+.directionsTop > p {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.phoneNumberWrapper{
+    display: flex;
+    margin-bottom: 0.8rem;
+}
+
+.phoneNumberWrapper > input{
+    padding: 2%;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    outline: none;
+    border: 1px solid #BDBDBD;
+}
+
+.phoneCode{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    border: 1px solid #BDBDBD;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}

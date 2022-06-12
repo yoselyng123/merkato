@@ -1,0 +1,75 @@
+.directions{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2%;
+    margin-bottom: 3px solid #BDBDBD;
+}
+.directionsTop{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.directionsTop > svg {
+    fill: var(--lightGreen);
+}
+
+.directionsTop > p {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+.infoForm{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.infoForm > input{
+    padding: 2% 2%;
+    border: 1px solid #BDBDBD;
+    border-radius: 8px;
+}
+
+.zipCode{
+    width: 20%;
+}
+
+.btnsWrapper{
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    align-items: center;
+}
+
+.btnsWrapper > input {
+    background-color: var(--lightGreen);
+    border: none;
+    color: #fff;
+    padding: 2% 10%;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all ease .1s;
+}
+
+.btnsWrapper > p {
+    color: var(--lightGreen);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all ease .1s;
+}
+
+.btnsWrapper > p:hover {
+    color: var(--darkGreen);
+}
+
+.btnsWrapper > input:hover {
+    background-color: var(--darkGreen);
+}

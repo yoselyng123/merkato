@@ -12,9 +12,9 @@ import { collection, getDocs } from "firebase/firestore";
 import AdminView from "./pages/AdminView/AdminView";
 
 import HistorialPage from "./pages/HistorialPage/HistorialPage";
+import Checkout from "./pages/Checkout/Checkout";
 
 function Rutas() {
-
   //const [loading, setLoading] = useState(true);
   const [comercios, setComercios] = useState([]);
   const [productos, setProductos] = useState([]);
@@ -70,12 +70,7 @@ function Rutas() {
       <Route
         exact
         path="/"
-        element={
-          <Stores
-            comercios={comercios}
-            setIdComercio={setIdComercio}
-          />
-        }
+        element={<Stores comercios={comercios} setIdComercio={setIdComercio} />}
       />
       <Route
         exact
@@ -91,9 +86,7 @@ function Rutas() {
       <Route
         exact
         path="/searchBy/:idcomercio/categories/:category"
-        element={
-          <ViewByCategory categorias={categorias} />
-        }
+        element={<ViewByCategory categorias={categorias} />}
       />
       <Route
         exact
