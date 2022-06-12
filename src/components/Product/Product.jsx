@@ -3,6 +3,7 @@ import styles from "./product.module.css";
 import DetalleProducto from "../DetalleProducto/DetalleProducto";
 import ModifyProducto from "../ModifyProducto/ModifyProducto";
 import AddButton from "../AddButton/AddButton";
+import AddFavorites from "../AddFavorites/AddFavorites";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import ModifyButton from "../ModifyButton/ModifyButton";
 import { UserContext } from "../../context/UserContext";
@@ -97,7 +98,10 @@ function Product({ setProductos, data, idComercio, categorias }) {
           </div>
         </div>
       ) : (
-        <AddButton data={data} idComercio={idComercio} />
+        <div className={styles.userbuttonContainer}>
+          <AddFavorites data={data} idComercio={idComercio} />
+          <AddButton data={data} />
+        </div>
       )}
       
     </div>
