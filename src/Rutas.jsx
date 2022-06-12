@@ -13,6 +13,7 @@ import AdminView from "./pages/AdminView/AdminView";
 
 import HistorialPage from "./pages/HistorialPage/HistorialPage";
 import Checkout from "./pages/Checkout/Checkout";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 
 function Rutas() {
   //const [loading, setLoading] = useState(true);
@@ -28,36 +29,36 @@ function Rutas() {
     const PasillosFromFirebase = [];
 
     const subscriber = async () => {
-      await getDocs(
-        collection(firebaseExports.db, "comercio")
-      ).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
-        });
-        setComercios(getComerciosFromFirebase);
-        console.log(getComerciosFromFirebase);
-      })
+      await getDocs(collection(firebaseExports.db, "comercio")).then(
+        (querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
+          });
+          setComercios(getComerciosFromFirebase);
+          console.log(getComerciosFromFirebase);
+        }
+      );
 
       //setLoading(false);
-      await getDocs(
-        collection(firebaseExports.db, "categoria")
-      ).then((querySnapshot2) => {
-        querySnapshot2.forEach((doc) => {
-          CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-        });
-        setCategorias(CategoriasFromFirebase);
-        console.log(CategoriasFromFirebase);
-      })
+      await getDocs(collection(firebaseExports.db, "categoria")).then(
+        (querySnapshot2) => {
+          querySnapshot2.forEach((doc) => {
+            CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+          });
+          setCategorias(CategoriasFromFirebase);
+          console.log(CategoriasFromFirebase);
+        }
+      );
 
-      await getDocs(
-        collection(firebaseExports.db, "pasillo")
-      ).then((querySnapshot3) => {
-        querySnapshot3.forEach((doc) => {
-          PasillosFromFirebase.push({ ...doc.data(), id: doc.id });
-        });
-        setPasillos(PasillosFromFirebase);
-        console.log(PasillosFromFirebase);
-      })
+      await getDocs(collection(firebaseExports.db, "pasillo")).then(
+        (querySnapshot3) => {
+          querySnapshot3.forEach((doc) => {
+            PasillosFromFirebase.push({ ...doc.data(), id: doc.id });
+          });
+          setPasillos(PasillosFromFirebase);
+          console.log(PasillosFromFirebase);
+        }
+      );
     };
 
     // return cleanup function
@@ -91,9 +92,7 @@ function Rutas() {
       <Route
         exact
         path="/searchBy/:idcomercio/pasillos/:pasillo"
-        element={
-          <ViewByCategory categorias={categorias} />
-        }
+        element={<ViewByCategory categorias={categorias} />}
       />
       <Route
         exact
@@ -120,6 +119,7 @@ function Rutas() {
         }
       />
       <Route exact path="/historial" element={<HistorialPage />} />
+      <Route exact path="/favorites" element={<FavoritesPage />} />
     </Routes>
   );
 }

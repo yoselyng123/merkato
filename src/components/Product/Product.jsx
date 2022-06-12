@@ -8,8 +8,13 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import ModifyButton from "../ModifyButton/ModifyButton";
 import { UserContext } from "../../context/UserContext";
 
-function Product({ setProductos, data, idComercio, categorias }) {
-
+function Product({
+  setProductos,
+  data,
+  idComercio,
+  categorias,
+  eliminarProductoFavorito,
+}) {
   const { user } = useContext(UserContext);
   const [info, setInfo] = useState(false);
   const [modify, setModify] = useState(false);
@@ -65,7 +70,12 @@ function Product({ setProductos, data, idComercio, categorias }) {
 
       {modify === true && (
         <div className={styles.infobackground}>
-          <ModifyProducto info_producto={itemInfo} click={handleClose} categorias={categorias} setProductos={setProductos}/>
+          <ModifyProducto
+            info_producto={itemInfo}
+            click={handleClose}
+            categorias={categorias}
+            setProductos={setProductos}
+          />
         </div>
       )}
 
@@ -92,18 +102,28 @@ function Product({ setProductos, data, idComercio, categorias }) {
 
       {user && user.rol === "admin" ? (
         <div className={styles.buttonContainer}>
-          <DeleteButton data={data} setProductos={setProductos} idComercio={idComercio} />
-          <div className={styles.modifybutton} onClick={(e) => handleModifyClick(data)} >
+          <DeleteButton
+            data={data}
+            setProductos={setProductos}
+            idComercio={idComercio}
+          />
+          <div
+            className={styles.modifybutton}
+            onClick={(e) => handleModifyClick(data)}
+          >
             <ModifyButton />
           </div>
         </div>
       ) : (
         <div className={styles.userbuttonContainer}>
-          <AddFavorites data={data} idComercio={idComercio} />
+          <AddFavorites
+            data={data}
+            idComercio={idComercio}
+            eliminarProductoFavorito={eliminarProductoFavorito}
+          />
           <AddButton data={data} />
         </div>
       )}
-      
     </div>
   );
 }

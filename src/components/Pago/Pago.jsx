@@ -217,7 +217,7 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
             user.carrito.length > 0 && (
               <button
                 className={`${styles.button} ${styles.btn1}`}
-                onClick={() => click()}
+                onClick={compraRealizada}
               >
                 Proceder a Pagar
               </button>

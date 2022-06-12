@@ -9,7 +9,7 @@ import DetalleFactura from "../DetalleFactura/DetalleFactura";
 const Historial = () => {
   const [info, setInfo] = useState(false);
   const { user } = useContext(UserContext);
-  const [productos, setProductos] = useState(null);
+  const [productos, setProductos] = useState([]);
   const [total, setTotal] = useState(null);
   const [values, setValues] = useState({
     carrito: "",
@@ -44,63 +44,72 @@ const Historial = () => {
     }
   };
   useEffect(() => {
-    if (!user) {
-      const getProductsFromFirebase = [];
-      const subscriber = async () => {
-        //const carritoReference = collection(db, "historial");
-        // console.log(user.id);
-        const querySnapshot = await getDocs(collection(db, "historial"));
-        // const snapshot = await getDocs(
-        //   query(
-        //     carritoReference,
-        //     where("idUser", "==", "7oV1loHahEXj0UburMIyjME02Lv2")
-        //   )
-        // );
+    const getProductsFromFirebase = [];
+    const subscriber = async () => {
+      //const carritoReference = collection(db, "historial");
+      // console.log(user.id);
+      const querySnapshot = await getDocs(collection(db, "historial"));
+      // const snapshot = await getDocs(
+      //   query(
+      //     carritoReference,
+      //     where("idUser", "==", "7oV1loHahEXj0UburMIyjME02Lv2")
+      //   )
+      // );
 
-        querySnapshot.forEach((doc) => {
-          getProductsFromFirebase.push({
-            ...doc.data(),
-            id: doc.id,
-          });
-          //console.log(`${doc.id} => ${doc.data()}`);
+      querySnapshot.forEach((doc) => {
+        getProductsFromFirebase.push({
+          ...doc.data(),
+          id: doc.id,
         });
+        //console.log(`${doc.id} => ${doc.data()}`);
+      });
 
-        console.log(getProductsFromFirebase);
-        setProductos(getProductsFromFirebase);
-      };
+      console.log(getProductsFromFirebase);
+      setProductos(getProductsFromFirebase);
+    };
 
-      // return cleanup function
-      return () => subscriber();
-    }
+    // return cleanup function
+    return () => subscriber();
   }, [user]);
   return (
     <div className={styles.container}>
-      {user && productos.length > 0 && !info ? (
-        <>
-          <h1>Historial de Compras</h1>
-          {productos.map(
-            (product) =>
-              user.id === product.idUser && (
-                <HistorialCarrito
-                  total={product.total}
-                  fecha={product.fecha}
-                  idCarrito={product.id}
-                  idUser={product.idUser}
-                  carrito={product.carrito}
-                  click={handleClose}
-                />
-              )
-          )}
-        </>
+      {user && productos.length > 0 ? (
+        productos.findIndex((i) => i.idUser === user.id) !== -1 ? (
+          <>
+            {!info ? (
+              <>
+                <h1>Historial de Compras</h1>
+                {productos.map(
+                  (product) =>
+                    user.id === product.idUser && (
+                      <HistorialCarrito
+                        total={product.total}
+                        fecha={product.fecha}
+                        idCarrito={product.id}
+                        idUser={product.idUser}
+                        carrito={product.carrito}
+                        click={handleClose}
+                        values={product.id}
+                      />
+                    )
+                )}
+              </>
+            ) : (
+              <DetalleFactura
+                total={total}
+                fecha={values.fecha}
+                idCarrito={values.idCarrito}
+                idUser={values.idUser}
+                carrito={values.carrito}
+                click={handleClose}
+              />
+            )}
+          </>
+        ) : (
+          <div>No tiene compras realizadas</div>
+        )
       ) : (
-        <DetalleFactura
-          total={total}
-          fecha={values.fecha}
-          idCarrito={values.idCarrito}
-          idUser={values.idUser}
-          carrito={values.carrito}
-          click={handleClose}
-        />
+        <div>Cargando</div>
       )}
     </div>
   );

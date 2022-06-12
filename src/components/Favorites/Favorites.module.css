@@ -1,0 +1,31 @@
+.container{
+    
+    display: flex;
+    flex-direction: column;
+}
+.containerProductos2{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    grid-gap: 2rem;
+}
+.btnDe{
+    border: 1px solid var(--lightGreen);
+    padding: 10px;
+    font-weight: bolder;
+    border-radius: 0px 100px 100px 0px;
+    background-color: white;
+}
+.btnIz {
+    border: 1px solid var(--lightGreen);
+    padding: 10px;
+    font-weight: bolder;
+    border-radius: 100px 0px 0px 100px;
+    background-color: white;
+}
+.btnBox{
+    margin: 10px 0px;
+}
+.btnA{
+    background-color:var(--lightGreen);
+    color: white;
+}

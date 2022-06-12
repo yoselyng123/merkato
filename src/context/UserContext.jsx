@@ -16,6 +16,7 @@ export const UserContext = createContext(null);
 export default function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [carrito, setCarrito] = useState([]);
+  const [carritoFavorito, setCarritoFavorito] = useState([]);
   const [rol, setRol] = useState("");
 
   const agregarACarrito = async (idProducto, cantidad, precio, idComercio) => {
@@ -188,6 +189,84 @@ export default function UserContextProvider({ children }) {
     return loggedUser;
   };
 
+  const agregarACarritoFavorito = async (idProducto, idComercio) => {
+    //SIN USUARIO GUARDA EN LOCAL STORAGE
+    if (user == null) {
+      if (carritoFavorito.findIndex((i) => i.id === idProducto) === -1) {
+        // if (carrito.length >= 1) {
+        //   if (carrito[0].idComercio !== idComercio) {
+        //     setCarrito([]);
+        //   }
+        // }
+        carritoFavorito.push({
+          id: idProducto,
+
+          idComercio: idComercio,
+        });
+        localStorage.setItem(
+          "carritoFavorito",
+          JSON.stringify(carritoFavorito)
+        );
+      }
+      localStorage.setItem("carritoFavorito", JSON.stringify(carritoFavorito));
+      console.log(
+        JSON.parse(localStorage.getItem("carritoFavorito")),
+        "#######"
+      );
+      setCarrito(JSON.parse(localStorage.getItem("carritoFavorito")));
+    }
+    //CON USUARIO GUARDA EN LA BD DIRECTO Y EN EL CARRITO DEL CONTEXT
+    else {
+      if (user.carritoFavorito.findIndex((i) => i.id === idProducto) === -1) {
+        user.carritoFavorito.push({
+          id: idProducto,
+          idComercio: idComercio,
+        });
+        localStorage.setItem(
+          "carritoFavorito",
+          JSON.stringify(user.carritoFavorito)
+        );
+      }
+      setCarritoFavorito(JSON.parse(localStorage.getItem("carritoFavorito")));
+      const userRef = doc(db, "users", user.id);
+      await updateDoc(userRef, {
+        carritoFavorito: user.carritoFavorito,
+      });
+    }
+  };
+
+  const eliminarProductoCarritoFavorito = async (IdProducto) => {
+    //SIN USUARIO GUARDA EN LOCALSTORAGE
+    if (user == null) {
+      carritoFavorito.splice(
+        carritoFavorito.findIndex((i) => i.id === IdProducto),
+        1
+      );
+      localStorage.setItem("carritoFavorito", JSON.stringify(carritoFavorito));
+      console.log(
+        JSON.parse(localStorage.getItem("carritoFavorito")),
+        "#######"
+      );
+      setCarritoFavorito(JSON.parse(localStorage.getItem("carritoFavorito")));
+    }
+    //CON USUARIO GUARDA EN EL CARRITO DEL CONTEXT Y ACTUALIZA LA BD DIRECTO
+    else {
+      user.carritoFavorito.splice(
+        user.carritoFavorito.findIndex((i) => i.id === IdProducto),
+        1
+      );
+      localStorage.setItem(
+        "carritoFavorito",
+        JSON.stringify(user.carritoFavorito)
+      );
+      setCarritoFavorito(JSON.parse(localStorage.getItem("carritoFavorito")));
+      const userRef = doc(db, "users", user.id);
+      await updateDoc(userRef, {
+        carritoFavorito: user.carritoFavorito,
+      });
+    }
+  };
+
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem("carrito"))) {
       localStorage.setItem("carrito", "[]");
@@ -208,6 +287,7 @@ export default function UserContextProvider({ children }) {
           localStorage.setItem("rol", "");
         } else {
           if (JSON.parse(localStorage.getItem("carrito")).length === 0) {
+            console.log("Entra");
             setCarrito(profile.carrito);
             setUser(profile);
           } else {
@@ -218,9 +298,11 @@ export default function UserContextProvider({ children }) {
               carrito: JSON.parse(localStorage.getItem("carrito")),
             });
             setUser(profile);
+            setCarrito(profile.carrito);
+            setCarritoFavorito(profile.carritoFavorito);
           }
         }
-        console.log("Logged user: ", loggedUser.displayName, loggedUser.uid)
+        console.log("Logged user: ", loggedUser.displayName, loggedUser.uid);
       } else {
         setUser(null);
         console.log("No user logged");
@@ -246,6 +328,10 @@ export default function UserContextProvider({ children }) {
         modificarCantidadCarrito,
         rol,
         setRol,
+        agregarACarritoFavorito,
+        setCarritoFavorito,
+        carritoFavorito,
+        eliminarProductoCarritoFavorito,
       }}
     >
       {children}

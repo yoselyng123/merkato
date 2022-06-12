@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.containers {
+
+    width: 60%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* align-items:center; */
+    padding: 10px;
+    border-top: 1px solid var(--lightestGreen);
+
+}
+
+.boxImg {
+
+
+    height: 120px;
+    width: 120px;
+    border-radius: 10px;
+    background-size: cover;
+}
+
+.img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.nombreProducto {
+    font-size: 20px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    color: var(--lightGreen);
+}
+
+.nombreProducto:hover {
+    color: var(--lightestGreen);
+}
+
+.precioUnitario {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.258);
+    cursor: default;
+}
+
+.info {
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    cursor: default;
+
+}
+
+.upInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+
+}
+
+.precioDisponible {
+    display: grid;
+    grid-template-columns: .5fr 1fr;
+
+
+}
+
+.descripcion {
+    font-size: 10px;
+}
+
+.addMore {
+    width: 25%;
+
+    background-color: var(--lightGreen);
+    padding: 0.1rem 0.6rem 0.1rem 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+
+}
+
+.addMoreSpan {
+    color: white;
+    font-weight: 600;
+    cursor: default;
+
+}
+
+.addMoreIconsBox {
+
+
+    width: 15px;
+    height: 15px;
+    background-size: cover;
+
+}
+
+.addMoreIcons {
+
+
+
+    cursor: pointer;
+
+
+}
+
+.addMoreIcons>svg {
+    fill: white;
+
+
+
+
+}
+
+.downInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonDelete {
+    background-color: #f4f4f4;
+    margin-right: 15px;
+        padding: 5px;
+        border: none;
+        border-radius: 100px;
+       
+        font-weight: bolder;
+
+}
+
+.buttonDelete:hover {
+    background-color: rgb(232, 232, 232);
+
+}
+
+.buttonSave {
+    background-color: #f4f4f4;
+    width: 100px;
+    height: 25px;
+    border: none;
+    
+    border-radius: 5px;
+}
+
+.buttonSave:hover {
+    background-color: rgb(232, 232, 232);
+
+}
+
+.cantidad {
+    border: 1px solid rgba(0, 0, 0, 0.074);
+    border-radius: 5px;
+    padding: 5px;
+    outline: none;
+    width: 50px;
+
+}
+
+.divDescripcion {
+    display: flex;
+    flex-direction: column;
+}
+
+.comprar {
+    background-color: var(--lightGreen);
+    padding: 5px;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    font-weight: bolder;
+}
+
+.comprar:hover {
+    background-color: var(--lightestGreen);
+}
+
+.ver {
+    background-color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 100px;
+    color: var(--lightGreen);
+    font-weight: bolder;
+    border: 1px solid var(--lightGreen);
+}
+
+.ver:hover {
+    /* background-color: var(--lightestGreen); */
+    /* color: white; */
+}
