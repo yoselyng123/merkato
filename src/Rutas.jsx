@@ -20,10 +20,12 @@ function Rutas() {
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [idComercio, setIdComercio] = useState(null);
+  const [pasillos, setPasillos] = useState([]);
 
   useEffect(() => {
     const getComerciosFromFirebase = [];
     const CategoriasFromFirebase = [];
+    const PasillosFromFirebase = [];
 
     const subscriber = async () => {
       await getDocs(
@@ -33,6 +35,7 @@ function Rutas() {
           getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
         });
         setComercios(getComerciosFromFirebase);
+        console.log(getComerciosFromFirebase);
       })
 
       //setLoading(false);
@@ -43,6 +46,17 @@ function Rutas() {
           CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
         });
         setCategorias(CategoriasFromFirebase);
+        console.log(CategoriasFromFirebase);
+      })
+
+      await getDocs(
+        collection(firebaseExports.db, "pasillo")
+      ).then((querySnapshot3) => {
+        querySnapshot3.forEach((doc) => {
+          PasillosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setPasillos(PasillosFromFirebase);
+        console.log(PasillosFromFirebase);
       })
     };
 
@@ -83,12 +97,20 @@ function Rutas() {
       />
       <Route
         exact
+        path="/searchBy/:idcomercio/pasillos/:pasillo"
+        element={
+          <ViewByCategory categorias={categorias} />
+        }
+      />
+      <Route
+        exact
         path="/:comercio/:idcomercio/shop"
         element={
           <Home
             setProductos={setProductos}
             productos={productos}
             categorias={categorias}
+            pasillos={pasillos}
           />
         }
       />

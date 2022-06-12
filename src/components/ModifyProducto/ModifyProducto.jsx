@@ -25,8 +25,7 @@ function ModifyProducto({ info_producto, click, setProductos, categorias }) {
       nombre: nombreRef.current.value,
       precio_unitario: Number(precioRef.current.value),
       stock: Number(stockRef.current.value),
-      foto_producto: imageURLList,
-      pasillo: 0 //HAY QUE ESPECIFICAR EL PASILLO
+      foto_producto: imageURLList
     });
 
     console.log("Product modified with ID: ", info_producto.id);

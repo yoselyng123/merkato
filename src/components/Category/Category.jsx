@@ -2,23 +2,20 @@ import React from "react";
 import styles from "./category.module.css";
 import { useNavigate } from "react-router-dom";
 
-function Category({ data, idcomercio }) {
+function Category({ pasillo, idcomercio }) {
   let navigate = useNavigate();
 
-  const handleCategoryClick = (nombre) => {
-    navigate(`../searchBy/${idcomercio}/categories/${nombre}`, { replace: true });
+  const handleCategoryClick = (id) => {
+    navigate(`../searchBy/${idcomercio}/pasillos/${id}`, { replace: true });
   };
 
   return (
-    <div
-      className={styles.category}
-      onClick={() => handleCategoryClick(data.nombre)}
-    >
-      <div className={styles.imgWrapper}>
+    <div className={styles.category} onClick={() => handleCategoryClick(pasillo.id)}>
+{/*       <div className={styles.imgWrapper}>
         <img src={data.icono} alt="" />
-      </div>
+      </div> */}
       <div className={styles.text}>
-        <p>{data.nombre}</p>
+        <p>{pasillo.numero}</p>
       </div>
     </div>
   );

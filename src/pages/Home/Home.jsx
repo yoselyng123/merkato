@@ -11,6 +11,7 @@ function Home({
   setProductos,
   productos,
   categorias,
+  pasillos
 }) {
 
   const { idcomercio } = useParams();
@@ -53,7 +54,7 @@ function Home({
         <img className={styles.comercio_foto} src={fotoComercio} alt="foto comercio" />
         <h2 className={styles.comercio_nombre}>{nombreComercio}</h2>
       </div>
-      <Categories categorias={categorias} idcomercio={idcomercio} />
+      <Categories categorias={categorias} idcomercio={idcomercio} pasillos={pasillos} />
       <CurrentDeals />
       <ListProducts products={productos} idComercio={idcomercio} />
     </div>
