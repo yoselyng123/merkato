@@ -6,7 +6,8 @@ import firebaseExports from "../../utils/firebaseConfig";
 import { query, where, collection, getDocs, getDoc, doc } from "firebase/firestore";
 import ListProducts from "../../components/ListProducts/ListProducts";
 
-function ViewByCategory({ categorias }) {
+function ViewByCategory() {
+  const [categorias, setCategorias] = useState([]);
   const [productByCategory, setProductByCategory] = useState([]);
   const [categoriesIds, setCategoriesIds] = useState([]);
   const [categoriesNames, setCategoriesNames] = useState([]);
@@ -17,24 +18,34 @@ function ViewByCategory({ categorias }) {
 
   useEffect(() => {
 
+    const subscriber = async () => {
       const categoriesIdsToShow = []
       const categoriesNamesToShow = []
+      const CategoriasFromFirebase = []
 
-      categorias.forEach((element) => {
-        if (element.pasillo === pasillo) {
-          categoriesIdsToShow.push(element.id)
-          categoriesNamesToShow.push(element.nombre)
-        }
-      });
-      console.log(categoriesIdsToShow)
-      console.log(categoriesNamesToShow)
-      setCategoriesIds(categoriesIdsToShow)
-      setCategoriesNames(categoriesNamesToShow)
-
+      await getDocs(
+        collection(firebaseExports.db, "categoria")
+      ).then((querySnapshot2) => {
+        querySnapshot2.forEach((doc) => {
+          CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setCategorias(CategoriasFromFirebase);
+        console.log(CategoriasFromFirebase);
+        CategoriasFromFirebase.forEach((element) => {
+          if (element.pasillo === pasillo) {
+            categoriesIdsToShow.push(element.id)
+            categoriesNamesToShow.push(element.nombre)
+          }
+        });
+        console.log(categoriesIdsToShow)
+        console.log(categoriesNamesToShow)
+        setCategoriesIds(categoriesIdsToShow)
+        setCategoriesNames(categoriesNamesToShow)
+      })
 
       const ProductosFromFirebase = [];
 
-      getDocs(
+      categoriesIdsToShow.length > 0 && await getDocs(
         query(
           collection(firebaseExports.db, "producto"),
           where("id_comercio", "==", idcomercio),
@@ -48,15 +59,17 @@ function ViewByCategory({ categorias }) {
         console.log("productos", ProductosFromFirebase)
       })
 
-      getDoc(
+      await getDoc(
         doc(firebaseExports.db, "comercio", idcomercio)
       ).then((doc) => {
         const dataComercio = doc.data();
         setNombreComercio(dataComercio.nombre)
         setFotoComercio(dataComercio.foto)
       })
+    }
+    return () => subscriber();
   
-  }, [categorias, idcomercio, pasillo]);
+  }, [idcomercio, pasillo]);
 
   return (
     <div className={styles.viewByCategoryContainer}>

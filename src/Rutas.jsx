@@ -86,13 +86,13 @@ function Rutas() {
       <Route
         exact
         path="/searchBy/:idcomercio/categories/:category"
-        element={<ViewByCategory categorias={categorias} />}
+        element={<ViewByCategory />}
       />
       <Route
         exact
         path="/searchBy/:idcomercio/pasillos/:pasillo"
         element={
-          <ViewByCategory categorias={categorias} />
+          <ViewByCategory />
         }
       />
       <Route
