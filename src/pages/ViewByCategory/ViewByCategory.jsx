@@ -6,57 +6,87 @@ import firebaseExports from "../../utils/firebaseConfig";
 import { query, where, collection, getDocs, getDoc, doc } from "firebase/firestore";
 import ListProducts from "../../components/ListProducts/ListProducts";
 
-function ViewByCategory({ categorias }) {
+function ViewByCategory() {
   const [productByCategory, setProductByCategory] = useState([]);
   const [categoriesIds, setCategoriesIds] = useState([]);
   const [categoriesNames, setCategoriesNames] = useState([]);
 
-  let { category, idcomercio, pasillo } = useParams();
+  let { category, namecategory, idcomercio, pasillo } = useParams();
   const [nombreComercio, setNombreComercio] = useState(null)
   const [fotoComercio, setFotoComercio] = useState(null)
 
   useEffect(() => {
 
+    const subscriber = async () => {
       const categoriesIdsToShow = []
       const categoriesNamesToShow = []
+      const CategoriasFromFirebase = []
 
-      categorias.forEach((element) => {
-        if (element.pasillo === pasillo) {
-          categoriesIdsToShow.push(element.id)
-          categoriesNamesToShow.push(element.nombre)
-        }
-      });
-      console.log(categoriesIdsToShow)
-      console.log(categoriesNamesToShow)
-      setCategoriesIds(categoriesIdsToShow)
-      setCategoriesNames(categoriesNamesToShow)
+      if (pasillo) {
+        await getDocs(
+          collection(firebaseExports.db, "categoria")
+        ).then((querySnapshot2) => {
+          querySnapshot2.forEach((doc) => {
+            CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+          });
+          console.log(CategoriasFromFirebase);
+          CategoriasFromFirebase.forEach((element) => {
+            if (element.pasillo === pasillo) {
+              categoriesIdsToShow.push(element.id)
+              categoriesNamesToShow.push(element.nombre)
+            }
+          });
+          console.log(categoriesIdsToShow)
+          console.log(categoriesNamesToShow)
+          setCategoriesIds(categoriesIdsToShow)
+          setCategoriesNames(categoriesNamesToShow)
+        })
 
+        const ProductosFromFirebase = [];
 
-      const ProductosFromFirebase = [];
+        categoriesIdsToShow.length > 0 && await getDocs(
+          query(
+            collection(firebaseExports.db, "producto"),
+            where("id_comercio", "==", idcomercio),
+            where("id_categoria", "in", categoriesIdsToShow)
+          )
+        ).then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+          });
+          setProductByCategory(ProductosFromFirebase)
+          console.log("productos", ProductosFromFirebase)
+        })
+      } else if (category) {
 
-      getDocs(
-        query(
-          collection(firebaseExports.db, "producto"),
-          where("id_comercio", "==", idcomercio),
-          where("id_categoria", "in", categoriesIdsToShow)
-        )
-      ).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
-        });
-        setProductByCategory(ProductosFromFirebase)
-        console.log("productos", ProductosFromFirebase)
-      })
+        const ProductosFromFirebase = [];
 
-      getDoc(
+        await getDocs(
+          query(
+            collection(firebaseExports.db, "producto"),
+            where("id_categoria", "==", category)
+          )
+        ).then((querySnapshot2) => {
+          querySnapshot2.forEach((doc) => {
+            ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+          });
+          console.log(ProductosFromFirebase);
+          setProductByCategory(ProductosFromFirebase)
+          console.log("productos", ProductosFromFirebase)
+        })
+      }
+
+      await getDoc(
         doc(firebaseExports.db, "comercio", idcomercio)
       ).then((doc) => {
         const dataComercio = doc.data();
         setNombreComercio(dataComercio.nombre)
         setFotoComercio(dataComercio.foto)
       })
+    }
+    return () => subscriber();
   
-  }, [categorias, idcomercio, pasillo]);
+  }, [idcomercio, pasillo]);
 
   return (
     <div className={styles.viewByCategoryContainer}>
@@ -67,13 +97,19 @@ function ViewByCategory({ categorias }) {
 
       {pasillo && 
         <div className={styles.viewByCategory}>
-        {categoriesIds.length > 0 && (
-          categoriesIds.map((id, index) => {
-            return (
-              <ListProducts key={index} title={categoriesNames[index]} products={productByCategory.filter(item => item.id_categoria === id)} idcomercio={idcomercio} />
-            )
-          })
-        )}
+          {categoriesIds.length > 0 && (
+            categoriesIds.map((id, index) => {
+              return (
+                <ListProducts key={index} title={categoriesNames[index]} products={productByCategory.filter(item => item.id_categoria === id)} idcomercio={idcomercio} />
+              )
+            })
+          )}
+        </div>
+      }
+
+      {category &&
+        <div className={styles.viewByCategory}>
+          <ListProducts title={namecategory} products={productByCategory} idcomercio={idcomercio} />
         </div>
       }
 
