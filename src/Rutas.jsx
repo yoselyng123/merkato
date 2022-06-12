@@ -53,7 +53,6 @@ function Rutas() {
   return (
     <Routes>
       <Route exact path="/carrito" element={<CarritoPage />} />
-      <Route exact path="/store/checkout" element={<Checkout />} />
       <Route
         exact
         path="/"
