@@ -1,21 +1,17 @@
-import React, { useState, useContext } from "react";
 import styles from "./Producto.module.css";
-import SvgIcon from "@mui/material/SvgIcon";
-import { UserContext } from "../../context/UserContext";
 // import AddButton from "../AddButton/AddButton";
 const ProductoFactura = ({
   img,
   nombreProducto,
   cantidad,
   precio,
-  stock,
+/*   stock,
   id,
-  handleDeleteCarrito,
+  handleDeleteCarrito, */
   idComercio,
 }) => {
   console.log(idComercio);
-  const [quantity, setQuantity] = useState(cantidad);
-  const { modificarCantidadCarrito } = useContext(UserContext);
+  //const { modificarCantidadCarrito } = useContext(UserContext);
 
   return (
     <div className={styles.containers}>
@@ -31,13 +27,13 @@ const ProductoFactura = ({
             </div>
           </div>
           <h2 className={styles.precioTotal}>
-            ${(precio * quantity).toFixed(2)}
+            ${(precio * cantidad).toFixed(2)}
           </h2>
         </div>
 
         <div className={styles.downInfo}>
           <div className={styles.addMore}>
-            <span className={styles.addMoreSpan}>{quantity}</span>
+            <span className={styles.addMoreSpan}>{cantidad}</span>
           </div>
         </div>
       </div>

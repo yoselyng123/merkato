@@ -16,7 +16,7 @@ const firebaseConfig = {
   storageBucket: "merkato-ed078.appspot.com",
   messagingSenderId: "2430167457",
   appId: "1:2430167457:web:2ab96ee7664bcc06d583e0",
-  measurementId: "G-9LJM0YLC4C",
+  measurementId: "G-9LJM0YLC4C"
 };
 
 // Initialize Firebase

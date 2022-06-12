@@ -2,11 +2,11 @@ import React from "react";
 import styles from "./category.module.css";
 import { useNavigate } from "react-router-dom";
 
-function Category({ data }) {
+function Category({ data, idcomercio }) {
   let navigate = useNavigate();
 
   const handleCategoryClick = (nombre) => {
-    navigate(`../searchBy/categories/${nombre}`, { replace: true });
+    navigate(`../searchBy/${idcomercio}/categories/${nombre}`, { replace: true });
   };
 
   return (

@@ -114,3 +114,21 @@
     gap: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
+.buttonContainer
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 0.5rem;
+    cursor: default;
+}
+.userbuttonContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 0.2rem;
+    cursor: default;
+}

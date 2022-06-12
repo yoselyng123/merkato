@@ -11,11 +11,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import {
-  HolidayVillage,
-  LocalSeeOutlined,
-  SouthWestTwoTone,
-} from "@mui/icons-material";
 export const UserContext = createContext(null);
 
 export default function UserContextProvider({ children }) {
@@ -88,7 +83,6 @@ export default function UserContextProvider({ children }) {
       });
     }
   };
-  const cambiarCarrito = async () => {};
 
   const modificarCantidadCarrito = async (
     type,
@@ -195,6 +189,9 @@ export default function UserContextProvider({ children }) {
   };
 
   useEffect(() => {
+    if (!JSON.parse(localStorage.getItem("carrito"))) {
+      localStorage.setItem("carrito", "[]");
+    }
     localStorage.setItem("rol", "");
     const unlisten = onAuthStateChanged(auth, async (loggedUser) => {
       if (loggedUser) {
@@ -211,7 +208,6 @@ export default function UserContextProvider({ children }) {
           localStorage.setItem("rol", "");
         } else {
           if (JSON.parse(localStorage.getItem("carrito")).length === 0) {
-            console.log("Entra");
             setCarrito(profile.carrito);
             setUser(profile);
           } else {
@@ -224,8 +220,10 @@ export default function UserContextProvider({ children }) {
             setUser(profile);
           }
         }
+        console.log("Logged user: ", loggedUser.displayName, loggedUser.uid)
       } else {
         setUser(null);
+        console.log("No user logged");
       }
     });
 

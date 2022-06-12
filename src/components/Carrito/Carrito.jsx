@@ -6,9 +6,7 @@ import firebaseExports from "../../utils/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { Link, useNavigate } from "react-router-dom";
 const Carrito = () => {
-  let navigate = useNavigate();
   const { carrito, setCarrito, eliminarProductoCarrito, user } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
@@ -18,11 +16,7 @@ const Carrito = () => {
     descripcion: "",
     delivery: true,
   });
-  const handleOnChange = (event) => {
-    const { value, name: inputName } = event.target;
-    // console.log({ inputName, value });
-    setValues({ ...values, [inputName]: value });
-  };
+
   const [totalAmount, setTotalAmount] = useState(0);
   const [info, setInfo] = useState(true);
   const handleClose = () => {
@@ -99,7 +93,7 @@ const Carrito = () => {
 
     // return cleanup function
     return () => subscriber();
-  }, []);
+  }, [user, setCarrito]);
 
   return (
     <div className={styles.containers}>
@@ -111,7 +105,7 @@ const Carrito = () => {
               products.map((product) => (
                 <ProductoCarrito
                   key={product.id}
-                  img={product.foto_producto}
+                  img={product.foto_producto[0]}
                   nombreProducto={product.nombre}
                   cantidad={product.cantidad_solicitada}
                   precio={product.precio_unitario}

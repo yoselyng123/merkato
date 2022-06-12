@@ -5,14 +5,9 @@ import { UserContext } from "../../context/UserContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
 function RoleTypes({
-  newLoginGoogle,
-  firestore,
-  userUid,
-  setRoll,
-  click,
-  setClick,
+  click
 }) {
-  const { rol, setRol, user, setUser } = useContext(UserContext);
+  const { setRol, user, setUser } = useContext(UserContext);
   const handleClick = async (type) => {
     if (user) {
       console.log("Entra");

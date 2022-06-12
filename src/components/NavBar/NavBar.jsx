@@ -11,14 +11,13 @@ import MenuItem from "@mui/material/MenuItem";
 
 import firebaseExports from "../../utils/firebaseConfig";
 import { signOut } from "firebase/auth";
-import RoleTypes from "../RoleTypes/RoleTypes";
 
 const auth = firebaseExports.auth;
 
 function NavBar() {
   const location = useLocation().pathname;
 
-  const { carrito, user, setCarrito, rol, setRol } = useContext(UserContext);
+  const { carrito, user, setCarrito, setRol } = useContext(UserContext);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

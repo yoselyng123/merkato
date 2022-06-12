@@ -4,7 +4,7 @@ import styles from "./listProducts.module.css";
 import NoMatch from "../NoMatch/NoMatch";
 import { SvgIcon } from "@mui/material";
 
-function ListProducts({ products, setProductos, title, idComercio, userRol }) {
+function ListProducts({ products, setProductos, title, idComercio, categorias }) {
   const [open, setOpen] = useState(false);
   const [sort, setSort] = useState("Aisle");
 
@@ -55,8 +55,8 @@ function ListProducts({ products, setProductos, title, idComercio, userRol }) {
                 key={product.id}
                 data={product}
                 idComercio={idComercio}
-                userRol={userRol}
                 setProductos={setProductos}
+                categorias={categorias}
               />
             ))}
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Historial.module.css";
 import HistorialCarrito from "../HistorialCarrito/HistorialCarrito";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { db } from "../../utils/firebaseConfig";
@@ -18,9 +18,6 @@ const Historial = () => {
     idUser: "",
     idCarrito: "",
   });
-  const handleClose1 = () => {
-    setInfo(true);
-  };
 
   const handleClose = (
     carrito,
@@ -50,7 +47,7 @@ const Historial = () => {
     if (!user) {
       const getProductsFromFirebase = [];
       const subscriber = async () => {
-        const carritoReference = collection(db, "historial");
+        //const carritoReference = collection(db, "historial");
         // console.log(user.id);
         const querySnapshot = await getDocs(collection(db, "historial"));
         // const snapshot = await getDocs(

@@ -15,12 +15,8 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 const auth = firebaseExports.auth;
-const firestore = firebaseExports.db;
 
-function Login({ click, isRegistrando, setIsRegistrando, setClick }) {
-  // const [rol, setRol] = useState("");
-  const [userUid, setUserUid] = useState("");
-  const [newLoginGoogle, setNewLoginGoogle] = useState(false);
+function Login({ click, isRegistrando, setIsRegistrando }) {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [wrongData, setWrongData] = useState(false);
@@ -88,7 +84,6 @@ function Login({ click, isRegistrando, setIsRegistrando, setClick }) {
       signInWithPopup(auth, provider);
       // setNewLoginGoogle(true);
       // setIsRegistrando(true);
-      setUserUid(user.uid);
       click();
     } catch (error) {
       const errorCode = error.code;
@@ -123,12 +118,7 @@ function Login({ click, isRegistrando, setIsRegistrando, setClick }) {
               </SvgIcon>
             </div>
             <RoleTypes
-              newLoginGoogle={newLoginGoogle}
-              firestore={firestore}
-              userUid={userUid}
-              setRol={setRol}
               click={click}
-              setClick={click}
             />
           </div>
         </>
@@ -149,12 +139,7 @@ function Login({ click, isRegistrando, setIsRegistrando, setClick }) {
                 </SvgIcon>
               </div>
               <RoleTypes
-                newLoginGoogle={newLoginGoogle}
-                firestore={firestore}
-                userUid={userUid}
-                setRol={setRol}
                 click={click}
-                setClick={setClick}
               />
 
               <hr />

@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import styles from "./ProductoCarrito.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import { UserContext } from "../../context/UserContext";
-import AddButton from "../AddButton/AddButton";
 const ProductoCarrito = ({
   img,
   nombreProducto,

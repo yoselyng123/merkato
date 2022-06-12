@@ -1,38 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Categories from "../../components/Categories/Categories";
 import CurrentDeals from "../../components/CurrentDeals/CurrentDeals";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import styles from "./home.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
-import { query, where, collection, getDocs } from "firebase/firestore";
+import { query, where, collection, getDocs, getDoc, doc } from "firebase/firestore";
 
-function Home({ setProductos, productos, idComercio, categorias }) {
+function Home({
+  setProductos,
+  productos,
+  categorias,
+}) {
+
+  const { idcomercio } = useParams();
+  const [nombreComercio, setNombreComercio] = useState(null)
+  const [fotoComercio, setFotoComercio] = useState(null)
+
   useEffect(() => {
-    const getProductosFromFirebase = async (idComercio) => {
-      const ProductosFromFirebase = [];
-
-      const querySnapshot = await getDocs(
+    const ProductosFromFirebase = [];
+    const subscriber = async () => {
+      await getDocs(
         query(
           collection(firebaseExports.db, "producto"),
-          where("id_comercio", "==", idComercio)
+          where("id_comercio", "==", idcomercio)
         )
-      );
-      querySnapshot.forEach((doc) => {
-        ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-      setProductos(ProductosFromFirebase);
+      ).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setProductos(ProductosFromFirebase);
+        console.log(ProductosFromFirebase);
+      })
 
-      console.log(ProductosFromFirebase);
-    };
+      await getDoc(
+        doc(firebaseExports.db, "comercio", idcomercio)
+      ).then((doc) => {
+        const dataComercio = doc.data();
+        setNombreComercio(dataComercio.nombre)
+        setFotoComercio(dataComercio.foto)
+      })
 
-    getProductosFromFirebase(idComercio);
-  }, [productos, idComercio, setProductos]);
+    }
+    
+    return () => subscriber();
+  }, [setProductos, idcomercio]);
+
 
   return (
     <div className={styles.home}>
-      <Categories categorias={categorias} />
+      <div className={styles.comercio}>
+        <img className={styles.comercio_foto} src={fotoComercio} alt="foto comercio" />
+        <h2 className={styles.comercio_nombre}>{nombreComercio}</h2>
+      </div>
+      <Categories categorias={categorias} idcomercio={idcomercio} />
       <CurrentDeals />
-      <ListProducts products={productos} idComercio={idComercio} />
+      <ListProducts products={productos} idComercio={idcomercio} />
     </div>
   );
 }

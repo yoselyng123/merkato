@@ -1,58 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import AgregarProducto from "../../components/AgregarProducto/AgregarProducto";
 import styles from "./adminview.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
-import { query, where, collection, getDocs } from "firebase/firestore";
+import { query, where, collection, getDocs, getDoc, doc } from "firebase/firestore";
 
 function AdminView({
   setProductos,
   productos,
-  idComercio,
-  categorias,
-  setCategorias,
-  userRol
+  categorias
 }) {
+
+  const { idcomercio } = useParams();
+  const [nombreComercio, setNombreComercio] = useState(null)
+  const [fotoComercio, setFotoComercio] = useState(null)
+  
   useEffect(() => {
     const ProductosFromFirebase = [];
 
     const subscriber = async () => {
-      const querySnapshot = await getDocs(
+      await getDocs(
         query(
           collection(firebaseExports.db, "producto"),
-          where("id_comercio", "==", idComercio)
+          where("id_comercio", "==", idcomercio)
         )
-      );
-      querySnapshot.forEach((doc) => {
-        ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-      setProductos(ProductosFromFirebase);
-
+      ).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setProductos(ProductosFromFirebase);
+      })
       console.log(ProductosFromFirebase);
 
-      const CategoriasFromFirebase = [];
+      await getDoc(
+        doc(firebaseExports.db, "comercio", idcomercio)
+      ).then((doc) => {
+        const dataComercio = doc.data();
+        setNombreComercio(dataComercio.nombre)
+        setFotoComercio(dataComercio.foto)
+      })
 
-      const querySnapshot2 = await getDocs(
-        collection(firebaseExports.db, "categoria")
-      );
-      querySnapshot2.forEach((doc) => {
-        CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-      });
-      setCategorias(CategoriasFromFirebase);
 
-      console.log(CategoriasFromFirebase);
     };
     return () => subscriber();
-  }, [idComercio, setCategorias, setProductos]);
+  }, [idcomercio, setProductos]);
 
 
   return (
-    <div className={styles.adminview}>
-      <div className={styles.listproducts}>
-        <ListProducts products={productos} setProductos={setProductos} idComercio={idComercio} userRol={userRol} />
+    <div className={styles.adminviewContainer}>
+      <div className={styles.comercio}>
+        <img className={styles.comercio_foto} src={fotoComercio} alt="foto comercio" />
+        <h2 className={styles.comercio_nombre}>{nombreComercio}</h2>
       </div>
-      <div className={styles.agregarproducto}>
-        <AgregarProducto setProductos={setProductos} idComercio={idComercio} categorias={categorias} />
+
+      <div className={styles.adminview}>
+        <div className={styles.listproducts}>
+          <ListProducts products={productos} setProductos={setProductos} idComercio={idcomercio} categorias={categorias} />
+        </div>
+        <div className={styles.agregarproducto}>
+          <AgregarProducto setProductos={setProductos} idComercio={idcomercio} categorias={categorias} />
+        </div>
       </div>
     </div>
   );
