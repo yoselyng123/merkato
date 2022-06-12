@@ -62,7 +62,7 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
   // });
   const handleOnChange = (event) => {
     const { value, name: inputName } = event.target;
-    // console.log({ inputName, value });
+    console.log(values);
     setValues({ ...values, [inputName]: value });
   };
   useEffect(() => {
@@ -217,7 +217,7 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
             user.carrito.length > 0 && (
               <button
                 className={`${styles.button} ${styles.btn1}`}
-                onClick={compraRealizada}
+                onClick={() => click()}
               >
                 Proceder a Pagar
               </button>
