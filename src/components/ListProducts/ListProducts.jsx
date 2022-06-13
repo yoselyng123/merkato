@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import Product from "../Product/Product";
 import styles from "./listProducts.module.css";
 import NoMatch from "../NoMatch/NoMatch";
-import { SvgIcon } from "@mui/material";
+import SvgIcon from "@mui/material/SvgIcon";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 function ListProducts({
   products,
@@ -11,13 +13,25 @@ function ListProducts({
   idComercio,
   categorias,
 }) {
-  const [open, setOpen] = useState(false);
   const [sort, setSort] = useState("Aisle");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+  const handleClickItem = (event) => {
+    handleCloseMenu()
+    setSort(event.currentTarget.innerText);
+  }
+  
   const eliminarProductoFavorito = (id) => {
     console.log("Trol");
   };
   return (
-    <div className={styles.listProducts} onClick={() => setOpen(!open)}>
+    <div className={styles.listProducts}>
       {products.length > 0 ? (
         <div>
           <div className={styles.topSec}>
@@ -26,7 +40,14 @@ function ListProducts({
             ) : (
               <p className={styles.title}>All Products</p>
             )}
-            <div className={styles.filterBtn} onClick={() => setOpen(!open)}>
+            <div 
+              className={styles.filterBtn}
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClickMenu}
+            >
               <SvgIcon>
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5.94 3.44a1.5 1.5 0 012.12 0L12 7.378A1.5 1.5 0 119.879 9.5L8.5 8.121V19a1.5 1.5 0 01-3 0V8.12L4.121 9.5A1.5 1.5 0 112 7.379l3.94-3.94zM19.879 14.5L18.5 15.88V5a1.5 1.5 0 00-3 0v10.879L14.121 14.5A1.5 1.5 0 1012 16.621l3.94 3.94a1.5 1.5 0 002.12 0L22 16.62a1.5 1.5 0 10-2.121-2.12z"></path>
@@ -49,13 +70,20 @@ function ListProducts({
               )}
             </div>
 
-            {open && (
-              <ul className={styles.dropdown}>
-                <li onClick={() => setSort("Aisle")}>Aisle</li>
-                <li onClick={() => setSort("Lowest Price")}>Lowest Price</li>
-                <li onClick={() => setSort("Highest Price")}>Highest Price</li>
-              </ul>
-            )}
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleCloseMenu}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleClickItem}>Aisle</MenuItem>
+              <MenuItem onClick={handleClickItem}>Lowest Price</MenuItem>
+              <MenuItem onClick={handleClickItem}>Highest Price</MenuItem>
+
+            </Menu>
           </div>
           <div className={styles.productsContainer}>
             {products.map((product) => (
