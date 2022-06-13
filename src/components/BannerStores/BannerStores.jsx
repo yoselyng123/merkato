@@ -16,11 +16,10 @@ function BannerStores() {
       }}
     >
       <div className={styles.content} style={{ transform: "rotate(180deg)" }}>
-        <p className={styles.title}>
-          Order groceries for delivery or pickup today
-        </p>
+        <p className={styles.title}>Pide tus compras por delivery o pick up.</p>
         <p className={styles.text}>
-          Whatever you want from local stores, brought right to your door.
+          Lo que quieras de tus supermercados locales favoritos, llegan hasta la
+          puerta de tu casa.
         </p>
       </div>
     </div>

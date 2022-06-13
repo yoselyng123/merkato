@@ -14,8 +14,7 @@ function ListComercios({ comercios, setIdComercio }) {
 
     if (user && user.rol === "admin") {
       navigate(`../${comercio.nombre}/${comercio.id}/admin`, { replace: true });
-    } 
-    else {
+    } else {
       navigate(`../${comercio.nombre}/${comercio.id}/shop`, { replace: true });
     }
   };
@@ -25,7 +24,7 @@ function ListComercios({ comercios, setIdComercio }) {
       {comercios.length > 0 ? (
         <div>
           <p className={styles.title}>
-            Choose your store in
+            Escoge tu tienda en
             <span style={{ color: "var(--darkGreen)", fontWeight: "600" }}>
               Caracas
             </span>

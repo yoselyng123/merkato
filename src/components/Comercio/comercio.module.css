@@ -23,6 +23,7 @@
 
 .imgContainer > img{
     height: 100%;
+    border-radius: 50%;
 }
 .infoContainer{
     padding: 0.2rem 0.5rem;

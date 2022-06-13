@@ -1,0 +1,89 @@
+.infoSection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+.infoTitle{
+    font-weight: 400;
+    font-size: 2rem;
+}
+.cardsWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #F6F7F8;
+    width: 22%;
+    border-radius: 10px;
+}
+
+.infoWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 8%;
+}
+.title{
+    font-size: 1.9rem;
+    font-weight: 600;
+    line-height: 40px;
+}
+.text{
+    width: 95%;
+    font-size: 1.1rem;
+    text-justify: distribute;
+    line-height: 2rem;
+}
+.image{
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.bottomSection{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+}
+
+.miniCardWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 75%;
+}
+.miniCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #F3F3F3;
+    padding: 3%;
+    gap: 0.8rem;
+    border-radius: 10px;
+    width: 280px;
+    height: 225px;
+}
+.miniCardtText{
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 28px;
+    width: 100%;
+    text-justify: distribute;
+}
+
+.bannerBottomSection{
+    width: 50%;
+    border-radius: 20px;
+}
