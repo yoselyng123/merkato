@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./Pago.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import PaypalExpressBtn from "react-paypal-express-checkout";
 import { useEffect, useState, useContext } from "react";
-import ReactDOM from "react-dom";
 import { UserContext } from "../../context/UserContext";
 import { setDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
@@ -126,8 +124,12 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
           type="text"
           placeholder="PromoCode"
           className={styles.inputPromo}
+          value={promoCodeInput}
+          onChange={(e) => setPromoCodeInput(e.target.value)}
         />
-        <button className={styles.buttonPromo}>Apply</button>
+        <button className={styles.buttonPromo} onClick={handleApplyPromoCode}>
+          Apply
+        </button>
       </div> */}
       <div style={styles.total}>
         <hr />

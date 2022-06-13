@@ -7,16 +7,61 @@ import DeliveryTime from "../../components/DeliveryTime/DeliveryTime";
 import AddPhoneNumber from "../../components/AddPhoneNumber/AddPhoneNumber";
 import SelectPaymentMethod from "../../components/SelectPaymentMethod/SelectPaymentMethod";
 import { UserContext } from "../../context/UserContext";
-import PaypalExpressBtn from "react-paypal-express-checkout";
-import { setDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
+import PaypalExpressBtn from "react-paypal-express-checkout";
+
 import uniqid from "uniqid";
 import { useNavigate } from "react-router-dom";
-
 function Checkout() {
   const navigate = useNavigate();
-  const { user, carrito, setCarrito } = useContext(UserContext);
+  const { user, carrito, setUser, setCarrito } = useContext(UserContext);
   const Date1 = new Date();
+  const [promoCodeInput, setPromoCodeInput] = useState("");
+  const [promoCodesByUser, setPromoCodesByUser] = useState([]);
+
+  const handleApplyPromoCode = async () => {
+    const promosRef = collection(db, "promos");
+
+    const myQuery = query(
+      promosRef,
+      where("promoCode", "==", promoCodeInput.toUpperCase())
+    );
+    const myDoc = await getDocs(myQuery);
+
+    if (!myDoc.size) {
+      alert("Codigo de promocion no valido!");
+    } else {
+      console.log("PROMOCODE EXISTS");
+      if (!user.appliedPromos.includes(promoCodeInput.toUpperCase())) {
+        myDoc.forEach(async (item) => {
+          if (price > item.data().descuento) {
+            setPrice(price - item.data().descuento);
+          } else {
+            setPrice(0);
+          }
+          alert("Se aplico el codigo de promocion");
+          promoCodesByUser.push(promoCodeInput.toUpperCase());
+          const userRef = doc(db, "users", user.id);
+          setUser({ ...user, appliedPromos: promoCodesByUser });
+          await updateDoc(userRef, {
+            appliedPromos: promoCodesByUser,
+          });
+        });
+      } else {
+        alert("Ya ha usado este codigo de promocion");
+      }
+    }
+  };
+
   useEffect(() => {
     if (user) {
       setAddresses(user.direcciones);
@@ -27,6 +72,7 @@ function Checkout() {
           values.impuestos +
           carrito.reduce((a, b) => a + b.montoTotal, 0)
       );
+      setPromoCodesByUser(user.appliedPromos);
     }
   }, [carrito]);
 
@@ -253,6 +299,19 @@ function Checkout() {
           <p className={styles.rightText}>${price.toFixed(2)}</p>
         </div>
         <hr />
+
+        <div className={styles.promo}>
+          <input
+            type="text"
+            placeholder="PromoCode"
+            className={styles.inputPromo}
+            value={promoCodeInput}
+            onChange={(e) => setPromoCodeInput(e.target.value)}
+          />
+          <button className={styles.buttonPromo} onClick={handleApplyPromoCode}>
+            Apply
+          </button>
+        </div>
       </div>
     </div>
   );
