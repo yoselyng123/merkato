@@ -10,6 +10,9 @@ function Searcher({ products, idComercio, categorias }) {
   let { name } = useParams();
 
   useEffect(() => {
+    if (products || idComercio || categorias) {
+      console.log(products, idComercio, categorias);
+    }
     const filtrarByName = (terminoBusqueda) => {
       var resultadosBusqueda = products.filter((product) => {
         if (
@@ -62,7 +65,6 @@ function Searcher({ products, idComercio, categorias }) {
 
   return (
     <div className={styles.searcher}>
-      <Categories categorias={categorias} />
       <ListProducts products={listSearch} idComercio={idComercio} />
     </div>
   );

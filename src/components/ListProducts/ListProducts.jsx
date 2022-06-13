@@ -23,10 +23,10 @@ function ListProducts({
     setAnchorEl(null);
   };
   const handleClickItem = (event) => {
-    handleCloseMenu()
+    handleCloseMenu();
     setSort(event.currentTarget.innerText);
-  }
-  
+  };
+
   const eliminarProductoFavorito = (id) => {
     console.log("Trol");
   };
@@ -40,7 +40,7 @@ function ListProducts({
             ) : (
               <p className={styles.title}>All Products</p>
             )}
-            <div 
+            {/* <div 
               className={styles.filterBtn}
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
@@ -68,7 +68,7 @@ function ListProducts({
                   </svg>
                 </SvgIcon>
               )}
-            </div>
+            </div> */}
 
             <Menu
               id="basic-menu"
@@ -82,7 +82,6 @@ function ListProducts({
               <MenuItem onClick={handleClickItem}>Aisle</MenuItem>
               <MenuItem onClick={handleClickItem}>Lowest Price</MenuItem>
               <MenuItem onClick={handleClickItem}>Highest Price</MenuItem>
-
             </Menu>
           </div>
           <div className={styles.productsContainer}>

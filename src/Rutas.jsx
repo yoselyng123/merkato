@@ -76,7 +76,7 @@ function Rutas() {
       />
       <Route
         exact
-        path="/search/:name"
+        path="/searchBy/:name"
         element={
           <Searcher
             products={productos}
