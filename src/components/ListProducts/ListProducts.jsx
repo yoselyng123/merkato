@@ -4,10 +4,18 @@ import styles from "./listProducts.module.css";
 import NoMatch from "../NoMatch/NoMatch";
 import { SvgIcon } from "@mui/material";
 
-function ListProducts({ products, setProductos, title, idComercio, categorias }) {
+function ListProducts({
+  products,
+  setProductos,
+  title,
+  idComercio,
+  categorias,
+}) {
   const [open, setOpen] = useState(false);
   const [sort, setSort] = useState("Aisle");
-
+  const eliminarProductoFavorito = (id) => {
+    console.log("Trol");
+  };
   return (
     <div className={styles.listProducts} onClick={() => setOpen(!open)}>
       {products.length > 0 ? (
@@ -57,6 +65,7 @@ function ListProducts({ products, setProductos, title, idComercio, categorias })
                 idComercio={idComercio}
                 setProductos={setProductos}
                 categorias={categorias}
+                eliminarProductoFavorito={eliminarProductoFavorito}
               />
             ))}
           </div>
