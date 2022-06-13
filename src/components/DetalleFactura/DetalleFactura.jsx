@@ -13,6 +13,7 @@ const DetalleFactura = ({
   idCarrito,
   carrito,
   click,
+  direccion,
 }) => {
   const { user, setCarrito } = useContext(UserContext);
   const [products, setProducts] = useState([]);
@@ -76,7 +77,7 @@ const DetalleFactura = ({
             </div>
             <div className={styles.containerColumnas}>
               <h4 className={styles.titleUp}>Enviado a</h4>
-              <p>Jesus</p>
+              <p>{direccion.lineAddress1}</p>
             </div>
           </div>
           <div className={styles.rightSide}>

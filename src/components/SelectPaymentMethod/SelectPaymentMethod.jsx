@@ -1,9 +1,37 @@
 import styles from "./selectPaymentMethod.module.css";
 import { SvgIcon } from "@mui/material";
 import { useState } from "react";
-
-function SelectPaymentMethod({ setDirectionClick, directionClick }) {
+import PaypalExpressBtn from "react-paypal-express-checkout";
+function SelectPaymentMethod({
+  setDirectionClick,
+  directionClick,
+  totalAmount,
+  compraRealizada,
+}) {
   const [payPal, setPayPal] = useState(false);
+  const [client, setClient] = useState({
+    sandbox:
+      "AdSJSUQxGGwUaz8PJL0prKyFrTStKFpUSd9sxhhrqCVZGNHBY84e-kjKqXpi9b09qZPFiyrZaNcpIcop",
+    production: "YOUR-PRODUCTION-APP-ID",
+  });
+  const [env, setEnv] = useState("sandbox");
+  const [currency, setCurrency] = useState("USD");
+  const onError = (err) => {
+    console.log("Error, por favor verifique y vuelva a intentarlo.");
+    //console.log(err);
+  };
+  const onSuccess = (suc) => {
+    compraRealizada();
+    console.log("BIEEEN");
+
+    //console.log(suc);
+  };
+
+  const onCancel = (canc) => {
+    console.log("Se canceló su operación.");
+    console.log("MAAAAL");
+    //console.log(canc);
+  };
 
   return (
     <div className={styles.selectPaymentMethod}>
@@ -51,14 +79,25 @@ function SelectPaymentMethod({ setDirectionClick, directionClick }) {
             <div className={styles.btnCancel} onClick={() => setPayPal(false)}>
               <p style={{ color: "#000", fontWeight: "400" }}>Cancel</p>
             </div>
-            <div className={styles.btn}>
-              <p>PayPal</p>
-            </div>
+            <PaypalExpressBtn
+              env={env}
+              client={client}
+              currency={currency}
+              total={totalAmount}
+              onError={onError}
+              onSuccess={onSuccess}
+              onCancel={onCancel}
+              className={styles.btnPaypal}
+              style={{
+                color: "white",
+                size: "medium",
+                shape: "pill",
+                label: "pay",
+              }}
+            />
           </div>
 
           <hr />
-
-          <button>Realizar compra</button>
         </div>
       )}
     </div>

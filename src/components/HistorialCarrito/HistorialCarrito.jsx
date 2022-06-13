@@ -19,6 +19,7 @@ const HistorialCarrito = ({
   click,
   handleFavoritos,
   agregarFavorito,
+  direccion,
 }) => {
   const Date1 = new Date(fecha);
   const { setCarrito, user, setUser } = useContext(UserContext);
@@ -32,26 +33,6 @@ const HistorialCarrito = ({
       carrito: JSON.parse(localStorage.getItem("carrito")),
     });
     navigate("/carrito", { replace: true });
-  };
-
-  const agregarFavoritoCarrito = async () => {
-    console.log("ENTRA");
-    await setDoc(doc(db, "favorites", uniqid()), {
-      nombre: "Mercado Madre",
-      carrito: carrito,
-      total: total,
-      idUser: user.id,
-      idCarrito: idCarrito,
-    });
-    alert("Su carrito ha sido anadido en favoritos");
-    // const userRef = doc(db, "users", user.id);
-    // await updateDoc(userRef, {
-    //   carrito: [],
-    // });
-    // localStorage.setItem("carrito", "[]");
-    // setCarrito(JSON.parse(localStorage.getItem("carrito")));
-    // user.carrito = JSON.parse(localStorage.getItem("carrito"));
-    // handleClickHome();
   };
 
   return (
@@ -121,7 +102,8 @@ const HistorialCarrito = ({
                 "Descripcion",
                 total,
                 idUser,
-                idCarrito
+                idCarrito,
+                direccion
               )
             }
           >

@@ -15,14 +15,10 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
   const Date1 = new Date();
   let navigate = useNavigate();
   const handleClickHome = () => {
-    if (
-      (values.direccion !== "" && values.descripcion !== "") ||
-      (!delivery && values.descripcion !== "")
-    ) {
-      navigate("/", { replace: true });
-    } else {
-      console.log("Epa Epa Epa");
-    }
+    navigate("/", { replace: true });
+  };
+  const handleClickCheckout = () => {
+    navigate("/store/checkout", { replace: true });
   };
   const [error, setError] = useState(null);
   const { user, setCarrito, carrito } = useContext(UserContext);
@@ -47,54 +43,43 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
   //   month: "numeric",
   //   day: "numeric",
   // };
-  const [delivery, setDelivery] = useState(true);
-  const deliveryFunction = () => {
-    if (values.delivery === true) {
-      setValues({ ...values, delivery: false });
-    } else {
-      setValues({ ...values, delivery: true });
-    }
-  };
+
   // const [values, setValues] = useState({
   //   promocode: "",
   //   direccion: "",
   //   descripcion: "",
   // });
-  const handleOnChange = (event) => {
-    const { value, name: inputName } = event.target;
-    console.log(values);
-    setValues({ ...values, [inputName]: value });
-  };
-  useEffect(() => {
-    calcularTotales();
-    // console.log(Date1.toLocaleDateString("es-ES"));
-  });
 
-  const calcularTotales = () => {
-    let suma = 0;
-    //console.log('******************************')
-    suma = suma + committedFieldsToAdd.precio;
-    setSubtotal(suma);
-    //console.log(parseInt(subtotal));
-    setImpuestos(subtotal * 0.16);
-    setAmount(subtotal + impuestos);
-  };
+  // useEffect(() => {
+  //   calcularTotales();
+  //   // console.log(Date1.toLocaleDateString("es-ES"));
+  // });
 
-  const onError = (err) => {
-    setError("Error, por favor verifique y vuelva a intentarlo.");
-    //console.log(err);
-  };
-  const onSuccess = (suc) => {
-    console.log("BIEEEN");
-    compraRealizada();
-    //console.log(suc);
-  };
+  // const calcularTotales = () => {
+  //   let suma = 0;
+  //   //console.log('******************************')
+  //   suma = suma + committedFieldsToAdd.precio;
+  //   setSubtotal(suma);
+  //   //console.log(parseInt(subtotal));
+  //   setImpuestos(subtotal * 0.16);
+  //   setAmount(subtotal + impuestos);
+  // };
 
-  const onCancel = (canc) => {
-    setError("Se canceló su operación.");
-    console.log("MAAAAL");
-    //console.log(canc);
-  };
+  // const onError = (err) => {
+  //   setError("Error, por favor verifique y vuelva a intentarlo.");
+  //   //console.log(err);
+  // };
+  // const onSuccess = (suc) => {
+  //   console.log("BIEEEN");
+  //   compraRealizada();
+  //   //console.log(suc);
+  // };
+
+  // const onCancel = (canc) => {
+  //   setError("Se canceló su operación.");
+  //   console.log("MAAAAL");
+  //   //console.log(canc);
+  // };
   const compraRealizada = async () => {
     console.log("ENTRA");
     await setDoc(doc(db, `historial`, uniqid()), {
@@ -134,36 +119,7 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
   // };
   return (
     <div className={styles.pago}>
-      <div className={styles.deliveryBox}>
-        <h2>Delivery</h2>
-        <button
-          className={values.delivery ? styles.buttonLActive : styles.buttonL}
-          onClick={deliveryFunction}
-        >
-          Si
-        </button>
-        <button
-          className={!values.delivery ? styles.buttonDActive : styles.buttonD}
-          onClick={deliveryFunction}
-        >
-          No
-        </button>
-      </div>
-      {values.delivery && (
-        <div className={styles.direccionBox}>
-          <label htmlFor="" className={styles.subTituloPrecio}>
-            Direccion
-          </label>
-          <input
-            type="text"
-            className={styles.inputPromo}
-            id="direccion"
-            name="direccion"
-            values={values.direccion}
-            onChange={handleOnChange}
-          />
-        </div>
-      )}
+      <h2>Factura</h2>
 
       {/* <div className={styles.promo}>
         <input
@@ -179,9 +135,6 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
           <h2 className={styles.subTituloPrecio}>Subtotal</h2>
           <span className={styles.precio}>${totalAmount}</span>
 
-          <h2 className={styles.subTituloPrecio}>Delivery</h2>
-          <span className={styles.precio}>$0</span>
-
           <hr />
           <span></span>
           <h2 className={`${styles.subTituloPrecio} ${styles.tituloTotal}`}>
@@ -192,19 +145,7 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
           </label>
         </div>
         <hr />
-        <div className={styles.direccionBox}>
-          <label htmlFor="" className={styles.subTituloPrecio}>
-            Descripcion de la compra
-          </label>
-          <input
-            type="text"
-            className={styles.inputPromo}
-            id="descripcion"
-            name="descripcion"
-            values={values.descripcion}
-            onChange={handleOnChange}
-          />
-        </div>
+
         <div className={styles.buttons}>
           {!user ? (
             <button
@@ -217,7 +158,7 @@ const Pago = ({ totalAmount, click, values, setValues }) => {
             user.carrito.length > 0 && (
               <button
                 className={`${styles.button} ${styles.btn1}`}
-                onClick={() => click()}
+                onClick={handleClickCheckout}
               >
                 Proceder a Pagar
               </button>

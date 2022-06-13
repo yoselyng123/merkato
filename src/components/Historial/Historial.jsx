@@ -22,13 +22,15 @@ const Historial = () => {
     nombre: "",
   });
   const [isNombre, setIsNombre] = useState(false);
+  const [direccion, setDireccion] = useState("");
   const handleClose = (
     carrito,
     fecha,
     descripcion,
     total,
     idUser,
-    idCarrito
+    idCarrito,
+    direccion
   ) => {
     console.log(carrito);
     if (info) {
@@ -42,6 +44,7 @@ const Historial = () => {
         idCarrito: idCarrito,
       });
       setTotal(total);
+      setDireccion(direccion);
 
       setInfo(true);
     }
@@ -91,6 +94,7 @@ const Historial = () => {
         idCarrito: "",
       });
       setTotal(0);
+
       setIsNombre(false);
     }
 
@@ -161,15 +165,16 @@ const Historial = () => {
                   (product) =>
                     user.id === product.idUser && (
                       <HistorialCarrito
-                        total={product.total}
+                        total={product.total.toFixed(2)}
                         fecha={product.fecha}
                         idCarrito={product.id}
                         idUser={product.idUser}
                         carrito={product.carrito}
                         click={handleClose}
-                        values={product.id}
+                        value={product.id}
                         handleFavoritos={handleCloseFavorite}
                         agregarFavorito={agregarFavoritoCarrito}
+                        direccion={product.direccion}
                       />
                     )
                 )}
@@ -182,6 +187,7 @@ const Historial = () => {
                 idUser={values.idUser}
                 carrito={values.carrito}
                 click={handleClose}
+                direccion={direccion}
               />
             )}
           </>
