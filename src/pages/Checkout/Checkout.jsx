@@ -14,12 +14,17 @@ import {
   where,
   getDocs,
   updateDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
+import PaypalExpressBtn from "react-paypal-express-checkout";
 
+import uniqid from "uniqid";
+import { useNavigate } from "react-router-dom";
 function Checkout() {
-  const { user, carrito, setUser } = useContext(UserContext);
-
+  const navigate = useNavigate();
+  const { user, carrito, setUser, setCarrito } = useContext(UserContext);
+  const Date1 = new Date();
   const [promoCodeInput, setPromoCodeInput] = useState("");
   const [promoCodesByUser, setPromoCodesByUser] = useState([]);
 
@@ -58,18 +63,18 @@ function Checkout() {
   };
 
   useEffect(() => {
-    setPrice(
-      values.delivery + values.tasaServicio + values.impuestos + totalAmount
-    );
-  }, []);
-
-  useEffect(() => {
     if (user) {
       setAddresses(user.direcciones);
       setTotalAmount(carrito.reduce((a, b) => a + b.montoTotal, 0));
+      setPrice(
+        values.delivery +
+          values.tasaServicio +
+          values.impuestos +
+          carrito.reduce((a, b) => a + b.montoTotal, 0)
+      );
       setPromoCodesByUser(user.appliedPromos);
     }
-  }, [user]);
+  }, [carrito]);
 
   const [directionClick, setDirectionClick] = useState(false);
   const [deliveryTimeClick, setDeliveryTimeClick] = useState(false);
@@ -95,6 +100,34 @@ function Checkout() {
     delivery: 1.0,
     tasaServicio: 0.5,
     impuestos: 0.5,
+  };
+
+  const compraRealizada = async () => {
+    console.log("ENTRA");
+    await setDoc(doc(db, `historial`, uniqid()), {
+      fecha:
+        Date1.getFullYear() +
+        "-" +
+        (Date1.getMonth() + 1) +
+        "-" +
+        Date1.getDate(),
+      carrito: carrito,
+      total: price,
+      idUser: user.id,
+      telefono: phoneNumber,
+      instruccionDelivery: deliveryInstructions,
+      direccion: address,
+      horaEntrega: selectedTime,
+    });
+    const userRef = doc(db, "users", user.id);
+    await updateDoc(userRef, {
+      carrito: [],
+    });
+    localStorage.setItem("carrito", "[]");
+    setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    user.carrito = JSON.parse(localStorage.getItem("carrito"));
+    alert("Compra realizada");
+    navigate("/", { replace: true });
   };
 
   return (
@@ -226,6 +259,8 @@ function Checkout() {
             <SelectPaymentMethod
               setDirectionClick={setPaymentMethod}
               directionClick={paymentMethod}
+              totalAmount={price.toFixed(2)}
+              compraRealizada={compraRealizada}
             />
           ) : (
             <CheckoutPreferences

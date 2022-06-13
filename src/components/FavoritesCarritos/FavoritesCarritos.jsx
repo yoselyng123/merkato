@@ -1,25 +1,24 @@
 import React from "react";
-import styles from "./HistorialCarrito.module.css";
+import styles from "./FavoritesCarritos.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { db } from "../../utils/firebaseConfig";
-import { doc, updateDoc, setDoc } from "firebase/firestore";
+import { doc, updateDoc, setDoc, deleteDoc } from "firebase/firestore";
 import uniqid from "uniqid";
 
-const HistorialCarrito = ({
+const FavoritesCarritos = ({
   total,
   fecha,
-  idCarrito,
+  nombre,
   idUser,
   carrito,
-  descripcion,
+  idCarrito,
+  idFavoritoCarrito,
   click,
-  handleFavoritos,
-  agregarFavorito,
-  direccion,
+  eliminarFavorito,
 }) => {
   const Date1 = new Date(fecha);
   const { setCarrito, user, setUser } = useContext(UserContext);
@@ -34,6 +33,31 @@ const HistorialCarrito = ({
     });
     navigate("/carrito", { replace: true });
   };
+  //   const eliminarFavorito = async () => {
+  //     // console.log(idFavoritoCarrito);
+
+  //     await deleteDoc(doc(db, "favorites", idFavoritoCarrito));
+  //   };
+
+  //   const agregarFavoritoCarrito = async () => {
+  //     console.log("ENTRA");
+  //     await setDoc(doc(db, "favorites", uniqid()), {
+  //       nombre: "Mercado Madre",
+  //       carrito: carrito,
+  //       total: total,
+  //       idUser: user.id,
+  //       idCarrito: idCarrito,
+  //     });
+  //     alert("Su carrito ha sido anadido en favoritos");
+  //     // const userRef = doc(db, "users", user.id);
+  //     // await updateDoc(userRef, {
+  //     //   carrito: [],
+  //     // });
+  //     // localStorage.setItem("carrito", "[]");
+  //     // setCarrito(JSON.parse(localStorage.getItem("carrito")));
+  //     // user.carrito = JSON.parse(localStorage.getItem("carrito"));
+  //     // handleClickHome();
+  //   };
 
   return (
     <div className={styles.containers}>
@@ -47,24 +71,14 @@ const HistorialCarrito = ({
             <h1
               className={styles.nombreProducto}
               onClick={() =>
-                click(
-                  carrito,
-                  Date1.toLocaleDateString(),
-                  "Descripcion",
-                  total,
-                  idUser,
-                  idCarrito
-                )
+                click(carrito, "Descripcion", total, idUser, idCarrito, nombre)
               }
             >
-              {idCarrito}
+              {nombre}
             </h1>
             {/* </Link> */}
             <div className={styles.divDescripcion}>
               <span className={styles.descripcion}>descripcion</span>
-              <span className={styles.descripcion}>
-                {Date1.toLocaleDateString()}
-              </span>
             </div>
           </div>
           <h2 className={styles.precioTotal}>${total}</h2>
@@ -74,19 +88,9 @@ const HistorialCarrito = ({
           <div className={styles.downRightSide}>
             <button
               className={styles.buttonDelete}
-              onClick={() =>
-                handleFavoritos(
-                  fecha,
-                  carrito,
-                  descripcion,
-                  user.id,
-                  idCarrito,
-                  total
-                )
-              }
-              //   onClick={() => handleDeleteCarrito(id)}
+              onClick={() => eliminarFavorito(idFavoritoCarrito)}
             >
-              Agregar a favoritos
+              Eliminar de favoritos
             </button>
             {/* <button className={styles.buttonSave}>Save</button> */}
             <button className={styles.comprar} onClick={() => volverComprar()}>
@@ -96,15 +100,7 @@ const HistorialCarrito = ({
           <button
             className={styles.ver}
             onClick={() =>
-              click(
-                carrito,
-                Date1.toLocaleDateString(),
-                "Descripcion",
-                total,
-                idUser,
-                idCarrito,
-                direccion
-              )
+              click(carrito, "descripcion", total, idUser, idCarrito, nombre)
             }
           >
             Ver Detalles
@@ -115,4 +111,4 @@ const HistorialCarrito = ({
   );
 };
 
-export default HistorialCarrito;
+export default FavoritesCarritos;

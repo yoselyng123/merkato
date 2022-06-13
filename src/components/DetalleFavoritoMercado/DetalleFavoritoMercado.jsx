@@ -1,19 +1,20 @@
 import React from "react";
-import styles from "./DetalleFactura.module.css";
+import styles from "./DetalleFavoritoMercado.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useEffect, useState, useContext } from "react";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
 import { UserContext } from "../../context/UserContext";
+import ProductoCarrito from "../ProductoCarrito/ProductoCarrito";
 import ProductoFactura from "../ProductoFactura/ProductoFactura";
 import { useNavigate } from "react-router-dom";
-const DetalleFactura = ({
+const DetalleFavoritoMercado = ({
   total,
-  fecha,
-  idCarrito,
+  nombre,
+  idUser,
   carrito,
+  idCarrito,
   click,
-  direccion,
 }) => {
   const { user, setCarrito } = useContext(UserContext);
   const [products, setProducts] = useState([]);
@@ -53,7 +54,7 @@ const DetalleFactura = ({
       // return cleanup function
       return () => subscriber();
     }
-  }, [carrito, user]);
+  }, []);
   return (
     <div className={styles.infocontent}>
       <div className={styles.exitbutton} onClick={() => click()}>
@@ -67,23 +68,12 @@ const DetalleFactura = ({
       <div className={styles.infoContainer}>
         <div className={styles.upContainer}>
           <div className={styles.leftSide}>
-            <div className={styles.containerColumnas}>
-              <h4 className={styles.titleUp}>Fecha de orden</h4>
-              <p>{fecha}</p>
-            </div>
-            <div className={styles.containerColumnas}>
-              <h4 className={styles.titleUp}>Total</h4>
-              <p className={styles.price}>${total}</p>
-            </div>
-            <div className={styles.containerColumnas}>
-              <h4 className={styles.titleUp}>Enviado a</h4>
-              <p>{direccion.lineAddress1}</p>
-            </div>
+            <h4 className={styles.titleUpNombre}>{nombre}</h4>
           </div>
           <div className={styles.rightSide}>
             <div className={styles.containerFila}>
-              <h3 className={styles.titleUp}>Orden # </h3>
-              <h3 className={styles.nombre}>{idCarrito}</h3>
+              <h3 className={styles.titleUp}>Total: $ </h3>
+              <h3 className={styles.nombre}>{total}</h3>
             </div>
             <button className={styles.comprar} onClick={() => volverComprar()}>
               Volver a Comprar
@@ -112,4 +102,4 @@ const DetalleFactura = ({
   );
 };
 
-export default DetalleFactura;
+export default DetalleFavoritoMercado;
