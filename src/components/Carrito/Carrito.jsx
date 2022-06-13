@@ -127,26 +127,26 @@ const Carrito = () => {
           />
 
           {/* <div className={styles.pago}>
-        <div className={styles.deliveryBox}>
-          <h2>Delivery</h2>
-          <button className={styles.button}>Si</button>
-          <button className={styles.button}>No</button>
-        </div>
-        <div className={styles.promo}>
-          <input
-            type="text"
-            placeholder="PromoCode"
-            className={styles.inputPromo}
-          />
-          <button className={styles.buttonPromo}>Apply</button>
-        </div>
-        <div style={styles.total}>
-          <div className={styles.subtotal}>
-            <h2>Subtotal</h2>
-            <label htmlFor="">$2</label>
-          </div>
-        </div>
-      </div> */}
+            <div className={styles.deliveryBox}>
+              <h2>Delivery</h2>
+              <button className={styles.button}>Si</button>
+              <button className={styles.button}>No</button>
+            </div>
+            <div className={styles.promo}>
+              <input
+                type="text"
+                placeholder="PromoCode"
+                className={styles.inputPromo}
+              />
+              <button className={styles.buttonPromo}>Apply</button>
+            </div>
+            <div style={styles.total}>
+              <div className={styles.subtotal}>
+                <h2>Subtotal</h2>
+                <label htmlFor="">$2</label>
+              </div>
+            </div>
+          </div> */}
         </>
       )}
     </div>
