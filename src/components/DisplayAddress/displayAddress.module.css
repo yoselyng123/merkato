@@ -12,6 +12,7 @@
 .top > svg{
     fill: #393939;
     font-size: 1.1rem;
+    cursor: pointer;
 }
 
 .title{
