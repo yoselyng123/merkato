@@ -20,30 +20,44 @@ function Rutas() {
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [idComercio, setIdComercio] = useState(null);
+  const [pasillos, setPasillos] = useState([]);
 
   useEffect(() => {
     const getComerciosFromFirebase = [];
     const CategoriasFromFirebase = [];
+    const PasillosFromFirebase = [];
 
     const subscriber = async () => {
-      await getDocs(collection(firebaseExports.db, "comercio")).then(
-        (querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
-          });
-          setComercios(getComerciosFromFirebase);
-        }
-      );
+      await getDocs(
+        collection(firebaseExports.db, "comercio")
+      ).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setComercios(getComerciosFromFirebase);
+        console.log(getComerciosFromFirebase);
+      })
 
       //setLoading(false);
-      await getDocs(collection(firebaseExports.db, "categoria")).then(
-        (querySnapshot2) => {
-          querySnapshot2.forEach((doc) => {
-            CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-          });
-          setCategorias(CategoriasFromFirebase);
-        }
-      );
+      await getDocs(
+        collection(firebaseExports.db, "categoria")
+      ).then((querySnapshot2) => {
+        querySnapshot2.forEach((doc) => {
+          CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setCategorias(CategoriasFromFirebase);
+        console.log(CategoriasFromFirebase);
+      })
+
+      await getDocs(
+        collection(firebaseExports.db, "pasillo")
+      ).then((querySnapshot3) => {
+        querySnapshot3.forEach((doc) => {
+          PasillosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setPasillos(PasillosFromFirebase);
+        console.log(PasillosFromFirebase);
+      })
     };
 
     // return cleanup function
@@ -72,8 +86,15 @@ function Rutas() {
       />
       <Route
         exact
-        path="/searchBy/:idcomercio/categories/:category"
-        element={<ViewByCategory categorias={categorias} />}
+        path="/searchBy/:idcomercio/categories/:category/:namecategory"
+        element={<ViewByCategory />}
+      />
+      <Route
+        exact
+        path="/searchBy/:idcomercio/pasillos/:pasillo"
+        element={
+          <ViewByCategory />
+        }
       />
       <Route
         exact
@@ -83,6 +104,7 @@ function Rutas() {
             setProductos={setProductos}
             productos={productos}
             categorias={categorias}
+            pasillos={pasillos}
           />
         }
       />

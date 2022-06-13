@@ -35,8 +35,7 @@ const AgregarProducto = ({ setProductos, idComercio, categorias }) => {
       nombre: nombreRef.current.value,
       precio_unitario: Number(precioRef.current.value),
       stock: Number(stockRef.current.value),
-      foto_producto: imageURLList,
-      pasillo: 0 //HAY QUE ESPECIFICAR EL PASILLO
+      foto_producto: imageURLList
     });
 
     console.log("Product added with ID: ", addSnapshot.id);

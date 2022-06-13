@@ -3,7 +3,7 @@ import Category from "../Category/Category";
 import styles from "./categories.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 
-function Categories({ categorias, idcomercio }) {
+function Categories({ categorias, idcomercio, pasillos }) {
   return (
     <div className={styles.categories}>
       <div className={styles.top}>
@@ -25,11 +25,22 @@ function Categories({ categorias, idcomercio }) {
           </div>
         </div>
       </div>
+
       <div className={styles.cards}>
-        {categorias.map((categoria) => (
-          <Category key={categoria.id} data={categoria} idcomercio={idcomercio} />
-        ))}
+        {pasillos.map((pasillo) => (
+            <Category key={pasillo.id} categorias={categorias} pasillo={pasillo} idcomercio={idcomercio} />
+          ))}
       </div>
+
+
+{/*       <div className={styles.cards}>
+        {categorias.map((categoria) => categoria.pasillo === 0 ? (
+            <Category key={categoria.id} data={categoria} idcomercio={idcomercio} />
+          ) : (
+            null
+          )
+          )}
+      </div> */}
     </div>
   );
 }
