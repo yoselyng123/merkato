@@ -281,6 +281,8 @@ export default function UserContextProvider({ children }) {
             email: loggedUser.email,
             carrito: JSON.parse(localStorage.getItem("carrito")),
             rol: localStorage.getItem("rol"),
+            direcciones: [],
+            appliedPromos: [],
           };
           await createUser(newProfile, loggedUser.uid);
           setUser({ ...newProfile, id: loggedUser.uid });

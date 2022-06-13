@@ -59,10 +59,16 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
       );
 
       await createUser(
-        { email: email, rol: rol, carrito: carrito },
+        {
+          email: email,
+          rol: rol,
+          carrito: carrito,
+          direcciones: [],
+          appliedPromos: [],
+        },
         response.user.uid
       );
-      // setDoc(docuRef, { email: email, rol: rol, carrito: carrito });
+
       click();
     } catch (error) {
       console.log(error.code);
@@ -117,9 +123,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
                 </svg>
               </SvgIcon>
             </div>
-            <RoleTypes
-              click={click}
-            />
+            <RoleTypes click={click} />
           </div>
         </>
       )}
@@ -138,9 +142,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
                   </svg>
                 </SvgIcon>
               </div>
-              <RoleTypes
-                click={click}
-              />
+              <RoleTypes click={click} />
 
               <hr />
 

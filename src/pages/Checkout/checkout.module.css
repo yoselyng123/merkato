@@ -40,7 +40,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    cursor: pointer;
     padding: 4%;
     margin-bottom: 3px solid #BDBDBD;
 }
@@ -56,6 +55,7 @@
 .deliveryInstructionsText{
     padding: 1%;
     border: 1px solid #BDBDBD;
+    height: fit-content;
 }
 
 .deliveryInstructionsText:focus{

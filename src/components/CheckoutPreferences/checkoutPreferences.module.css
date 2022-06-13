@@ -32,4 +32,5 @@
 .directionSubTitle{
     font-weight: 400;
     font-size: 0.85rem;
+    overflow: hidden;
 }

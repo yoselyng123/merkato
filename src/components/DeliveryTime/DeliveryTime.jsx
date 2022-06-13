@@ -1,9 +1,36 @@
-import React, { useState } from "react";
 import styles from "./deliveryTime.module.css";
 import { SvgIcon } from "@mui/material";
+import { useEffect, useState } from "react";
 
-function DeliveryTime({ setDirectionClick, directionClick, setNext, next }) {
-  const [selectedTime, setSelectedTime] = useState("");
+function DeliveryTime({
+  setDirectionClick,
+  directionClick,
+  setNext,
+  setSelectedTime,
+}) {
+  useEffect(() => {
+    const today = new Date();
+    today.setMinutes(today.getMinutes() + 60);
+    setPriorityTime(today.getHours() + ":" + today.getMinutes());
+    today.setMinutes(today.getMinutes() + 45);
+    setStandardTime(today.getHours() + ":" + today.getMinutes());
+  }, []);
+
+  const [standardTime, setStandardTime] = useState("");
+  const [priorityTime, setPriorityTime] = useState("");
+
+  const handleTime = (type) => {
+    if (type === "Standard") {
+      setSelectedTime(`Hoy, a las ${standardTime}`);
+      setDirectionClick(!directionClick);
+      setNext(true);
+    }
+    if (type === "Priority") {
+      setSelectedTime(`Hoy, a las ${priorityTime}`);
+      setDirectionClick(!directionClick);
+      setNext(true);
+    }
+  };
 
   return (
     <div className={styles.deliveryTime}>
@@ -14,14 +41,13 @@ function DeliveryTime({ setDirectionClick, directionClick, setNext, next }) {
           </svg>
         </SvgIcon>
 
-        <p>Delivery Time</p>
+        <p>Hora de entrega</p>
       </div>
 
       <div
         className={styles.option}
         onClick={() => {
-          setDirectionClick(!directionClick);
-          setNext(true);
+          handleTime("Priority");
         }}
       >
         <div className={styles.topLeft}>
@@ -31,8 +57,8 @@ function DeliveryTime({ setDirectionClick, directionClick, setNext, next }) {
             </svg>
           </SvgIcon>
           <div className={styles.infoWrap}>
-            <p className={styles.title}>By 6:10pm-6:30pm</p>
-            <p className={styles.subTitle}>Priority</p>
+            <p className={styles.title}>A las {priorityTime}</p>
+            <p className={styles.subTitle}>Prioritario</p>
           </div>
         </div>
         <p className={styles.price}>+$2</p>
@@ -40,8 +66,7 @@ function DeliveryTime({ setDirectionClick, directionClick, setNext, next }) {
       <div
         className={styles.option}
         onClick={() => {
-          setDirectionClick(!directionClick);
-          setNext(true);
+          handleTime("Standard");
         }}
       >
         <div className={styles.topLeft}>
@@ -51,11 +76,11 @@ function DeliveryTime({ setDirectionClick, directionClick, setNext, next }) {
             </svg>
           </SvgIcon>
           <div className={styles.infoWrap}>
-            <p className={styles.title}>By 7:25pm</p>
-            <p className={styles.subTitle}>Standard</p>
+            <p className={styles.title}>A las {standardTime}</p>
+            <p className={styles.subTitle}>Estandar</p>
           </div>
         </div>
-        <p className={styles.price}>Free</p>
+        <p className={styles.price}>Gratis</p>
       </div>
 
       <div
