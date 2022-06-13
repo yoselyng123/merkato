@@ -23,11 +23,15 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
 
   const { carrito, createUser, user, rol, setRol } = useContext(UserContext);
 
+  // Handle Form Submit Login and Sign up
   const submitHandler = (e) => {
+    // prevent page reload
     e.preventDefault();
+    // get input from user
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
 
+    // Checks if user is registering or loging in
     if (isRegistrando) {
       // Register
       registrarUsuario(email, password);
@@ -39,10 +43,12 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
       } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
+        // Error handler - notify user
         if (
           errorCode === "auth/wrong-password" ||
           errorCode === "auth/user-not-found"
         ) {
+          // Error control
           setWrongData(true);
         }
         console.log(errorCode, errorMessage);
