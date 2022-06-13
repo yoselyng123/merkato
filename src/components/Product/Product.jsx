@@ -116,11 +116,14 @@ function Product({
         </div>
       ) : (
         <div className={styles.userbuttonContainer}>
-          <AddFavorites
-            data={data}
-            idComercio={idComercio}
-            eliminarProductoFavorito={eliminarProductoFavorito}
-          />
+          {user && (
+            <AddFavorites
+              data={data}
+              idComercio={idComercio}
+              eliminarProductoFavorito={eliminarProductoFavorito}
+            />
+          )}
+
           <AddButton data={data} />
         </div>
       )}

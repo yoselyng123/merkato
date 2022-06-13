@@ -281,6 +281,7 @@ export default function UserContextProvider({ children }) {
             email: loggedUser.email,
             carrito: JSON.parse(localStorage.getItem("carrito")),
             rol: localStorage.getItem("rol"),
+            carritoFavorito: [],
             direcciones: [],
             appliedPromos: [],
           };

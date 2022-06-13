@@ -65,6 +65,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
           carrito: carrito,
           direcciones: [],
           appliedPromos: [],
+          carritoFavorito: [],
         },
         response.user.uid
       );
