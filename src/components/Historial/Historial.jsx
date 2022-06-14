@@ -136,11 +136,11 @@ const Historial = () => {
     return () => subscriber();
   }, [user]);
 
-  const handleOnChange = (event) => {
+  /* const handleOnChange = (event) => {
     const { value, name: inputName } = event.target;
     console.log(values);
     setValues({ ...values, [inputName]: value });
-  };
+  }; */
   return (
     <div className={styles.container}>
       {isNombre && (

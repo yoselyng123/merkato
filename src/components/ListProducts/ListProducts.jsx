@@ -1,10 +1,8 @@
-import React, { useState } from "react";
 import Product from "../Product/Product";
 import styles from "./listProducts.module.css";
 import NoMatch from "../NoMatch/NoMatch";
-import SvgIcon from "@mui/material/SvgIcon";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+/* import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem"; */
 
 function ListProducts({
   products,
@@ -13,19 +11,17 @@ function ListProducts({
   idComercio,
   categorias,
 }) {
-  const [sort, setSort] = useState("Aisle");
+  /* const [sort, setSort] = useState("Aisle");
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClickMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+   const open = Boolean(anchorEl);
+
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
   const handleClickItem = (event) => {
     handleCloseMenu();
     setSort(event.currentTarget.innerText);
-  };
+  }; */
 
   const eliminarProductoFavorito = (id) => {
     console.log("Trol");
@@ -70,7 +66,7 @@ function ListProducts({
               )}
             </div> */}
 
-            <Menu
+            {/* <Menu
               id="basic-menu"
               anchorEl={anchorEl}
               open={open}
@@ -82,7 +78,7 @@ function ListProducts({
               <MenuItem onClick={handleClickItem}>Aisle</MenuItem>
               <MenuItem onClick={handleClickItem}>Lowest Price</MenuItem>
               <MenuItem onClick={handleClickItem}>Highest Price</MenuItem>
-            </Menu>
+            </Menu> */}
           </div>
           <div className={styles.productsContainer}>
             {products.map((product) => (

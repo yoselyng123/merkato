@@ -5,17 +5,9 @@ import { useEffect, useState, useContext } from "react";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
 import { UserContext } from "../../context/UserContext";
-import ProductoCarrito from "../ProductoCarrito/ProductoCarrito";
 import ProductoFactura from "../ProductoFactura/ProductoFactura";
 import { useNavigate } from "react-router-dom";
-const DetalleFavoritoMercado = ({
-  total,
-  nombre,
-  idUser,
-  carrito,
-  idCarrito,
-  click,
-}) => {
+const DetalleFavoritoMercado = ({ total, nombre, carrito, click }) => {
   const { user, setCarrito } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   let navigate = useNavigate();

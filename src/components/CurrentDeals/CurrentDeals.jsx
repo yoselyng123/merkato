@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-
 import styles from "./currentDeals.module.css";
-import SvgIcon from "@mui/material/SvgIcon";
 
 function CurrentDeals() {
   const colors = ["#003366", "#C10B22"];
 
-  const [number, setNumber] = useState(0);
+  /* const [number, setNumber] = useState(0);
 
   const handleClick = (position) => {
     if (position === "left") {
@@ -19,13 +16,13 @@ function CurrentDeals() {
         setNumber(number + 1);
       }
     }
-  };
+  }; */
 
   return (
     <div
       className={styles.currentDeals}
       style={{
-        backgroundColor: `${colors[number]}`,
+        backgroundColor: `${colors[0]}`,
       }}
     >
       <div>

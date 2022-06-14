@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ListProducts from "../../components/ListProducts/ListProducts";
 import styles from "./searcher.module.css";
 import { useParams } from "react-router-dom";
-import Categories from "../../components/Categories/Categories";
 
 function Searcher({ products, idComercio, categorias }) {
   const [listSearch, setListSearch] = useState([]);
@@ -61,7 +60,7 @@ function Searcher({ products, idComercio, categorias }) {
 
     // return cleanup function
     /* return () => subscriber(); */
-  }, [name, categorias, products]); // empty dependency array means useEffect will only run once;
+  }, [name, categorias, products, idComercio]); // empty dependency array means useEffect will only run once;
 
   return (
     <div className={styles.searcher}>

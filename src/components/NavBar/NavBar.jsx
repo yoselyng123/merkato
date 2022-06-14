@@ -11,7 +11,6 @@ import MenuItem from "@mui/material/MenuItem";
 
 import firebaseExports from "../../utils/firebaseConfig";
 import { signOut } from "firebase/auth";
-import { useParams } from "react-router-dom";
 
 const auth = firebaseExports.auth;
 
@@ -19,8 +18,6 @@ function NavBar() {
   const location = useLocation().pathname;
 
   const { carrito, user, setCarrito, setRol } = useContext(UserContext);
-
-  const [idComercio, setIdComercio] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -54,11 +51,8 @@ function NavBar() {
   useEffect(() => {
     setNumItems(carrito.reduce((a, b) => a + b.quantity, 0));
     setTotalAmount(carrito.reduce((a, b) => a + b.montoTotal, 0).toFixed(2));
-    setIdComercio(idcomercio);
-    console.log(idcomercio);
   }, [carrito]);
 
-  let { idcomercio } = useParams();
   const [search, setSearch] = useState("");
 
   const handleSearch = (event) => {

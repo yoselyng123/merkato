@@ -14,22 +14,23 @@ function SelectPaymentMethod({
       "AdSJSUQxGGwUaz8PJL0prKyFrTStKFpUSd9sxhhrqCVZGNHBY84e-kjKqXpi9b09qZPFiyrZaNcpIcop",
     production: "YOUR-PRODUCTION-APP-ID",
   });
-  const [env, setEnv] = useState("sandbox");
-  const [currency, setCurrency] = useState("USD");
+  const env = "sandbox";
+  const currency = "USD";
+
   const onError = (err) => {
     console.log("Error, por favor verifique y vuelva a intentarlo.");
+
     //console.log(err);
   };
   const onSuccess = (suc) => {
     compraRealizada();
-    console.log("BIEEEN");
+    console.log("Se realizo la operacion");
 
     //console.log(suc);
   };
 
   const onCancel = (canc) => {
     console.log("Se canceló su operación.");
-    console.log("MAAAAL");
     //console.log(canc);
   };
 

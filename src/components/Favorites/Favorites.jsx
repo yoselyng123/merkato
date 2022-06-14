@@ -1,18 +1,16 @@
 import React from "react";
 import styles from "./Favorites.module.css";
-import HistorialCarrito from "../HistorialCarrito/HistorialCarrito";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { db } from "../../utils/firebaseConfig";
-import DetalleFactura from "../DetalleFactura/DetalleFactura";
 import FavoritesCarritos from "../FavoritesCarritos/FavoritesCarritos";
 import DetalleFavoritoMercado from "../DetalleFavoritoMercado/DetalleFavoritoMercado";
 import Product from "../Product/Product";
 const Favorites = () => {
   const [info, setInfo] = useState(false);
   const [mercados, setMercados] = useState(true);
-  const { user, setCarritoFavorito, carritoFavorito } = useContext(UserContext);
+  const { user, setCarritoFavorito } = useContext(UserContext);
   //Este es Carritos
   const [productos, setProductos] = useState([]);
   //Este es productos
@@ -25,9 +23,9 @@ const Favorites = () => {
     idUser: "",
     idCarrito: "",
   });
-  const handleClose1 = () => {
+  /* const handleClose1 = () => {
     setInfo(true);
-  };
+  }; */
   const esMercado = () => {
     if (mercados) {
       setMercados(false);
@@ -120,19 +118,19 @@ const Favorites = () => {
               (i) => i.id === doc.id
             ) > -1
           ) {
-            const numeroEnlaLista = JSON.parse(
+            /* const numeroEnlaLista = JSON.parse(
               localStorage.getItem("carritoFavorito")
             ).findIndex((i) => i.id === doc.id);
             getProductsFromFirebase.push({
               ...doc.data(),
               id: doc.id,
-            });
+            }); */
           }
         } else {
           if (user.carritoFavorito.findIndex((i) => i.id === doc.id) > -1) {
-            const numeroEnlaLista = user.carritoFavorito.findIndex(
+            /* const numeroEnlaLista = user.carritoFavorito.findIndex(
               (i) => i.id === doc.id
-            );
+            ); */
             getProductsFromFirebase.push({
               ...doc.data(),
               id: doc.id,

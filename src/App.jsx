@@ -7,7 +7,8 @@ import { useState } from "react";
 
 /* Utils */
 import firebaseExports from "./utils/firebaseConfig";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { Toaster } from "react-hot-toast";
 
 const auth = firebaseExports.auth;
 
@@ -25,6 +26,7 @@ function App() {
   return (
     <UserContextProvider>
       <Router>
+        <Toaster position="top-center" reverseOrder={true} />
         <NavBar user={user} />
         <div className={styles.app}>
           <Rutas />

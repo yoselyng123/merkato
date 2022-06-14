@@ -17,16 +17,19 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
-import PaypalExpressBtn from "react-paypal-express-checkout";
-
 import uniqid from "uniqid";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
 function Checkout() {
   const navigate = useNavigate();
+
   const { user, carrito, setUser, setCarrito } = useContext(UserContext);
   const Date1 = new Date();
   const [promoCodeInput, setPromoCodeInput] = useState("");
   const [promoCodesByUser, setPromoCodesByUser] = useState([]);
+  const [appliedPromo, setAppliedPromo] = useState(false);
+  const [discount, setDiscount] = useState(0);
 
   const handleApplyPromoCode = async () => {
     const promosRef = collection(db, "promos");
@@ -38,9 +41,8 @@ function Checkout() {
     const myDoc = await getDocs(myQuery);
 
     if (!myDoc.size) {
-      alert("Codigo de promocion no valido!");
+      toast.error("Codigo de promocion no valido!");
     } else {
-      console.log("PROMOCODE EXISTS");
       if (!user.appliedPromos.includes(promoCodeInput.toUpperCase())) {
         myDoc.forEach(async (item) => {
           if (price > item.data().descuento) {
@@ -48,31 +50,43 @@ function Checkout() {
           } else {
             setPrice(0);
           }
-          alert("Se aplico el codigo de promocion");
+          setDiscount(item.data().descuento);
+          toast.success("Se ha aplicado el codigo de promocion exitosamente!");
           promoCodesByUser.push(promoCodeInput.toUpperCase());
           const userRef = doc(db, "users", user.id);
           setUser({ ...user, appliedPromos: promoCodesByUser });
           await updateDoc(userRef, {
             appliedPromos: promoCodesByUser,
           });
+          setAppliedPromo(true);
         });
       } else {
-        alert("Ya ha usado este codigo de promocion");
+        toast(() => (
+          <span
+            style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}
+          >
+            <SvgIcon style={{ fill: "#FFCC00", fontSize: "1.5rem" }}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path d="M506.3 417l-213.3-364c-16.33-28-57.54-28-73.98 0l-213.2 364C-10.59 444.9 9.849 480 42.74 480h426.6C502.1 480 522.6 445 506.3 417zM232 168c0-13.25 10.75-24 24-24S280 154.8 280 168v128c0 13.25-10.75 24-23.1 24S232 309.3 232 296V168zM256 416c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 401.9 273.4 416 256 416z" />
+              </svg>
+            </SvgIcon>
+            Ya ha usado este codigo de promocion
+          </span>
+        ));
       }
     }
   };
-
   useEffect(() => {
     if (user) {
       setAddresses(user.direcciones);
       setTotalAmount(carrito.reduce((a, b) => a + b.montoTotal, 0));
+      setPromoCodesByUser(user.appliedPromos);
       setPrice(
         values.delivery +
           values.tasaServicio +
           values.impuestos +
           carrito.reduce((a, b) => a + b.montoTotal, 0)
       );
-      setPromoCodesByUser(user.appliedPromos);
     }
   }, [carrito]);
 
@@ -93,7 +107,6 @@ function Checkout() {
     deliveryInstructions: "",
   });
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [payment, setPayment] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
   const [price, setPrice] = useState(0);
   const values = {
@@ -103,7 +116,6 @@ function Checkout() {
   };
 
   const compraRealizada = async () => {
-    console.log("ENTRA");
     await setDoc(doc(db, `historial`, uniqid()), {
       fecha:
         Date1.getFullYear() +
@@ -126,7 +138,7 @@ function Checkout() {
     localStorage.setItem("carrito", "[]");
     setCarrito(JSON.parse(localStorage.getItem("carrito")));
     user.carrito = JSON.parse(localStorage.getItem("carrito"));
-    alert("Compra realizada");
+    toast.success("Compra Realizada!");
     navigate("/", { replace: true });
   };
 
@@ -293,6 +305,17 @@ function Checkout() {
           <p className={styles.rightTitle}>Impuestos</p>
           <p className={styles.rightText}>${values.impuestos.toFixed(2)}</p>
         </div>
+        {appliedPromo && (
+          <div className={styles.container}>
+            <p className={styles.rightTitle} style={{ color: "red" }}>
+              Descuento
+            </p>
+            <p className={styles.rightText} style={{ color: "red" }}>
+              -${discount.toFixed(2)}
+            </p>
+          </div>
+        )}
+
         <hr />
         <div className={styles.container}>
           <p className={styles.rightTitle}>Total</p>
