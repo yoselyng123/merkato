@@ -1,3 +1,21 @@
 .app{
-    padding: 6.8% 0% 0% 0%;
+    padding: 6.7% 0% 0% 0%;
+}
+
+.fullSizelogo{
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+
+
+    .fullSizelogo{
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5% 0% 2% 0%;
+    }
+
+
 }

@@ -1,6 +1,6 @@
 import styles from "./App.module.css";
 import NavBar from "./components/NavBar/NavBar";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import Rutas from "./Rutas";
 import UserContextProvider from "./context/UserContext";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import { useState } from "react";
 import firebaseExports from "./utils/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { Toaster } from "react-hot-toast";
+import Logo from "./components/Logo/Logo";
 
 const auth = firebaseExports.auth;
 
@@ -27,6 +28,9 @@ function App() {
     <UserContextProvider>
       <Router>
         <Toaster position="top-center" reverseOrder={true} />
+        <Link to="/" className={styles.fullSizelogo}>
+          <Logo />
+        </Link>
         <NavBar user={user} />
         <div className={styles.app}>
           <Rutas />

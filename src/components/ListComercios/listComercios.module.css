@@ -17,6 +17,10 @@
 
 .comerciosContainer{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 2fr));
     grid-gap: 2rem;
+}
+
+@media screen and (max-width: 700px) {
+    
 }

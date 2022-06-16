@@ -17,3 +17,14 @@
     font-size: 0.9rem;
     font-weight: 400;
 }
+
+@media screen and (max-width: 900px) {
+    .title{
+        width: 80%;
+        font-size: 1.3rem;
+    }
+    .text{
+        width: 70%;
+        font-size: 0.7rem;
+    }
+}

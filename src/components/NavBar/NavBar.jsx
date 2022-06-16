@@ -111,6 +111,26 @@ function NavBar() {
         <Logo />
       </Link>
 
+      <Link to="/carrito" className={styles.cartWrapperResponsive}>
+        <div className={styles.cartWrapper2}>
+          <SvgIcon sx={{ fontSize: 30 }}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+              <path d="M13.9 44.45Q12.25 44.45 11.125 43.3Q10 42.15 10 40.55Q10 38.9 11.15 37.775Q12.3 36.65 13.9 36.65Q15.5 36.65 16.65 37.8Q17.8 38.95 17.8 40.55Q17.8 42.2 16.65 43.325Q15.5 44.45 13.9 44.45ZM34.5 44.45Q32.85 44.45 31.725 43.3Q30.6 42.15 30.6 40.55Q30.6 38.9 31.75 37.775Q32.9 36.65 34.5 36.65Q36.1 36.65 37.25 37.8Q38.4 38.95 38.4 40.55Q38.4 42.2 37.25 43.325Q36.1 44.45 34.5 44.45ZM11.65 10.9 17.05 22.05H31.6Q31.6 22.05 31.6 22.05Q31.6 22.05 31.6 22.05L37.7 10.9Q37.7 10.9 37.7 10.9Q37.7 10.9 37.7 10.9ZM9.85 7.25H40.65Q42.25 7.25 42.625 8.25Q43 9.25 42.35 10.4L35.1 23.4Q34.55 24.35 33.575 25.025Q32.6 25.7 31.45 25.7H16L13.5 30.3Q13.5 30.3 13.5 30.3Q13.5 30.3 13.5 30.3H38.45V33.95H13.4Q11.1 33.95 10.125 32.375Q9.15 30.8 10.15 28.9L13.25 23.1L5.65 6.95H1.6V3.3H8ZM17.05 22.05H31.6Q31.6 22.05 31.6 22.05Q31.6 22.05 31.6 22.05Z" />
+            </svg>
+          </SvgIcon>
+          {numItems !== 0 && (
+            <div className={styles.numeritoCarrito}>
+              <span>{numItems}</span>
+            </div>
+          )}
+        </div>
+
+        <div className={styles.cartInfo}>
+          <p className={styles.cartInfoTitle}>Your cart</p>
+          <p className={styles.cartInfoNumber}>${totalAmount}</p>
+        </div>
+      </Link>
+
       <div className={styles.searchContainer}>
         <input
           type="text"
@@ -131,9 +151,17 @@ function NavBar() {
         </SvgIcon>
       </div>
 
+      <div className={styles.hamburger}>
+        <SvgIcon style={{ fill: "var(--lightGreen)", fontSize: "1.6rem" }}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z" />
+          </svg>
+        </SvgIcon>
+      </div>
+
       <div className={styles.rightSection}>
         {user ? (
-          <>
+          <div className={styles.rightSectionOpt}>
             <SvgIcon
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
@@ -166,7 +194,7 @@ function NavBar() {
                 <path d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z" />
               </svg>
             </SvgIcon>
-          </>
+          </div>
         ) : (
           <div className={styles.loginBtn} onClick={(e) => handleLoginClick()}>
             <p>Log in</p>
