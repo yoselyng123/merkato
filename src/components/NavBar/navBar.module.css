@@ -11,6 +11,19 @@
     justify-content: space-between;
 }
 
+.navBarNoSticky {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2% 5%;
+    border-bottom: 2px solid #DAE9E1;
+    position: fixed;
+    z-index: 5;
+    background-color: #fff;
+    width: 100%;
+    justify-content: space-between;
+}
+
 .logo{ 
     text-decoration: none;
     margin-right: 3rem;
@@ -140,15 +153,24 @@
     padding: 0.4rem 1rem;
     border-radius: 20px;
     cursor: pointer;
+    width: fit-content;
 }
 
 .signInBtn > p {
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
     color: #fff;
     font-weight: 600;
     font-size: 0.9rem;
 }
 
 .loginBtn > p{
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
     color: #000;
     font-weight: 600;
     font-size: 1rem;
@@ -188,6 +210,20 @@
     display: none;
 }
 
+.textBtn{
+    color: #fff;
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.drawerBtn{
+    background-color: var(--lightGreen);
+    border-radius: 10px;
+    padding: 2%;
+}
+
+
 @media screen and (max-width: 700px) {
 
     .navbar{
@@ -198,6 +234,20 @@
         position: sticky;
         z-index: 10000;
         width: 100%;
+        transition: all ease 2s;
+        gap: 0.5rem;
+        padding-top: 0.6rem;
+    }
+
+    .navBarNoSticky{
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        top: 0;
+        position: sticky;
+        z-index: -1;
+        width: 100%;
+        gap: 0.5rem;
     }
 
     .logo{
@@ -205,7 +255,11 @@
     }
 
     .searchContainer{
-        width: max-content;
+        flex: 2;
+    }
+
+    .searchContainer > input {
+        width: inherit;
     }
 
     .rightSection{
@@ -225,6 +279,5 @@
     .cartInfo{
         display: none;
     }
-
 
 }

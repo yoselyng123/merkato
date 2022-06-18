@@ -1,28 +1,38 @@
 .infoSection{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 2rem;
-    margin-bottom: 5rem;
+    padding: 1% 8%;
+    width: 100%;
+    flex: 1;
+    margin-bottom: 2rem;
 }
 .infoTitle{
     font-weight: 400;
-    font-size: 2rem;
+    font-size: 1.9rem;
+    text-align: center;
+    max-width: 450px;
 }
 .cardsWrapper{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+    align-items: flex-start;
+    gap: 1.2rem;
+    width: 100%;
+    flex: 1;
+    overflow-x: scroll;
 }
-.card{
+.cardE{
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     background-color: #F6F7F8;
-    width: 22%;
+    min-width: 300px;
     border-radius: 10px;
+    overflow: hidden;
+    flex: 1;
+    min-height: 460px;
 }
 
 .infoWrapper{
@@ -30,22 +40,30 @@
     flex-direction: column;
     gap: 1.5rem;
     padding: 8%;
+    min-height: 160px;
+    flex: 2;
 }
 .title{
     font-size: 1.9rem;
     font-weight: 600;
     line-height: 40px;
+    word-break: break-word;
+    hyphens: auto;
 }
 .text{
-    width: 95%;
+    width: 100%;
     font-size: 1.1rem;
-    text-justify: distribute;
     line-height: 2rem;
 }
 .image{
     width: 100%;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.imgWrapper{
+    width: 100%;
+    height: 200px;
 }
 
 .bottomSection{
@@ -55,6 +73,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 5rem;
+    padding: 2% 8%;
 }
 
 .miniCardWrapper{
@@ -62,7 +81,7 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    width: 75%;
+    width: 100%;
 }
 .miniCard{
     display: flex;
@@ -72,18 +91,55 @@
     padding: 3%;
     gap: 0.8rem;
     border-radius: 10px;
-    width: 280px;
+    width: 100%;
     height: 225px;
 }
 .miniCardtText{
     font-weight: 400;
     font-size: 1.4rem;
     line-height: 28px;
-    width: 100%;
-    text-justify: distribute;
 }
 
 .bannerBottomSection{
-    width: 50%;
+    width: 100%;
     border-radius: 20px;
+}
+
+.bannerBottomSectionWrapper{
+    width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+
+    .infoTitle{
+        font-size: 1.44rem;
+        width: 80%;
+    }
+
+    .cardsWrapper{
+        gap: 0.8rem;
+        overflow-x: scroll;
+    }
+
+    .cardE{
+        width: 100%;
+    }
+
+    .title{
+        font-size: 1.75rem;
+    }
+
+    .miniCardWrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .miniCardtText{
+        display: none;
+    }
+
+    .miniCard{
+        height: 100px;
+    }
+
 }

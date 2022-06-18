@@ -13,7 +13,7 @@ function Stores({ comercios, setIdComercio }) {
       <div className={styles.infoSection}>
         <p className={styles.infoTitle}>Delivery en el que puedes confiar</p>
         <div className={styles.cardsWrapper}>
-          <div className={styles.card}>
+          <div className={styles.cardE}>
             <div className={styles.infoWrapper}>
               <p className={styles.title}>Escoge lo que quieras</p>
               <p className={styles.text}>
@@ -21,26 +21,30 @@ function Stores({ comercios, setIdComercio }) {
                 merkato.com
               </p>
             </div>
-            <img
-              src="https://recursos.bps.com.es/files/782/78.jpg"
-              alt=""
-              className={styles.image}
-            />
+            <div className={styles.imgWrapper}>
+              <img
+                src="https://recursos.bps.com.es/files/782/78.jpg"
+                alt=""
+                className={styles.image}
+              />
+            </div>
           </div>
-          <div className={styles.card}>
+          <div className={styles.cardE}>
             <div className={styles.infoWrapper}>
               <p className={styles.title}>Actualizaciones en tiempo real</p>
               <p className={styles.text}>
                 Chatea con los compradores mientras compran y maneja tu orden.
               </p>
             </div>
-            <img
-              src="https://us.123rf.com/450wm/solomapoppy/solomapoppy1706/solomapoppy170600004/79884801-tel%C3%A9fono-m%C3%B3vil-chat-notificaciones-mensaje-ilustraci%C3%B3n-vectorial-aislados-en-fondo-de-color-la-mano-.jpg"
-              alt=""
-              className={styles.image}
-            />
+            <div className={styles.imgWrapper}>
+              <img
+                src="https://us.123rf.com/450wm/solomapoppy/solomapoppy1706/solomapoppy170600004/79884801-tel%C3%A9fono-m%C3%B3vil-chat-notificaciones-mensaje-ilustraci%C3%B3n-vectorial-aislados-en-fondo-de-color-la-mano-.jpg"
+                alt=""
+                className={styles.image}
+              />
+            </div>
           </div>
-          <div className={styles.card}>
+          <div className={styles.cardE}>
             <div className={styles.infoWrapper}>
               <p className={styles.title}>Delivery el mismo dia</p>
               <p className={styles.text}>
@@ -48,11 +52,13 @@ function Stores({ comercios, setIdComercio }) {
                 en Merkato
               </p>
             </div>
-            <img
-              src="https://us.123rf.com/450wm/frannyanne/frannyanne1407/frannyanne140700012/30549421-una-bolsa-de-papel-marr%C3%B3n-lleno-hasta-el-tope-con-variedades-de-frutas-sobre-una-superficie-de-mader.jpg?ver=6"
-              alt=""
-              className={styles.image}
-            />
+            <div className={styles.imgWrapper}>
+              <img
+                src="https://us.123rf.com/450wm/frannyanne/frannyanne1407/frannyanne140700012/30549421-una-bolsa-de-papel-marr%C3%B3n-lleno-hasta-el-tope-con-variedades-de-frutas-sobre-una-superficie-de-mader.jpg?ver=6"
+                alt=""
+                className={styles.image}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -60,11 +66,13 @@ function Stores({ comercios, setIdComercio }) {
         <p className={styles.infoTitle}>
           El mejor servicio de compras en Caracas
         </p>
-        <img
-          src="http://especializate.usat.edu.pe/wp-content/uploads/2020/04/%C2%BFC%C3%B3mo-reinventar-los-negocios-en-tiempos-de-coronavirus.jpg"
-          alt=""
-          className={styles.bannerBottomSection}
-        />
+        <div className={styles.bannerBottomSectionWrapper}>
+          <img
+            src="http://especializate.usat.edu.pe/wp-content/uploads/2020/04/%C2%BFC%C3%B3mo-reinventar-los-negocios-en-tiempos-de-coronavirus.jpg"
+            alt=""
+            className={styles.bannerBottomSection}
+          />
+        </div>
         <div className={styles.miniCardWrapper}>
           <div className={styles.miniCard}>
             <p className={styles.title}>5000 productos</p>
