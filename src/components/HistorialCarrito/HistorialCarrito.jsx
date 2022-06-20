@@ -21,6 +21,7 @@ const HistorialCarrito = ({
   const Date1 = new Date(fecha);
   const { setCarrito, user } = useContext(UserContext);
   let navigate = useNavigate();
+  //Actualiza el carrito actual con el carrito que se quiere volver a comprar
   const volverComprar = async () => {
     const userRef = doc(db, "users", user.id);
     localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -31,6 +32,7 @@ const HistorialCarrito = ({
     });
     navigate("/carrito", { replace: true });
   };
+  //Opciones para que se muestre la fecha
   const options = {
     year: "numeric",
     month: "long",

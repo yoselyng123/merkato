@@ -23,6 +23,7 @@ const Historial = () => {
   });
   const [isNombre, setIsNombre] = useState(false);
   const [direccion, setDireccion] = useState("");
+  //Abre y cierra la descripcion de cada compra
   const handleClose = (
     carrito,
     fecha,
@@ -49,6 +50,7 @@ const Historial = () => {
       setInfo(true);
     }
   };
+  //Abre el pop-up de favoritos para agregar el carrito a favoritos
   const handleCloseFavorite = (
     fecha,
     carrito,
@@ -73,6 +75,7 @@ const Historial = () => {
       console.log(values);
     }
   };
+  //Se agrega un carrito a favoritos
   const agregarFavoritoCarrito = async () => {
     console.log("ENTRA");
     if (values.nombre) {
@@ -98,28 +101,11 @@ const Historial = () => {
 
       setIsNombre(false);
     }
-
-    // const userRef = doc(db, "users", user.id);
-    // await updateDoc(userRef, {
-    //   carrito: [],
-    // });
-    // localStorage.setItem("carrito", "[]");
-    // setCarrito(JSON.parse(localStorage.getItem("carrito")));
-    // user.carrito = JSON.parse(localStorage.getItem("carrito"));
-    // handleClickHome();
   };
   useEffect(() => {
     const getProductsFromFirebase = [];
     const subscriber = async () => {
-      //const carritoReference = collection(db, "historial");
-      // console.log(user.id);
       const querySnapshot = await getDocs(collection(db, "historial"));
-      // const snapshot = await getDocs(
-      //   query(
-      //     carritoReference,
-      //     where("idUser", "==", "7oV1loHahEXj0UburMIyjME02Lv2")
-      //   )
-      // );
 
       querySnapshot.forEach((doc) => {
         getProductsFromFirebase.push({
@@ -137,11 +123,6 @@ const Historial = () => {
     return () => subscriber();
   }, [user]);
 
-  /* const handleOnChange = (event) => {
-    const { value, name: inputName } = event.target;
-    console.log(values);
-    setValues({ ...values, [inputName]: value });
-  }; */
   return (
     <div className={styles.container}>
       {isNombre && (
