@@ -31,7 +31,8 @@ const Historial = () => {
     total,
     idUser,
     idCarrito,
-    direccion
+    direccion,
+    estado
   ) => {
     console.log(carrito);
     if (info) {
@@ -43,6 +44,7 @@ const Historial = () => {
         descripcion: descripcion,
         idUser: idUser,
         idCarrito: idCarrito,
+        estado: estado,
       });
       setTotal(total);
       setDireccion(direccion);

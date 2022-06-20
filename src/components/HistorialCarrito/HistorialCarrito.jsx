@@ -53,11 +53,12 @@ const HistorialCarrito = ({
               onClick={() =>
                 click(
                   carrito,
-                  Date1.toLocaleDateString(),
+                  Date1.toLocaleDateString("es-Es", options),
                   "Descripcion",
                   total,
                   idUser,
                   idCarrito,
+                  direccion,
                   estado
                 )
               }
