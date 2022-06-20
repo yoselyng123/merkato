@@ -22,7 +22,7 @@ function DetalleProducto({ info_producto, click }) {
         <div className={styles.smallimagescontainer}>
           {info_producto.foto_producto.map((image, index) => (
             <img
-              onClick={(e) => setmainImage(image)}
+              onClick={() => setmainImage(image)}
               key={index}
               className={styles.smallimage}
               src={image}
@@ -44,8 +44,12 @@ function DetalleProducto({ info_producto, click }) {
           </div>
           <p className={styles.text2}>Final cost by weight</p>
         </div>
-        {user && user.rol !== "admin" && <AddButton data={info_producto} idComercio={info_producto.idComercio} />}
-
+        {user && user.rol !== "admin" && (
+          <AddButton
+            data={info_producto}
+            idComercio={info_producto.idComercio}
+          />
+        )}
       </div>
     </div>
   );

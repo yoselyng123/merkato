@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
-// const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
-
 const Pago = ({ totalAmount }) => {
   let navigate = useNavigate();
   const handleClickHome = () => {
@@ -15,50 +13,6 @@ const Pago = ({ totalAmount }) => {
     navigate("/store/checkout", { replace: true });
   };
   const { user } = useContext(UserContext);
-
-  // const options = {
-  //   weekday: "long",
-  //   year: "numeric",
-  //   month: "numeric",
-  //   day: "numeric",
-  // };
-
-  // const [values, setValues] = useState({
-  //   promocode: "",
-  //   direccion: "",
-  //   descripcion: "",
-  // });
-
-  // useEffect(() => {
-  //   calcularTotales();
-  //   // console.log(Date1.toLocaleDateString("es-ES"));
-  // });
-
-  // const calcularTotales = () => {
-  //   let suma = 0;
-  //   //console.log('******************************')
-  //   suma = suma + committedFieldsToAdd.precio;
-  //   setSubtotal(suma);
-  //   //console.log(parseInt(subtotal));
-  //   setImpuestos(subtotal * 0.16);
-  //   setAmount(subtotal + impuestos);
-  // };
-
-  // const onError = (err) => {
-  //   setError("Error, por favor verifique y vuelva a intentarlo.");
-  //   //console.log(err);
-  // };
-  // const onSuccess = (suc) => {
-  //   console.log("BIEEEN");
-  //   compraRealizada();
-  //   //console.log(suc);
-  // };
-
-  // const onCancel = (canc) => {
-  //   setError("Se canceló su operación.");
-  //   console.log("MAAAAL");
-  //   //console.log(canc);
-  // };
 
   return (
     <div className={styles.pago}>

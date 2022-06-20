@@ -14,7 +14,7 @@
 .productsContainer{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-    grid-gap: 2rem;
+    grid-gap: 0.5rem;
 }
 
 .topSec{
@@ -72,4 +72,19 @@
     background-color: var(--gray);
     color: #fff;
     cursor: pointer;
+}
+
+@media screen and (max-width: 604px) {
+    .productsContainer{
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .productsContainer{
+        display: grid;
+        grid-template-columns: 160px 160px;
+        grid-gap: 1rem;
+    }
 }

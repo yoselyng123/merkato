@@ -10,8 +10,15 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 .comercio > img{
     height: 5rem;
+}
+
+@media screen and (max-width: 700px) {
+    .comercio{
+        margin-top: 0;
+        gap: 0.5rem;
+    }
 }

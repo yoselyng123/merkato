@@ -1,12 +1,17 @@
 .containers{
-    display: grid;
-    grid-template-columns: 1fr .5fr;
-    /* padding: 1% 5%; */
-    
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    gap: 1rem;
 }
 .productos {
     display: flex;
     flex-direction: column;
+    flex: 2;
+}
+
+.divider{
+    display: none;
 }
 
 .text{
@@ -17,4 +22,16 @@
 }
 .title {
     margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+    .containers{
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .divider{
+        display: block;
+    }
 }

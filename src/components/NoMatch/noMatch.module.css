@@ -8,18 +8,20 @@
 }
 
 .noMatch > img {
-    width: 10rem;
-    margin-bottom: 3.5rem;
+    width: 20%;
+    margin-bottom: 3rem;
 }
 
 .title{
     font-size: 1.7rem;
     margin-bottom: 1.8rem;
     font-weight: 700;
+    text-align: center;
 }
 .subtitle{
     margin-bottom: 2rem;
     font-size: 0.9rem;
+    text-align: center;
 }
 
 .btn {
@@ -34,3 +36,11 @@
 .btn > p {
     color: var(--white);
 }
+
+@media screen and (max-width: 700px){
+    .noMatch > img {
+        width: 35%;
+        margin-bottom: 2.6rem;
+    }
+}
+    

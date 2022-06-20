@@ -3,7 +3,7 @@ import styles from "./addbutton.module.css";
 import SvgIcon from "@mui/material/SvgIcon";
 import { UserContext } from "../../context/UserContext";
 
-function AddButton({ data, idComercio }) {
+function AddButton({ data }) {
   const [click, setClick] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const { carrito, agregarACarrito, modificarCantidadCarrito, user } =
