@@ -14,6 +14,7 @@ const DetalleFactura = ({
   carrito,
   click,
   direccion,
+  estado,
 }) => {
   const { user, setCarrito } = useContext(UserContext);
   const [products, setProducts] = useState([]);
@@ -28,6 +29,7 @@ const DetalleFactura = ({
     });
     navigate("/carrito", { replace: true });
   };
+
   useEffect(() => {
     if (user) {
       const getProductsFromFirebase = [];
@@ -85,9 +87,14 @@ const DetalleFactura = ({
               <h3 className={styles.titleUp}>Orden # </h3>
               <h3 className={styles.nombre}>{idCarrito}</h3>
             </div>
-            <button className={styles.comprar} onClick={() => volverComprar()}>
-              Volver a Comprar
-            </button>
+            {estado === "completado" && (
+              <button
+                className={styles.comprar}
+                onClick={() => volverComprar()}
+              >
+                Volver a Comprar
+              </button>
+            )}
           </div>
         </div>
         <div className={styles.priceContainer}>
@@ -96,7 +103,7 @@ const DetalleFactura = ({
             products.map((product) => (
               <ProductoFactura
                 key={product.id}
-                img={product.foto_producto}
+                img={product.foto_producto[0]}
                 nombreProducto={product.nombre}
                 cantidad={product.cantidad_solicitada}
                 precio={product.precio_unitario}

@@ -73,8 +73,13 @@
 
 }
 
-.descripcion{
+.descripcion {
     font-size: 10px;
+    
+}
+.descripcion2{
+    font-size: 10px;
+    font-weight: 600;
 }
 
 .addMore {

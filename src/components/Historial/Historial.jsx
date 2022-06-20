@@ -92,6 +92,7 @@ const Historial = () => {
         descripcion: "",
         idUser: "",
         idCarrito: "",
+        estado: "",
       });
       setTotal(0);
 
@@ -175,6 +176,8 @@ const Historial = () => {
                         handleFavoritos={handleCloseFavorite}
                         agregarFavorito={agregarFavoritoCarrito}
                         direccion={product.direccion}
+                        estado={product.estado}
+                        key={product.id}
                       />
                     )
                 )}
@@ -188,6 +191,7 @@ const Historial = () => {
                 carrito={values.carrito}
                 click={handleClose}
                 direccion={direccion}
+                estado={values.estado}
               />
             )}
           </>

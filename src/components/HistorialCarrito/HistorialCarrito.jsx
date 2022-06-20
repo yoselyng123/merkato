@@ -16,6 +16,7 @@ const HistorialCarrito = ({
   handleFavoritos,
   /* agregarFavorito, */
   direccion,
+  estado,
 }) => {
   const Date1 = new Date(fecha);
   const { setCarrito, user } = useContext(UserContext);
@@ -29,6 +30,11 @@ const HistorialCarrito = ({
       carrito: JSON.parse(localStorage.getItem("carrito")),
     });
     navigate("/carrito", { replace: true });
+  };
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   return (
@@ -49,7 +55,8 @@ const HistorialCarrito = ({
                   "Descripcion",
                   total,
                   idUser,
-                  idCarrito
+                  idCarrito,
+                  estado
                 )
               }
             >
@@ -57,9 +64,12 @@ const HistorialCarrito = ({
             </h1>
             {/* </Link> */}
             <div className={styles.divDescripcion}>
-              <span className={styles.descripcion}>descripcion</span>
+              <span className={styles.descripcion2}>
+                {estado === "completado" && "Completado"}
+                {estado === "pendiente" && "Pendiente"}
+              </span>
               <span className={styles.descripcion}>
-                {Date1.toLocaleDateString()}
+                {Date1.toLocaleDateString("es-Es", options)}
               </span>
             </div>
           </div>
@@ -85,21 +95,27 @@ const HistorialCarrito = ({
               Agregar a favoritos
             </button>
             {/* <button className={styles.buttonSave}>Save</button> */}
-            <button className={styles.comprar} onClick={() => volverComprar()}>
-              Volver a Comprar
-            </button>
+            {estado === "completado" && (
+              <button
+                className={styles.comprar}
+                onClick={() => volverComprar()}
+              >
+                Volver a Comprar
+              </button>
+            )}
           </div>
           <button
             className={styles.ver}
             onClick={() =>
               click(
                 carrito,
-                Date1.toLocaleDateString(),
+                Date1.toLocaleDateString("es-Es", options),
                 "Descripcion",
                 total,
                 idUser,
                 idCarrito,
-                direccion
+                direccion,
+                estado
               )
             }
           >
