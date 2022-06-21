@@ -97,14 +97,10 @@ const HistorialCarrito = ({
             >
               Agregar a favoritos
             </button>
-            {estado === "completado" && (
-              <button
-                className={styles.comprar}
-                onClick={() => volverComprar()}
-              >
-                Volver a Comprar
-              </button>
-            )}
+
+            <button className={styles.comprar} onClick={() => volverComprar()}>
+              Volver a Comprar
+            </button>
           </div>
           <button
             className={styles.ver}

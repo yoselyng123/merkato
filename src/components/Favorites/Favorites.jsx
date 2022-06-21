@@ -7,9 +7,10 @@ import { db } from "../../utils/firebaseConfig";
 import FavoritesCarritos from "../FavoritesCarritos/FavoritesCarritos";
 import DetalleFavoritoMercado from "../DetalleFavoritoMercado/DetalleFavoritoMercado";
 import Product from "../Product/Product";
+import toast from "react-hot-toast";
 const Favorites = () => {
   const [info, setInfo] = useState(false);
-  const [mercados, setMercados] = useState(true);
+  const [mercados, setMercados] = useState(false);
   const { user, setCarritoFavorito } = useContext(UserContext);
   //Este es Carritos
   const [productos, setProductos] = useState([]);
@@ -73,7 +74,7 @@ const Favorites = () => {
     setProductos(newArray);
 
     await deleteDoc(doc(db, "favorites", id));
-    alert("Carrito eliminado");
+    toast.success("Se ha eliminado el carrito de favoritos!");
   };
   useEffect(() => {
     const subscriber = async () => {
@@ -128,7 +129,7 @@ const Favorites = () => {
     };
 
     // return cleanup function
-    return () => subscriber();
+    subscriber();
   }, [user, setCarritoFavorito]);
 
   return (

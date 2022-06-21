@@ -84,7 +84,7 @@ function SelectPaymentMethod({
               env={env}
               client={client}
               currency={currency}
-              total={totalAmount}
+              total={Number(totalAmount)}
               onError={onError}
               onSuccess={onSuccess}
               onCancel={onCancel}
