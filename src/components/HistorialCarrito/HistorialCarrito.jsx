@@ -97,7 +97,6 @@ const HistorialCarrito = ({
             >
               Agregar a favoritos
             </button>
-            {/* <button className={styles.buttonSave}>Save</button> */}
             {estado === "completado" && (
               <button
                 className={styles.comprar}
