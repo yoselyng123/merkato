@@ -8,7 +8,7 @@ function Categories({ categorias, idcomercio, pasillos }) {
     <div className={styles.categories}>
       <div className={styles.top}>
         <p className={styles.title}>Browse by Category</p>
-        <div className={styles.arrowsWrapper}>
+        {/* <div className={styles.arrowsWrapper}>
           <div className={styles.arrowContainer}>
             <SvgIcon>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -23,17 +23,21 @@ function Categories({ categorias, idcomercio, pasillos }) {
               </svg>
             </SvgIcon>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.cards}>
         {pasillos.map((pasillo) => (
-            <Category key={pasillo.id} categorias={categorias} pasillo={pasillo} idcomercio={idcomercio} />
-          ))}
+          <Category
+            key={pasillo.id}
+            categorias={categorias}
+            pasillo={pasillo}
+            idcomercio={idcomercio}
+          />
+        ))}
       </div>
 
-
-{/*       <div className={styles.cards}>
+      {/*       <div className={styles.cards}>
         {categorias.map((categoria) => categoria.pasillo === 0 ? (
             <Category key={categoria.id} data={categoria} idcomercio={idcomercio} />
           ) : (

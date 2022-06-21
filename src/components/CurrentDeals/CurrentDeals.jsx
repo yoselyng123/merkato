@@ -26,11 +26,11 @@ function CurrentDeals() {
       }}
     >
       <div>
-        <p className={styles.title}>$5 off or Free Delivery on</p>
-        <p className={styles.productText}>Snacks</p>
+        <p className={styles.title}>$5 de descuento en tu primera compra</p>
+        <p className={styles.productText}>Codigo: PRIMERMERKATO</p>
 
         <div className={styles.btn}>
-          <p>Shop Snacks</p>
+          <p>Shop</p>
         </div>
       </div>
     </div>

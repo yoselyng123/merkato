@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./viewByCategory.module.css";
+import { useNavigate } from "react-router-dom";
 
 import firebaseExports from "../../utils/firebaseConfig";
 import {
@@ -14,6 +15,8 @@ import {
 import ListProducts from "../../components/ListProducts/ListProducts";
 
 function ViewByCategory() {
+  let navigate = useNavigate();
+
   const [productByCategory, setProductByCategory] = useState([]);
   const [categoriesIds, setCategoriesIds] = useState([]);
   const [categoriesNames, setCategoriesNames] = useState([]);
@@ -93,9 +96,13 @@ function ViewByCategory() {
     return () => subscriber();
   }, [idcomercio, pasillo, category]);
 
+  const handleNavigation = () => {
+    navigate(`../${nombreComercio}/${idcomercio}/shop`, { replace: true });
+  };
+
   return (
     <div className={styles.viewByCategoryContainer}>
-      <div className={styles.comercio}>
+      <div className={styles.comercio} onClick={handleNavigation}>
         <img
           className={styles.comercio_foto}
           src={fotoComercio}

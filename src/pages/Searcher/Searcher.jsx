@@ -39,6 +39,26 @@ function Searcher({ products, idComercio, categorias }) {
       setListSearch(resultadosBusqueda);
     };
 
+    /* const filtrarByStores = (terminoBusqueda) => {
+      var resultadosBusqueda = products.filter((product) => {
+        if (
+          product.nombre
+            .toString()
+            .toLowerCase()
+            .includes(terminoBusqueda.toLowerCase())
+        ) {
+          return product;
+        } else {
+          return null;
+        }
+      });
+      setListSearch(resultadosBusqueda);
+
+      listSearch.map(() => {
+
+      })
+    }; */
+
     let idCat = "";
 
     categorias.map((element) => {

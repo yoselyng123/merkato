@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0rem 0rem 2.5rem;
+    padding: 0rem 0rem 2.5rem;
 }
 .top{
     display: flex;
@@ -42,6 +42,13 @@
 }
 .cards{
     display: flex;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
     flex-direction: row;
     gap: 1.5rem;
+    overflow-x: scroll;
 }
+
+.cards::-webkit-scrollbar {
+    display: none;
+  }

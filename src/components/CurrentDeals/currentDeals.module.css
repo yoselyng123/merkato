@@ -17,10 +17,11 @@
 }
 
 .productText{
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--white);
     font-weight: 600;
     margin-bottom: 1rem;
+    margin-top: 0.4rem;
 }
 
 .title {

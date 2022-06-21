@@ -23,46 +23,45 @@ function Rutas() {
   const [idComercio, setIdComercio] = useState(null);
   const [pasillos, setPasillos] = useState([]);
 
-  useEffect(() => {
+  const subscriber = async () => {
     const getComerciosFromFirebase = [];
     const CategoriasFromFirebase = [];
     const PasillosFromFirebase = [];
+    await getDocs(collection(firebaseExports.db, "comercio")).then(
+      (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setComercios(getComerciosFromFirebase);
+        console.log(getComerciosFromFirebase);
+      }
+    );
 
-    const subscriber = async () => {
-      await getDocs(collection(firebaseExports.db, "comercio")).then(
-        (querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            getComerciosFromFirebase.push({ ...doc.data(), id: doc.id });
-          });
-          setComercios(getComerciosFromFirebase);
-          console.log(getComerciosFromFirebase);
-        }
-      );
+    //setLoading(false);
+    await getDocs(collection(firebaseExports.db, "categoria")).then(
+      (querySnapshot2) => {
+        querySnapshot2.forEach((doc) => {
+          CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setCategorias(CategoriasFromFirebase);
+        console.log(CategoriasFromFirebase);
+      }
+    );
 
-      //setLoading(false);
-      await getDocs(collection(firebaseExports.db, "categoria")).then(
-        (querySnapshot2) => {
-          querySnapshot2.forEach((doc) => {
-            CategoriasFromFirebase.push({ ...doc.data(), id: doc.id });
-          });
-          setCategorias(CategoriasFromFirebase);
-          console.log(CategoriasFromFirebase);
-        }
-      );
+    await getDocs(collection(firebaseExports.db, "pasillo")).then(
+      (querySnapshot3) => {
+        querySnapshot3.forEach((doc) => {
+          PasillosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        setPasillos(PasillosFromFirebase);
+        console.log(PasillosFromFirebase);
+      }
+    );
+  };
 
-      await getDocs(collection(firebaseExports.db, "pasillo")).then(
-        (querySnapshot3) => {
-          querySnapshot3.forEach((doc) => {
-            PasillosFromFirebase.push({ ...doc.data(), id: doc.id });
-          });
-          setPasillos(PasillosFromFirebase);
-          console.log(PasillosFromFirebase);
-        }
-      );
-    };
-
+  useEffect(() => {
     // return cleanup function
-    return () => subscriber();
+    subscriber();
   }, []);
 
   return (
