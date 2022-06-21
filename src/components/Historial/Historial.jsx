@@ -108,8 +108,8 @@ const Historial = () => {
     // handleClickHome();
   };
   useEffect(() => {
-    const getProductsFromFirebase = [];
     const subscriber = async () => {
+      const getProductsFromFirebase = [];
       //const carritoReference = collection(db, "historial");
       // console.log(user.id);
       const querySnapshot = await getDocs(collection(db, "historial"));
@@ -133,7 +133,7 @@ const Historial = () => {
     };
 
     // return cleanup function
-    return () => subscriber();
+    subscriber();
   }, [user]);
 
   /* const handleOnChange = (event) => {

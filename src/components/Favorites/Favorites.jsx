@@ -74,9 +74,8 @@ const Favorites = () => {
     alert("Carrito eliminado");
   };
   useEffect(() => {
-    const getProductsFromFirebase = [];
-
     const subscriber = async () => {
+      const getProductsFromFirebase = [];
       // console.log(user.id);
       const querySnapshot = await getDocs(collection(db, "favorites"));
       // const snapshot = await getDocs(
@@ -100,7 +99,7 @@ const Favorites = () => {
     };
 
     // return cleanup function
-    return () => subscriber();
+    subscriber();
   }, [user, setCarritoFavorito]);
 
   useEffect(() => {
