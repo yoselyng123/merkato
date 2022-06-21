@@ -24,7 +24,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
   const { carrito, createUser, user, rol, setRol } = useContext(UserContext);
 
   // Handle Form Submit Login and Sign up
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     // prevent page reload
     e.preventDefault();
     // get input from user
@@ -38,8 +38,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
     } else {
       // login
       try {
-        signInWithEmailAndPassword(auth, email, password);
-        click();
+        await signInWithEmailAndPassword(auth, email, password);
       } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -53,6 +52,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
         }
         console.log(errorCode, errorMessage);
       }
+      // click();
     }
   };
 
@@ -94,7 +94,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
   const handleSignInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider);
       // setNewLoginGoogle(true);
       // setIsRegistrando(true);
       click();
