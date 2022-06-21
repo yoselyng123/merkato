@@ -26,6 +26,7 @@ const Favorites = () => {
   /* const handleClose1 = () => {
     setInfo(true);
   }; */
+  //CAMBIA DE CARRITOS FAVORITOS A PRODUCTOS FAVORITOS
   const esMercado = () => {
     if (mercados) {
       setMercados(false);
@@ -33,7 +34,7 @@ const Favorites = () => {
       setMercados(true);
     }
   };
-
+  //SE UTILIZA PARA ABRIR Y CERRAR EL DETALLE DEL CARRITO FAVORITO
   const handleClose = (
     carrito,
     descripcion,
@@ -58,11 +59,12 @@ const Favorites = () => {
       setInfo(true);
     }
   };
+  //ELIMINA UN PRODUCTO DE FAVORITOS
   const eliminarProductoFavorito = (id) => {
     const newArray = products.filter((item) => item.id !== id);
     setProducts(newArray);
   };
-
+  //ELIMINA UN CARRITO DE FAVORITO
   const eliminarFavorito = async (id) => {
     // console.log(idFavoritoCarrito);
     console.log("entra");
@@ -78,12 +80,6 @@ const Favorites = () => {
       const getProductsFromFirebase = [];
       // console.log(user.id);
       const querySnapshot = await getDocs(collection(db, "favorites"));
-      // const snapshot = await getDocs(
-      //   query(
-      //     carritoReference,
-      //     where("idUser", "==", "7oV1loHahEXj0UburMIyjME02Lv2")
-      //   )
-      // );
 
       querySnapshot.forEach((doc) => {
         getProductsFromFirebase.push({
@@ -110,26 +106,15 @@ const Favorites = () => {
     const subscriber = async () => {
       const querySnapshot = await getDocs(collection(db, "producto"));
       querySnapshot.forEach((doc) => {
-        //console.log(`${doc.id} => ${doc.data()}`);
         if (user == null) {
           if (
             JSON.parse(localStorage.getItem("carritoFavorito")).findIndex(
               (i) => i.id === doc.id
             ) > -1
           ) {
-            /* const numeroEnlaLista = JSON.parse(
-              localStorage.getItem("carritoFavorito")
-            ).findIndex((i) => i.id === doc.id);
-            getProductsFromFirebase.push({
-              ...doc.data(),
-              id: doc.id,
-            }); */
           }
         } else {
           if (user.carritoFavorito.findIndex((i) => i.id === doc.id) > -1) {
-            /* const numeroEnlaLista = user.carritoFavorito.findIndex(
-              (i) => i.id === doc.id
-            ); */
             getProductsFromFirebase.push({
               ...doc.data(),
               id: doc.id,

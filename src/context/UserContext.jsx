@@ -23,11 +23,6 @@ export default function UserContextProvider({ children }) {
     //SIN USUARIO GUARDA EN LOCAL STORAGE
     if (user == null) {
       if (carrito.findIndex((i) => i.id === idProducto) === -1) {
-        // if (carrito.length >= 1) {
-        //   if (carrito[0].idComercio !== idComercio) {
-        //     setCarrito([]);
-        //   }
-        // }
         carrito.push({
           id: idProducto,
           quantity: cantidad + 1,
@@ -84,7 +79,7 @@ export default function UserContextProvider({ children }) {
       });
     }
   };
-
+  //FUNCION PARA MODIFICAR LA CANTIDAD DE PRODUCTOS EN CARRITOS
   const modificarCantidadCarrito = async (
     type,
     IdProducto,
@@ -92,6 +87,7 @@ export default function UserContextProvider({ children }) {
     precio,
     idComercio
   ) => {
+    //SI NO HAY USUARIOS
     if (user === null) {
       const localStorageAux = JSON.parse(localStorage.getItem("carrito"));
       if (type === "-") {
@@ -124,7 +120,9 @@ export default function UserContextProvider({ children }) {
       localStorage.setItem("carrito", JSON.stringify(carrito));
       console.log(JSON.parse(localStorage.getItem("carrito")), "#######");
       setCarrito(JSON.parse(localStorage.getItem("carrito")));
-    } else {
+    }
+    //SI HAY USUARIO
+    else {
       if (type === "-") {
         if (
           user.carrito[user.carrito.findIndex((i) => i.id === IdProducto)]
@@ -161,6 +159,7 @@ export default function UserContextProvider({ children }) {
           agregarACarrito(IdProducto, cantidad, precio, idComercio);
         }
       }
+      //ACTUALIZO EL LOCAL STORAGE Y LUEGO ACTUALIZO EL CARRITO PARA QUE SE ACTUALICE EN TIEMPO REAL
       localStorage.setItem("carrito", JSON.stringify(user.carrito));
       setCarrito(JSON.parse(localStorage.getItem("carrito")));
 
@@ -170,12 +169,11 @@ export default function UserContextProvider({ children }) {
       });
     }
   };
-
+  //CREA LOS USUARIOS EN LA COLECCION
   const createUser = async (user, uid) => {
     await setDoc(doc(db, `users/${uid}`), user);
-    // await db.collection("users").doc(uid).set(user);
   };
-
+  //OBTIENE EL USUARIO POR EL EMAIL
   const getUserByEmail = async (email) => {
     const usersReference = collection(db, "users");
     const snapshot = await getDocs(
@@ -185,7 +183,7 @@ export default function UserContextProvider({ children }) {
     if (!snapshot.size) return null;
 
     const loggedUser = getFirstElementArrayCollection(snapshot);
-    // console.log(loggedUser, "getUserByEmail");
+
     return loggedUser;
   };
 
@@ -193,11 +191,6 @@ export default function UserContextProvider({ children }) {
     //SIN USUARIO GUARDA EN LOCAL STORAGE
     if (user == null) {
       if (carritoFavorito.findIndex((i) => i.id === idProducto) === -1) {
-        // if (carrito.length >= 1) {
-        //   if (carrito[0].idComercio !== idComercio) {
-        //     setCarrito([]);
-        //   }
-        // }
         carritoFavorito.push({
           id: idProducto,
 
@@ -272,9 +265,11 @@ export default function UserContextProvider({ children }) {
       localStorage.setItem("carrito", "[]");
     }
     localStorage.setItem("rol", "");
+    //FUNCION QUE VERIFICA SI HAY UN USUARIO LOGGUEADO
     const unlisten = onAuthStateChanged(auth, async (loggedUser) => {
       if (loggedUser) {
         const profile = await getUserByEmail(loggedUser.email);
+        //CREA LOS USUARIOS DE GOOGLE
         if (!profile) {
           const newProfile = {
             name: loggedUser.displayName,
@@ -289,6 +284,7 @@ export default function UserContextProvider({ children }) {
           setUser({ ...newProfile, id: loggedUser.uid });
           localStorage.setItem("rol", "");
         } else {
+          //ACTUALIZA EL USUARIO EXISTENTE
           if (JSON.parse(localStorage.getItem("carrito")).length === 0) {
             console.log("Entra");
             setCarrito(profile.carrito);

@@ -130,6 +130,7 @@ function Checkout() {
       instruccionDelivery: deliveryInstructions,
       direccion: address,
       horaEntrega: selectedTime,
+      estado: "pendiente",
     });
     const userRef = doc(db, "users", user.id);
     await updateDoc(userRef, {

@@ -16,10 +16,12 @@ const HistorialCarrito = ({
   handleFavoritos,
   /* agregarFavorito, */
   direccion,
+  estado,
 }) => {
   const Date1 = new Date(fecha);
   const { setCarrito, user } = useContext(UserContext);
   let navigate = useNavigate();
+  //Actualiza el carrito actual con el carrito que se quiere volver a comprar
   const volverComprar = async () => {
     const userRef = doc(db, "users", user.id);
     localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -29,6 +31,12 @@ const HistorialCarrito = ({
       carrito: JSON.parse(localStorage.getItem("carrito")),
     });
     navigate("/carrito", { replace: true });
+  };
+  //Opciones para que se muestre la fecha
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   return (
@@ -45,11 +53,13 @@ const HistorialCarrito = ({
               onClick={() =>
                 click(
                   carrito,
-                  Date1.toLocaleDateString(),
+                  Date1.toLocaleDateString("es-Es", options),
                   "Descripcion",
                   total,
                   idUser,
-                  idCarrito
+                  idCarrito,
+                  direccion,
+                  estado
                 )
               }
             >
@@ -57,9 +67,12 @@ const HistorialCarrito = ({
             </h1>
             {/* </Link> */}
             <div className={styles.divDescripcion}>
-              <span className={styles.descripcion}>descripcion</span>
+              <span className={styles.descripcion2}>
+                {estado === "completado" && "Completado"}
+                {estado === "pendiente" && "Pendiente"}
+              </span>
               <span className={styles.descripcion}>
-                {Date1.toLocaleDateString()}
+                {Date1.toLocaleDateString("es-Es", options)}
               </span>
             </div>
           </div>
@@ -85,21 +98,27 @@ const HistorialCarrito = ({
               Agregar a favoritos
             </button>
             {/* <button className={styles.buttonSave}>Save</button> */}
-            <button className={styles.comprar} onClick={() => volverComprar()}>
-              Volver a Comprar
-            </button>
+            {estado === "completado" && (
+              <button
+                className={styles.comprar}
+                onClick={() => volverComprar()}
+              >
+                Volver a Comprar
+              </button>
+            )}
           </div>
           <button
             className={styles.ver}
             onClick={() =>
               click(
                 carrito,
-                Date1.toLocaleDateString(),
+                Date1.toLocaleDateString("es-Es", options),
                 "Descripcion",
                 total,
                 idUser,
                 idCarrito,
-                direccion
+                direccion,
+                estado
               )
             }
           >

@@ -19,6 +19,7 @@ const Carrito = () => {
 
   const [totalAmount, setTotalAmount] = useState(0);
   const [info, setInfo] = useState(true);
+
   const handleClose = () => {
     if (
       (values.direccion !== "" && values.descripcion !== "") ||
@@ -34,7 +35,7 @@ const Carrito = () => {
       console.log("Epa Epa Epa");
     }
   };
-
+  //BORRA PRODUCTO DEL CARRITO
   const handleDeleteCarrito = (id) => {
     const newArray = products.filter((item) => item.id !== id);
     setProducts(newArray);
@@ -119,7 +120,6 @@ const Carrito = () => {
               <p className={styles.text}>Your cart is empty</p>
             )}
           </div>
-          <hr className={styles.divider} />
           <Pago
             totalAmount={totalAmount}
             click={handleClose}
