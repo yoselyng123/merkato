@@ -93,7 +93,7 @@ function ViewByCategory() {
         }
       );
     };
-    return () => subscriber();
+    subscriber();
   }, [idcomercio, pasillo, category]);
 
   const handleNavigation = () => {

@@ -77,9 +77,6 @@ function Searcher({ products, idComercio, categorias }) {
     } else {
       filtrarByName(name);
     }
-
-    // return cleanup function
-    /* return () => subscriber(); */
   }, [name, categorias, products, idComercio]); // empty dependency array means useEffect will only run once;
 
   return (
