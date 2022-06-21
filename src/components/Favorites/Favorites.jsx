@@ -128,7 +128,7 @@ const Favorites = () => {
     };
 
     // return cleanup function
-    return () => subscriber();
+    subscriber();
   }, [user, setCarritoFavorito]);
 
   return (
