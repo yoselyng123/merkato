@@ -46,11 +46,11 @@ const Carrito = () => {
   }, [carrito]);
 
   useEffect(() => {
-    if (user === null) {
-      setCarrito(JSON.parse(localStorage.getItem("carrito")));
-    }
-    const getProductsFromFirebase = [];
     const subscriber = async () => {
+      if (user === null) {
+        setCarrito(JSON.parse(localStorage.getItem("carrito")));
+      }
+      const getProductsFromFirebase = [];
       const querySnapshot = await getDocs(
         collection(firebaseExports.db, "producto")
       );
@@ -92,7 +92,7 @@ const Carrito = () => {
     };
 
     // return cleanup function
-    return () => subscriber();
+    subscriber();
   }, [user, setCarrito]);
 
   return (
