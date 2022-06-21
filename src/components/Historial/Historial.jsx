@@ -8,6 +8,7 @@ import { db } from "../../utils/firebaseConfig";
 import DetalleFactura from "../DetalleFactura/DetalleFactura";
 import AddNameFavorite from "../AddNameFavorite/AddNameFavorite";
 import uniqid from "uniqid";
+import toast from "react-hot-toast";
 const Historial = () => {
   const [info, setInfo] = useState(false);
   const { user } = useContext(UserContext);
@@ -89,7 +90,9 @@ const Historial = () => {
         idCarrito: values.idCarrito,
       });
       console.log(values);
-      alert("Su carrito ha sido anadido en favoritos");
+      toast.success("Su carrito ha sido anadido en favoritos");
+      // alert("Su carrito ha sido anadido en favoritos");
+      // alert("Su carrito ha sido anadido en favoritos");
       setValues({
         nombre: "",
         fecha: "",
