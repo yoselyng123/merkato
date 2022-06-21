@@ -13,6 +13,7 @@ const Historial = () => {
   const { user } = useContext(UserContext);
   const [productos, setProductos] = useState([]);
   const [total, setTotal] = useState(null);
+  const [isCompletado, setIsCompletado] = useState(false);
   const [values, setValues] = useState({
     carrito: "",
     fecha: "",
@@ -34,7 +35,6 @@ const Historial = () => {
     direccion,
     estado
   ) => {
-    console.log(carrito);
     if (info) {
       setInfo(false);
     } else {
@@ -104,6 +104,13 @@ const Historial = () => {
       setIsNombre(false);
     }
   };
+  const esPendiente = () => {
+    if (isCompletado) {
+      setIsCompletado(false);
+    } else {
+      setIsCompletado(true);
+    }
+  };
   useEffect(() => {
     const subscriber = async () => {
       /* Se crea array vacio de Productos */
@@ -141,26 +148,70 @@ const Historial = () => {
           <>
             {!info ? (
               <>
-                <h1>Historial de Compras</h1>
-                {productos.map(
-                  (product) =>
-                    user.id === product.idUser && (
-                      <HistorialCarrito
-                        total={product.total.toFixed(2)}
-                        fecha={product.fecha}
-                        idCarrito={product.id}
-                        idUser={product.idUser}
-                        carrito={product.carrito}
-                        click={handleClose}
-                        value={product.id}
-                        handleFavoritos={handleCloseFavorite}
-                        agregarFavorito={agregarFavoritoCarrito}
-                        direccion={product.direccion}
-                        estado={product.estado}
-                        key={product.id}
-                      />
+                <h1>Mis Compras</h1>
+                <div className={styles.btnBox}>
+                  <button
+                    className={
+                      isCompletado
+                        ? `${styles.btnIz}`
+                        : `${styles.btnIz} ${styles.btnA}`
+                    }
+                    onClick={esPendiente}
+                  >
+                    Pendientes
+                  </button>
+                  <button
+                    className={
+                      !isCompletado
+                        ? `${styles.btnDe}`
+                        : `${styles.btnDe} ${styles.btnA}`
+                    }
+                    onClick={esPendiente}
+                  >
+                    Confirmados
+                  </button>
+                </div>
+                {isCompletado
+                  ? productos.map(
+                      (product) =>
+                        user.id === product.idUser &&
+                        product.estado === "completado" && (
+                          <HistorialCarrito
+                            total={product.total.toFixed(2)}
+                            fecha={product.fecha}
+                            idCarrito={product.id}
+                            idUser={product.idUser}
+                            carrito={product.carrito}
+                            click={handleClose}
+                            value={product.id}
+                            handleFavoritos={handleCloseFavorite}
+                            agregarFavorito={agregarFavoritoCarrito}
+                            direccion={product.direccion}
+                            estado={product.estado}
+                            key={product.id}
+                          />
+                        )
                     )
-                )}
+                  : productos.map(
+                      (product) =>
+                        user.id === product.idUser &&
+                        product.estado !== "completado" && (
+                          <HistorialCarrito
+                            total={product.total.toFixed(2)}
+                            fecha={product.fecha}
+                            idCarrito={product.id}
+                            idUser={product.idUser}
+                            carrito={product.carrito}
+                            click={handleClose}
+                            value={product.id}
+                            handleFavoritos={handleCloseFavorite}
+                            agregarFavorito={agregarFavoritoCarrito}
+                            direccion={product.direccion}
+                            estado={product.estado}
+                            key={product.id}
+                          />
+                        )
+                    )}
               </>
             ) : (
               <DetalleFactura

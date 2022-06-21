@@ -53,7 +53,7 @@ const DetalleFactura = ({
       };
 
       // return cleanup function
-      return () => subscriber();
+      subscriber();
     }
   }, [carrito, user]);
   return (
@@ -87,14 +87,10 @@ const DetalleFactura = ({
               <h3 className={styles.titleUp}>Orden # </h3>
               <h3 className={styles.nombre}>{idCarrito}</h3>
             </div>
-            {estado === "completado" && (
-              <button
-                className={styles.comprar}
-                onClick={() => volverComprar()}
-              >
-                Volver a Comprar
-              </button>
-            )}
+
+            <button className={styles.comprar} onClick={() => volverComprar()}>
+              Volver a Comprar
+            </button>
           </div>
         </div>
         <div className={styles.priceContainer}>

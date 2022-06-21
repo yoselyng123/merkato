@@ -9,7 +9,7 @@ import DetalleFavoritoMercado from "../DetalleFavoritoMercado/DetalleFavoritoMer
 import Product from "../Product/Product";
 const Favorites = () => {
   const [info, setInfo] = useState(false);
-  const [mercados, setMercados] = useState(true);
+  const [mercados, setMercados] = useState(false);
   const { user, setCarritoFavorito } = useContext(UserContext);
   //Este es Carritos
   const [productos, setProductos] = useState([]);

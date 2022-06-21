@@ -44,7 +44,7 @@ const DetalleFavoritoMercado = ({ total, nombre, carrito, click }) => {
       };
 
       // return cleanup function
-      return () => subscriber();
+      subscriber();
     }
   }, []);
   return (
