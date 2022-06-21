@@ -9,17 +9,18 @@
    
 }
 .boxImg{
-    height: 120px;
-    width: 120px;
-
+    height: 100px;
+    width: 100px;
     border-radius: 10px;
-  
     background-size: auto;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .img{
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 .nombreProducto{
     font-size: 1.25rem;
@@ -56,7 +57,7 @@
     color: red;
 }
 .addMore{
-    width: 25%;
+    width: 20%;
     background-color: var(--lightGreen);
     padding: 0.1rem 0.6rem 0.1rem 0.6rem;
     display: flex;

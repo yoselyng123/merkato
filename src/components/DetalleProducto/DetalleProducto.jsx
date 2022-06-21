@@ -30,8 +30,9 @@ function DetalleProducto({ info_producto, click }) {
             />
           ))}
         </div>
-
-        <img className={styles.bigImage} src={mainImage} alt="" />
+        <div className={styles.bigImage}>
+          <img src={mainImage} alt="" />
+        </div>
       </div>
 
       <div className={styles.infoContainer}>
@@ -44,7 +45,7 @@ function DetalleProducto({ info_producto, click }) {
           </div>
           <p className={styles.text2}>Final cost by weight</p>
         </div>
-        {user && user.rol !== "admin" && (
+        {((user && user.rol !== "admin") || !user) && (
           <AddButton
             data={info_producto}
             idComercio={info_producto.idComercio}

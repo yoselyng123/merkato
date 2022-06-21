@@ -106,24 +106,19 @@ const Historial = () => {
   };
   useEffect(() => {
     const subscriber = async () => {
+      /* Se crea array vacio de Productos */
       const getProductsFromFirebase = [];
-      //const carritoReference = collection(db, "historial");
-      // console.log(user.id);
+      /* Se hace un snapshot de los docs en la coleccion Historial */
       const querySnapshot = await getDocs(collection(db, "historial"));
-
+      /* Se hace Push al array de productos de cada doc en Historial */
       querySnapshot.forEach((doc) => {
         getProductsFromFirebase.push({
           ...doc.data(),
           id: doc.id,
         });
-        //console.log(`${doc.id} => ${doc.data()}`);
       });
-
-      console.log(getProductsFromFirebase);
       setProductos(getProductsFromFirebase);
     };
-
-    // return cleanup function
     subscriber();
   }, [user]);
 

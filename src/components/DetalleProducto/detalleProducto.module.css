@@ -1,20 +1,19 @@
 .infocontent
 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     font-size: 25px;
     font-weight: normal;
     height: 100%;
     width: 100%;
     color: #33353B;
     padding: 5%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
     position: relative;
 }
 .exitbutton {
-    
     top: 1rem;
     right: 1rem;
     cursor: pointer;
@@ -52,8 +51,16 @@
     opacity: 1;
 }
 .bigImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 20rem;
     cursor: pointer;
+    height: 15rem;
+}
+
+.bigImage > img{
+    width: 80%;
 }
 .infoContainer{
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -94,4 +101,29 @@
 .descripcion{
     font-size: 0.8rem;
     color: var(--gray);
+}
+
+@media screen and (max-width: 700px) {
+    .infocontent{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0;
+        margin: 1rem 0rem ;
+    }
+
+    .imagesContainer{
+        width: 90%;
+    }
+
+    .bigImage{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .infoContainer{
+        width: 100%
+    }
 }
