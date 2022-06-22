@@ -11,6 +11,7 @@
     justify-content: center;
     padding-top: 2rem;
     gap: 2rem;
+    cursor: pointer;
 }
 .comercio > img{
     height: 5rem;

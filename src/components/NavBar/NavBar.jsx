@@ -180,33 +180,62 @@ function NavBar() {
           {
             text: "Comercios",
             icon: (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                <path d="M575.8 255.5C575.8 273.5 560.8 287.6 543.8 287.6H511.8L512.5 447.7C512.5 450.5 512.3 453.1 512 455.8V472C512 494.1 494.1 512 472 512H456C454.9 512 453.8 511.1 452.7 511.9C451.3 511.1 449.9 512 448.5 512H392C369.9 512 352 494.1 352 472V384C352 366.3 337.7 352 320 352H256C238.3 352 224 366.3 224 384V472C224 494.1 206.1 512 184 512H128.1C126.6 512 125.1 511.9 123.6 511.8C122.4 511.9 121.2 512 120 512H104C81.91 512 64 494.1 64 472V360C64 359.1 64.03 358.1 64.09 357.2V287.6H32.05C14.02 287.6 0 273.5 0 255.5C0 246.5 3.004 238.5 10.01 231.5L266.4 8.016C273.4 1.002 281.4 0 288.4 0C295.4 0 303.4 2.004 309.5 7.014L564.8 231.5C572.8 238.5 576.9 246.5 575.8 255.5L575.8 255.5z" />
-              </svg>
+              <SvgIcon
+                sx={{
+                  fontSize: "2rem",
+                  display: "flex",
+                  fill: "var(--lightGreen)",
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                  <path d="M8.25 11.35V8.35H39.85V11.35ZM8.5 39.7V27.45H6.05V24.45L8.25 14.35H39.8L42 24.45V27.45H39.55V39.7H36.55V27.45H27.6V39.7ZM11.5 36.7H24.6V27.45H11.5Z" />
+                </svg>
+              </SvgIcon>
             ),
           },
           {
             text: "Historial",
             icon: (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256z" />
-              </svg>
+              <SvgIcon
+                sx={{
+                  marginLeft: "0.2rem",
+                  fill: "var(--lightGreen)",
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                  <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256z" />
+                </svg>
+              </SvgIcon>
             ),
           },
           {
             text: "Favoritos",
             icon: (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z" />
-              </svg>
+              <SvgIcon
+                sx={{
+                  marginLeft: "0.2rem",
+                  fill: "var(--lightGreen)",
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z" />
+                </svg>
+              </SvgIcon>
             ),
           },
           {
             text: "Cerrar Sesión",
             icon: (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path d="M160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64c17.67 0 32-14.33 32-32S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256c0 53.02 42.98 96 96 96h64c17.67 0 32-14.33 32-32S177.7 416 160 416zM502.6 233.4l-128-128c-12.51-12.51-32.76-12.49-45.25 0c-12.5 12.5-12.5 32.75 0 45.25L402.8 224H192C174.3 224 160 238.3 160 256s14.31 32 32 32h210.8l-73.38 73.38c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0l128-128C515.1 266.1 515.1 245.9 502.6 233.4z" />
-              </svg>
+              <SvgIcon
+                sx={{
+                  marginLeft: "0.3rem",
+                  fill: "var(--lightGreen)",
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64c17.67 0 32-14.33 32-32S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256c0 53.02 42.98 96 96 96h64c17.67 0 32-14.33 32-32S177.7 416 160 416zM502.6 233.4l-128-128c-12.51-12.51-32.76-12.49-45.25 0c-12.5 12.5-12.5 32.75 0 45.25L402.8 224H192C174.3 224 160 238.3 160 256s14.31 32 32 32h210.8l-73.38 73.38c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0l128-128C515.1 266.1 515.1 245.9 502.6 233.4z" />
+                </svg>
+              </SvgIcon>
             ),
           },
         ].map((element, index) => {
@@ -220,15 +249,13 @@ function NavBar() {
                 <ListItemButton
                   onClick={() => handleNavigateOption(element.text)}
                 >
-                  <ListItemIcon>
-                    <SvgIcon>{element.icon}</SvgIcon>
-                  </ListItemIcon>
+                  <ListItemIcon>{element.icon}</ListItemIcon>
                   <ListItemText primary={element.text} />
                 </ListItemButton>
               </ListItem>
             );
           } else {
-            if (element.text == "Comercios") {
+            if (element.text === "Comercios") {
               return (
                 <ListItem
                   key={index}
@@ -346,6 +373,15 @@ function NavBar() {
         {user ? (
           <div className={styles.rightSectionOpt}>
             <SvgIcon
+              onClick={() => navigate(`/`, { replace: true })}
+              sx={{ fontSize: "2rem" }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                <path d="M8 11V8H40.1V11ZM8.25 40V27.1H5.8V24.1L8 14H40.05L42.25 24.1V27.1H39.8V40H36.8V27.1H27.35V40ZM11.25 37H24.35V27.1H11.25ZM8.75 24.1H39.3ZM8.75 24.1H39.3L37.75 17H10.3Z" />
+              </svg>
+            </SvgIcon>
+
+            <SvgIcon
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
@@ -366,10 +402,9 @@ function NavBar() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              {/* <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
-              <MenuItem onClick={handleCloseMenu}>My account</MenuItem> */}
-              <MenuItem onClick={handleHistorial}>Historial</MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              {/* <MenuItem onClick={handleCloseMenu}>Mi Cuenta</MenuItem> */}
+              <MenuItem onClick={handleHistorial}>Mis Pedidos</MenuItem>
+              <MenuItem onClick={handleLogout}>Cerrar Sesión</MenuItem>
             </Menu>
 
             <SvgIcon onClick={() => navigate(`/favorites`, { replace: true })}>

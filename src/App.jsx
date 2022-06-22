@@ -27,7 +27,7 @@ function App() {
   return (
     <UserContextProvider>
       <Router>
-        <Toaster position="top-center" reverseOrder={true} />
+        <Toaster position="bottom-right" reverseOrder={true} />
         <Link to="/" className={styles.fullSizelogo}>
           <Logo />
         </Link>

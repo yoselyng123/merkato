@@ -41,9 +41,6 @@ const HistorialCarrito = ({
 
   return (
     <div className={styles.containers}>
-      {/* <picture className={styles.boxImg}>
-        <img alt="" className={styles.img} />
-      </picture> */}
       <div className={styles.info}>
         <div className={styles.upInfo}>
           <div className={styles.upLeftSide}>
