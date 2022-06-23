@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "./context/UserContext";
+import { Routes, Route, Navigate } from "react-router-dom";
 /* Pages */
 import CarritoPage from "./pages/Cart/CarritoPage";
 import Home from "./pages/Home/Home";
@@ -17,6 +18,7 @@ import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import MerkaterPage from "./pages/MerkaterPage/MerkaterPage";
 
 function Rutas() {
+  const { user } = useContext(UserContext);
   //const [loading, setLoading] = useState(true);
   const [comercios, setComercios] = useState([]);
   const [productos, setProductos] = useState([]);
@@ -63,15 +65,19 @@ function Rutas() {
   useEffect(() => {
     // return cleanup function
     subscriber();
+
   }, []);
 
   return (
     <Routes>
       <Route exact path="/carrito" element={<CarritoPage />} />
       <Route exact path="/store/checkout" element={<Checkout />} />
+
+      <Route exact path="/" element={<Navigate replace to="/home" />} />
+
       <Route
         exact
-        path="/"
+        path="/home"
         element={<Stores comercios={comercios} setIdComercio={setIdComercio} />}
       />
       <Route
