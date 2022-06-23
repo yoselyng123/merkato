@@ -264,7 +264,10 @@ export default function UserContextProvider({ children }) {
     if (!JSON.parse(localStorage.getItem("carrito"))) {
       localStorage.setItem("carrito", "[]");
     }
-    localStorage.setItem("rol", "");
+    if (!localStorage.getItem("rol")) {
+      localStorage.setItem("rol", "");
+    }
+
     //FUNCION QUE VERIFICA SI HAY UN USUARIO LOGGUEADO
     const unlisten = onAuthStateChanged(auth, async (loggedUser) => {
       if (loggedUser) {
@@ -289,6 +292,7 @@ export default function UserContextProvider({ children }) {
             console.log("Entra");
             setCarrito(profile.carrito);
             setUser(profile);
+            localStorage.setItem("rol", profile.rol);
           } else {
             const userRef = doc(db, "users", profile.id);
 
@@ -299,12 +303,14 @@ export default function UserContextProvider({ children }) {
             setUser(profile);
             setCarrito(profile.carrito);
             setCarritoFavorito(profile.carritoFavorito);
+            localStorage.setItem("rol", profile.rol);
           }
         }
-        console.log("Logged user: ", loggedUser.displayName, loggedUser.uid);
+        console.log("Logged user: ", loggedUser.displayName, loggedUser.uid, localStorage.getItem("rol"));
       } else {
         setUser(null);
         console.log("No user logged");
+        localStorage.setItem("rol", "");
       }
     });
 

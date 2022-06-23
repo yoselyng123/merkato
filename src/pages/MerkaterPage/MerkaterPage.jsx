@@ -127,7 +127,7 @@ const MerkaterPage = () => {
 
 
       {user && productos.length > 0 ? (
-        productos.findIndex((i) => i.idUser === user.id) !== -1 ? (
+        productos !== -1 ? (
           <>
             {!info ? (
               <>
@@ -210,7 +210,7 @@ const MerkaterPage = () => {
             )}
           </>
         ) : (
-          <div>No tiene compras realizadas</div>
+          <div>No hay ordenes disponibles</div>
         )
       ) : (
         <div>Cargando</div>

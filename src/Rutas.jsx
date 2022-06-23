@@ -16,9 +16,10 @@ import HistorialPage from "./pages/HistorialPage/HistorialPage";
 import Checkout from "./pages/Checkout/Checkout";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import MerkaterPage from "./pages/MerkaterPage/MerkaterPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 function Rutas() {
-  const { user } = useContext(UserContext);
+  const rol = String(localStorage.getItem("rol"));
   //const [loading, setLoading] = useState(true);
   const [comercios, setComercios] = useState([]);
   const [productos, setProductos] = useState([]);
@@ -63,6 +64,7 @@ function Rutas() {
   };
 
   useEffect(() => {
+    const rol = String(localStorage.getItem("rol"));
     // return cleanup function
     subscriber();
 
@@ -70,37 +72,22 @@ function Rutas() {
 
   return (
     <Routes>
+      
       <Route exact path="/carrito" element={<CarritoPage />} />
+
       <Route exact path="/store/checkout" element={<Checkout />} />
 
       <Route exact path="/" element={<Navigate replace to="/home" />} />
+      <Route path="*" element={<Navigate replace to="/" />} />
 
       <Route
         exact
         path="/home"
         element={<Stores comercios={comercios} setIdComercio={setIdComercio} />}
       />
-      <Route
-        exact
-        path="/searchBy/:name"
-        element={
-          <Searcher
-            products={productos}
-            idComercio={idComercio}
-            categorias={categorias}
-          />
-        }
-      />
-      <Route
-        exact
-        path="/searchBy/:idcomercio/categories/:category/:namecategory"
-        element={<ViewByCategory />}
-      />
-      <Route
-        exact
-        path="/searchBy/:idcomercio/pasillos/:pasillo"
-        element={<ViewByCategory />}
-      />
+
+
+
       <Route
         exact
         path="/:comercio/:idcomercio/shop"
@@ -113,21 +100,57 @@ function Rutas() {
           />
         }
       />
+      <Route exact path="/historial" element={<HistorialPage />} />
+      <Route exact path="/favorites" element={<FavoritesPage />} />
+      <Route
+      exact
+      path="/searchBy/:name"
+      element={
+        <Searcher
+          products={productos}
+          idComercio={idComercio}
+          categorias={categorias}
+        />
+      }
+      />
+      <Route
+        exact
+        path="/searchBy/:idcomercio/categories/:category/:namecategory"
+        element={<ViewByCategory />}
+      />
+      <Route
+        exact
+        path="/searchBy/:idcomercio/pasillos/:pasillo"
+        element={<ViewByCategory />}
+      />
+
+
+
       <Route
         exact
         path="/:comercio/:idcomercio/admin"
         element={
-          <AdminView
-            setProductos={setProductos}
-            productos={productos}
-            setCategorias={setCategorias}
-            categorias={categorias}
-          />
+          <ProtectedRoute isAllowed={rol !== "" && rol === "admin"} >
+            <AdminView
+              setProductos={setProductos}
+              productos={productos}
+              setCategorias={setCategorias}
+              categorias={categorias}
+            />
+          </ProtectedRoute>
         }
       />
-      <Route exact path="/historial" element={<HistorialPage />} />
-      <Route exact path="/favorites" element={<FavoritesPage />} />
-      <Route exact path="/merkater" element={<MerkaterPage />} />
+
+      <Route 
+        exact
+        path="/merkater"
+        element={
+          <ProtectedRoute isAllowed={rol !== "" && rol === "merkater"} >
+            <MerkaterPage />
+          </ProtectedRoute>
+        } 
+      />
+
     </Routes>
   );
 }
