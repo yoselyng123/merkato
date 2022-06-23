@@ -12,7 +12,7 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
-import ListProducts from "../../components/ListProducts/ListProducts";
+import ListProductsPasillo from "../../components/ListProductsPasillo/ListProductsPasillo";
 
 function ViewByCategory() {
   let navigate = useNavigate();
@@ -116,7 +116,7 @@ function ViewByCategory() {
           {categoriesIds.length > 0 &&
             categoriesIds.map((id, index) => {
               return (
-                <ListProducts
+                <ListProductsPasillo
                   key={index}
                   title={categoriesNames[index]}
                   products={productByCategory.filter(
@@ -131,7 +131,7 @@ function ViewByCategory() {
 
       {category && (
         <div className={styles.viewByCategory}>
-          <ListProducts
+          <ListProductsPasillo
             title={namecategory}
             products={productByCategory}
             idcomercio={idcomercio}
