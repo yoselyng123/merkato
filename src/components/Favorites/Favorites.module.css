@@ -5,7 +5,8 @@
 }
 .containerProductos2{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    grid-template-columns: repeat(auto-fill, 12rem);
+    grid-gap: 1rem;
 }
 .btnDe{
     border: 1px solid var(--lightGreen);
@@ -30,18 +31,11 @@
 }
 
 
-@media screen and (max-width: 604px) {
+@media screen and (max-width: 435px) {
     .containerProductos2{
-        display: grid;
-        grid-template-columns: auto auto;
-    }
-}
-
-@media screen and (max-width: 420px) {
-    .containerProductos2{
-        display: grid;
-        grid-template-columns: 160px 160px;
-        grid-gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
