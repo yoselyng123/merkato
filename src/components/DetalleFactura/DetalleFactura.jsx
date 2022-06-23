@@ -15,6 +15,7 @@ const DetalleFactura = ({
   click,
   direccion,
   estado,
+  handleAceptar,
 }) => {
   const { user, setCarrito } = useContext(UserContext);
   const [products, setProducts] = useState([]);
@@ -88,9 +89,16 @@ const DetalleFactura = ({
               <h3 className={styles.nombre}>{idCarrito}</h3>
             </div>
 
-            <button className={styles.comprar} onClick={() => volverComprar()}>
-              Volver a Comprar
-            </button>
+            {user.rol === "merkater" ? (
+              <button className={styles.comprar} onClick={() => handleAceptar(user.id, idCarrito)}>
+                Aceptar orden
+              </button>
+            ) : (
+              <button className={styles.comprar} onClick={() => volverComprar()}>
+                Volver a Comprar
+              </button>
+            )}
+
           </div>
         </div>
         <div className={styles.priceContainer}>

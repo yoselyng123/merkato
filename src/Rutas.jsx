@@ -14,6 +14,7 @@ import AdminView from "./pages/AdminView/AdminView";
 import HistorialPage from "./pages/HistorialPage/HistorialPage";
 import Checkout from "./pages/Checkout/Checkout";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
+import MerkaterPage from "./pages/MerkaterPage/MerkaterPage";
 
 function Rutas() {
   //const [loading, setLoading] = useState(true);
@@ -120,6 +121,7 @@ function Rutas() {
       />
       <Route exact path="/historial" element={<HistorialPage />} />
       <Route exact path="/favorites" element={<FavoritesPage />} />
+      <Route exact path="/merkater" element={<MerkaterPage />} />
     </Routes>
   );
 }

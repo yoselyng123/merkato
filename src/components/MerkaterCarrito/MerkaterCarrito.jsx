@@ -1,11 +1,8 @@
-import styles from "./HistorialCarrito.module.css";
-import { useNavigate } from "react-router-dom";
+import styles from "./MerkaterCarrito.module.css";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { db } from "../../utils/firebaseConfig";
-import { doc, updateDoc } from "firebase/firestore";
 
-const HistorialCarrito = ({
+const MerkaterCarrito = ({
   total,
   fecha,
   idCarrito,
@@ -13,25 +10,16 @@ const HistorialCarrito = ({
   carrito,
   descripcion,
   click,
-  handleFavoritos,
+  handleAceptar,
+  handleCancelar,
   /* agregarFavorito, */
   direccion,
   estado,
 }) => {
   const Date1 = new Date(fecha);
-  const { setCarrito, user } = useContext(UserContext);
-  let navigate = useNavigate();
+  const { user } = useContext(UserContext);
   //Actualiza el carrito actual con el carrito que se quiere volver a comprar
-  const volverComprar = async () => {
-    const userRef = doc(db, "users", user.id);
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    user.carrito = JSON.parse(localStorage.getItem("carrito"));
-    setCarrito(JSON.parse(localStorage.getItem("carrito")));
-    await updateDoc(userRef, {
-      carrito: JSON.parse(localStorage.getItem("carrito")),
-    });
-    navigate("/carrito", { replace: true });
-  };
+
   //Opciones para que se muestre la fecha
   const options = {
     year: "numeric",
@@ -77,26 +65,32 @@ const HistorialCarrito = ({
 
         <div className={styles.downInfo}>
           <div className={styles.downRightSide}>
-            <button
-              className={styles.buttonDelete}
-              onClick={() =>
-                handleFavoritos(
-                  fecha,
-                  carrito,
-                  descripcion,
-                  user.id,
-                  idCarrito,
-                  total
-                )
-              }
-              //   onClick={() => handleDeleteCarrito(id)}
-            >
-              Agregar a favoritos
-            </button>
+            {estado === "en progreso" ? (
+              <button
+                className={styles.buttonAceptar}
+                onClick={() =>
+                  handleCancelar(
+                    idCarrito
+                  )
+                }
+              >
+                Cancelar orden
+              </button>
+            ) : (
+              <button
+                className={styles.buttonAceptar}
+                onClick={() =>
+                  handleAceptar(
+                    user.id,
+                    idCarrito,
+                  )
+                }
+                //   onClick={() => handleDeleteCarrito(id)}
+              >
+              Aceptar orden
+              </button>
+            )}
 
-            <button className={styles.comprar} onClick={() => volverComprar()}>
-              Volver a Comprar
-            </button>
           </div>
           <button
             className={styles.ver}
@@ -121,4 +115,4 @@ const HistorialCarrito = ({
   );
 };
 
-export default HistorialCarrito;
+export default MerkaterCarrito;

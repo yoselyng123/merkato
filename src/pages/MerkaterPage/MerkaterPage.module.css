@@ -1,0 +1,62 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5% 5%;
+}
+.container2{
+    background: rgba(0, 0, 0, .6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: default;
+}
+.btnDe {
+    border: 1px solid var(--lightGreen);
+    padding: 10px;
+    font-weight: bolder;
+    border-radius: 0px 10px 10px 0px;
+    background-color: white;
+    width: 100%;
+}
+
+.btnIz {
+    border: 1px solid var(--lightGreen);
+    padding: 10px;
+    font-weight: bolder;
+    border-radius: 10px 0px 0px 10px;
+    background-color: white;
+    width: 100%;
+}
+
+.btnBox {
+    margin: 10px 0px;
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+
+.btnA {
+    background-color: var(--lightGreen);
+    color: white;
+}
+
+@media screen and (max-width: 900px) {
+    .btnBox{
+        width: 100%;
+    }
+
+    .downRightSide{
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+}

@@ -1,0 +1,124 @@
+.containers {
+
+    width:60%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* align-items:center; */
+    padding: 10px;
+    border-top: 1px solid var(--lightestGreen);
+
+}
+
+.nombreProducto {
+    font-size: 20px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    color: var(--lightGreen);
+}
+.nombreProducto:hover{
+    color: var(--lightestGreen);
+}
+
+.info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    cursor: default;
+}
+
+.upInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    font-size: 10px;
+}
+.descripcion2{
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.downRightSide{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.downInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonAceptar {
+    background-color: var(--lightGreen);
+    padding: 5px;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    font-weight: bolder;
+}
+
+.buttonDelete:hover {
+    background-color: rgb(232, 232, 232);
+}
+
+.divDescripcion{
+    display: flex;
+    flex-direction: column;
+}
+
+.comprar {
+    background-color: var(--lightGreen);
+    color: white;
+    width: fit-content;
+    padding: 0.2rem 0.5rem;
+    height: 25px;
+    border: none;
+    border-radius: 10px;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.comprar:hover {
+    background-color: var(--lightestGreen);
+}
+.ver {
+    background-color: white;
+    padding: 0.2rem 0.5rem;
+    border: none;
+    border-radius: 10px;
+    color: var(--lightGreen);
+    font-weight: bolder;
+    border: 1px solid var(--lightGreen);
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.ver:hover {
+    /* background-color: var(--lightestGreen); */
+    /* color: white; */
+}
+
+@media screen and (max-width: 900px) {
+    .containers{
+        width: 100%;
+    }
+
+    .downRightSide{
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+}
