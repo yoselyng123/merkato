@@ -12,71 +12,51 @@
     gap: 1rem;
     position: relative;
 }
-
 .infoContainer {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     border-radius: 25px;
     padding: 2rem;
 }
-
 .upContainer {
-    /* background-color: red; */
     display: flex;
     flex-direction: row;
     font-size: 14px;
-    justify-content: space-between;
+    justify-content:space-between;
     margin-bottom: 10px;
 }
-
-.containerColumnas {
-    /* background-color: red; */
+.containerColumnas{
     display: flex;
     flex-direction: column;
     font-size: 12px;
-    margin-right: 30px;
 }
-
-.containerFila {
-    /* background-color: red; */
+.containerFila{
     display: flex;
     flex-direction: row;
 }
-
-.leftSide {
+.leftSide{
     display: flex;
+    gap: 1.5rem;
 }
-
-.rightSide {
+.rightSide{
     display: flex;
     flex-direction: column;
 }
-
-.titleUp {
-    /* background-color: red; */
+.titleUpNombre{
     margin-bottom: 5px;
-    font-size: 16px;
+    font-size: 1.5rem;
 }
-.titleUpNombre {
-    /* background-color: red; */
-    margin-bottom: 5px;
-    font-size: 24px;
-    align-self: flex-end;
-   
-}
-
 .exitbutton {
 
-    top: 1rem;
-    left: 5rem;
+    top: 2rem;
+    left: 2rem;
     cursor: pointer;
     position: absolute;
 }
-
-.comprar {
+.comprar{
     background-color: var(--lightGreen);
     padding: 5px;
     border: none;
@@ -84,8 +64,7 @@
     color: white;
     font-weight: bolder;
 }
-
-.comprar:hover {
+.comprar:hover{
     background-color: var(--lightestGreen);
 }
 
@@ -99,16 +78,68 @@
 
 
 .text {
-
+  
     color: var(--gray);
 }
 
 .text2 {
-
+    
     color: var(--gray);
 }
 
 .price {
     color: var(--lightGreen);
     font-weight: 700;
+}
+
+@media screen and (max-width: 700px) {
+
+    .upContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .leftSide{
+        width: 100%;
+        display: flex;
+        gap: 0.2rem;
+    }
+
+    .containerColumnasTotal{
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        width: 100%;
+        flex: 1;
+        margin: 0;
+        text-align: center;
+    }
+
+    .containerColumnas{
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        width: 100%;
+        flex: 1;
+        margin: 0;
+    }
+    .rightSide{
+        gap: 0.2rem;
+    }
+
+    .containerFila{
+        gap: 0.2rem
+    }
+
+    .exitbutton {
+        top: 1.5rem;
+        left: 2rem;
+    }
+    
+    .titleUpNombre{
+        font-size: 1rem;
+    }
+
 }

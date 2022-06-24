@@ -13,8 +13,9 @@
 
 .productsContainer{
     display: grid;
-    grid-template-columns: repeat(auto-fill, 12rem);
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
     grid-gap: 1rem;
+    padding-left: 0.5rem;
 }
 
 .topSec{
@@ -75,10 +76,17 @@
 }
 
 
-@media screen and (max-width: 435px) {
+@media screen and (max-width: 604px) {
     .productsContainer{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .productsContainer{
+        display: grid;
+        grid-template-columns: 160px 160px;
+        grid-gap: 1.8rem;
     }
 }

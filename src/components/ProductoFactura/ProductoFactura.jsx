@@ -1,11 +1,11 @@
-import styles from "./Producto.module.css";
+import styles from "./productoFactura.module.css";
 // import AddButton from "../AddButton/AddButton";
 const ProductoFactura = ({
   img,
   nombreProducto,
   cantidad,
   precio,
-/*   stock,
+  /*   stock,
   id,
   handleDeleteCarrito, */
   idComercio,

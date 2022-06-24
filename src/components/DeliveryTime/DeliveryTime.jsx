@@ -7,6 +7,10 @@ function DeliveryTime({
   directionClick,
   setNext,
   setSelectedTime,
+  setPrice,
+  price,
+  alreadyApplied,
+  setAlreadyApplied,
 }) {
   useEffect(() => {
     const today = new Date();
@@ -24,11 +28,19 @@ function DeliveryTime({
       setSelectedTime(`Hoy, a las ${standardTime}`);
       setDirectionClick(!directionClick);
       setNext(true);
+      setAlreadyApplied(false);
+      if (alreadyApplied) {
+        setPrice(price - 2);
+      }
     }
     if (type === "Priority") {
       setSelectedTime(`Hoy, a las ${priorityTime}`);
       setDirectionClick(!directionClick);
       setNext(true);
+      if (!alreadyApplied) {
+        setPrice(price + 2);
+        setAlreadyApplied(true);
+      }
     }
   };
 

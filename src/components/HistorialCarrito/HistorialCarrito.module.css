@@ -48,6 +48,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.5rem;
 }
 
 .downInfo {
@@ -90,6 +91,7 @@
     display: block;
     white-space: nowrap;
     overflow: hidden;
+    transition: all ease .2s;
 }
 
 .comprar:hover {
@@ -108,6 +110,7 @@
     white-space: nowrap;
     overflow: hidden;
     width: fit-content;
+    transition: all ease .2s;
 }
 
 .ver:hover {
@@ -124,5 +127,11 @@
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    .comprar{
+        width: 100%;
     }
 }

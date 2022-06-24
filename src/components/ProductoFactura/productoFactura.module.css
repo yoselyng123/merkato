@@ -1,9 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .containers {
 
     width: 100%;
@@ -12,81 +6,77 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 10px;
     border-top: 1px solid var(--lightestGreen);
-
+    gap: 0.5rem;
 }
 
 .boxImg {
-
-
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
     border-radius: 10px;
-    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .img {
-    position: relative;
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 
-.nombreProducto {
-    font-size: 20px;
-    margin-bottom: 3px;
-    cursor: default;
+.upLeftSide{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.precioUnitario {
-    font-size: 12px;
+
+.nombreProducto{
+    font-size: 1.25rem;
+    margin-bottom: 0.15rem;
+}
+.precioUnitario{
+    font-size: 0.75rem;
     color: rgba(0, 0, 0, 0.258);
-    cursor: default;
 }
-
-.info {
-
+.info{
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 10px;
     cursor: default;
-
+    gap: 1rem;
 }
-
-.upInfo {
+.upInfo{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
-    margin-bottom: 10px;
-
+    height: fit-content;
+    gap: 0.2rem;
+    
 }
-
-.precioDisponible {
-    display: grid;
-    grid-template-columns: .5fr 1fr;
-
-
+.precioDisponible{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
-
-.disponible {
+.disponible{
     color: green;
-    cursor: default;
 }
-
-.noDisponible {
+.noDisponible{
     color: red;
 }
 
 .addMore {
-    width: 15%;
+    width: fit-content;
     background-color: var(--lightGreen);
-    padding: 0.1rem 0.6rem 0.1rem 0.6rem;
+    padding: 0.1rem 0.6rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
-
+    border-radius: 50%;
 }
 
 .addMoreSpan {
@@ -96,23 +86,10 @@
     font-size: 18px;
 }
 
-
-.addMoreIcons>svg {
-    fill: white;
-
-
-
-
-}
-
 .downInfo {
     display: flex;
     justify-content: space-between;
 }
-
-
-
-
 
 .buttonSave {
     background-color: #f4f4f4;
@@ -124,7 +101,6 @@
 
 .buttonSave:hover {
     background-color: rgb(232, 232, 232);
-
 }
 
 .cantidad {
@@ -136,18 +112,11 @@
 
 }
 .precioTotal{
-    
     font-size: 20px;
 }
-.comprar {
-    background-color: var(--lightGreen);
-    padding: 5px;
-    border: none;
-    border-radius: 100px;
-    color: white;
-    font-weight: bolder;
-}
 
-.comprar:hover {
-    background-color: var(--lightestGreen);
+@media screen and (max-width: 700px) {
+    .nombreProducto{
+        font-size: 1rem;
+    }
 }

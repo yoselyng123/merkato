@@ -24,6 +24,8 @@ import toast from "react-hot-toast";
 function Checkout() {
   const navigate = useNavigate();
 
+  const [alreadyApplied, setAlreadyApplied] = useState(false);
+
   const { user, carrito, setUser, setCarrito } = useContext(UserContext);
   const Date1 = new Date();
   const [promoCodeInput, setPromoCodeInput] = useState("");
@@ -139,7 +141,9 @@ function Checkout() {
     localStorage.setItem("carrito", "[]");
     setCarrito(JSON.parse(localStorage.getItem("carrito")));
     user.carrito = JSON.parse(localStorage.getItem("carrito"));
-    toast.success("Compra Realizada!");
+    toast.success(
+      "Compra Realizada! Ingrese en Mis Pedidos para ver el status de su orden!"
+    );
     navigate("/", { replace: true });
   };
 
@@ -179,6 +183,10 @@ function Checkout() {
               directionClick={deliveryTimeClick}
               setNext={setDeliveryInstructionsClick}
               setSelectedTime={setSelectedTime}
+              setPrice={setPrice}
+              price={price}
+              alreadyApplied={alreadyApplied}
+              setAlreadyApplied={setAlreadyApplied}
             />
           ) : (
             <CheckoutPreferences

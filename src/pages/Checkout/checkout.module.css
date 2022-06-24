@@ -4,7 +4,7 @@
     height: fit-content;
     padding: 2% 10%;
     gap: 2rem;
-    height: 86.5vh;
+    height: 95.3vh;
 }
 
 .left{
@@ -112,13 +112,17 @@
 }
 
 .buttonPromo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 40px;
     border: none;
     border-radius: 0px 5px 5px 0px;
     font-size: 16px;
-    font-weight: bolder;
+    font-weight: 600;
     background-color: var(--lightGreen);
     color: #fff;
+    padding: 0.5rem;
 }
 
 @media screen and (max-width: 700px) {
