@@ -28,7 +28,7 @@ function RoleTypes({ click }) {
         <p>{user ? "Log in as Shopper" : "Sign up as Shopper"}</p>
       </div>
 
-      <div onClick={() => handleClick("delivery")} className={styles.btn}>
+      <div onClick={() => handleClick("merkater")} className={styles.btn}>
         <p>{user ? "Log in as Delivery" : "Sign up as Delivery"}</p>
       </div>
     </div>

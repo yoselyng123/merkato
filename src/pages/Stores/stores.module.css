@@ -21,7 +21,6 @@
     gap: 1.2rem;
     width: 100%;
     flex: 1;
-    /* overflow-x: scroll; */
 }
 .cardE{
     display: flex;
@@ -46,7 +45,7 @@
 .title{
     font-size: 1.9rem;
     font-weight: 600;
-    line-height: 40px;
+    line-height: 32px;
     word-break: break-word;
     hyphens: auto;
 }
@@ -144,7 +143,40 @@
     }
 
     .miniCard{
-        height: 80px;
+        max-height: 80px;
     }
 
 }
+
+@media screen and (max-width: 920px) {
+    .cardsWrapper{
+        gap: 0.8rem;
+        overflow-x: scroll;
+    }
+
+    .miniCard .title {
+        font-size: 1.4rem;
+    }
+
+    .miniCard{
+        height: 220px
+    }
+}
+
+@media screen and (min-width: 921px) {
+    .cardsWrapper{
+        gap: 0.8rem;
+        overflow-x: scroll;
+    }
+
+    .miniCard .title {
+        font-size: 1.6rem;
+    }
+
+    .miniCard{
+        height: fit-content;
+        min-height: 230px;
+    }
+}
+
+
