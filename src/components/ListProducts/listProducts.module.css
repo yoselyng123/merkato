@@ -87,6 +87,6 @@
     .productsContainer{
         display: grid;
         grid-template-columns: 160px 160px;
-        grid-gap: 1.8rem;
+        grid-gap: 1rem;
     }
 }
