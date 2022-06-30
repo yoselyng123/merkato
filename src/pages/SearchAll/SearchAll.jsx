@@ -30,7 +30,7 @@ function SearchAll({ }) {
         querySnapshot.forEach((doc) => {
           ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
         });
-        console.log(ProductosFromFirebase);
+
       });
 
       const filtrarByName = (terminoBusqueda) => {
@@ -73,7 +73,7 @@ function SearchAll({ }) {
   }
 
     subscriber();
-  }, []);
+  }, [search]);
 
   return (
     <div className={styles.searchAll}>
