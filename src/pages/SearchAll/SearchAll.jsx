@@ -6,14 +6,13 @@ import firebaseExports from "../../utils/firebaseConfig";
 import StoreProducts from "../../components/StoreProducts/StoreProducts";
 import ListProducts from "../../components/ListProducts/ListProducts";
 
-function SearchAll({ }) {
+function SearchAll({}) {
   let { search } = useParams();
   const [productosSearch, setProductosSearch] = useState([]);
   const [comerciosSearch, setComerciosSearch] = useState([]);
 
   useEffect(() => {
     const subscriber = async () => {
-
       const getComerciosFromFirebase = [];
       const filteredProducts = [];
 
@@ -22,16 +21,13 @@ function SearchAll({ }) {
       );
 
       const ProductosFromFirebase = [];
-      await getDocs(
-        query(
-          collection(firebaseExports.db, "producto"),
-        )
-      ).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
-        });
-
-      });
+      await getDocs(query(collection(firebaseExports.db, "producto"))).then(
+        (querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+          });
+        }
+      );
 
       const filtrarByName = (terminoBusqueda) => {
         var resultadosBusqueda = ProductosFromFirebase.filter((product) => {
@@ -53,24 +49,18 @@ function SearchAll({ }) {
       };
       filtrarByName(search);
 
+      querySnapshotComercios.forEach((doc) => {
+        //console.log(`${doc.id} => ${doc.data()}`);
 
-
-    querySnapshotComercios.forEach((doc) => {
-      //console.log(`${doc.id} => ${doc.data()}`);
-
-      if (
-        filteredProducts.findIndex((i) => i.id_comercio === doc.id) >
-        -1
-      ) {
-        getComerciosFromFirebase.push({
-          ...doc.data(),
-          id: doc.id,
-        });
-      }
-    });
-    setComerciosSearch(getComerciosFromFirebase);
-
-  }
+        if (filteredProducts.findIndex((i) => i.id_comercio === doc.id) > -1) {
+          getComerciosFromFirebase.push({
+            ...doc.data(),
+            id: doc.id,
+          });
+        }
+      });
+      setComerciosSearch(getComerciosFromFirebase);
+    };
 
     subscriber();
   }, [search]);
@@ -79,8 +69,17 @@ function SearchAll({ }) {
     <div className={styles.searchAll}>
       <p>Resultados para "{search}"</p>
 
-      {productosSearch && <StoreProducts comerciosSearch={comerciosSearch} productosSearch={productosSearch}/>}
-
+      {productosSearch.length > 0 && comerciosSearch.length > 0 ? (
+        comerciosSearch.map((comercio, index) => (
+          <StoreProducts
+            comercio={comercio}
+            productosSearch={productosSearch}
+            key={index}
+          />
+        ))
+      ) : (
+        <p className={styles.text}>No se encontraron productos</p>
+      )}
     </div>
   );
 }
