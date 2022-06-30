@@ -10,6 +10,7 @@ const Carrito = () => {
   const { carrito, setCarrito, eliminarProductoCarrito, user } =
     useContext(UserContext);
   const [products, setProducts] = useState([]);
+  const [comercios, setComercios] = useState([]);
   const [values, setValues] = useState({
     promocode: "",
     direccion: "",
@@ -52,9 +53,14 @@ const Carrito = () => {
         setCarrito(JSON.parse(localStorage.getItem("carrito")));
       }
       const getProductsFromFirebase = [];
+      const getComerciosFromFirebase = [];
+      const querySnapshotComercios = await getDocs(
+        collection(firebaseExports.db, "comercio")
+      );
       const querySnapshot = await getDocs(
         collection(firebaseExports.db, "producto")
       );
+
       querySnapshot.forEach((doc) => {
         //console.log(`${doc.id} => ${doc.data()}`);
         if (user == null) {
@@ -88,8 +94,24 @@ const Carrito = () => {
         }
       });
 
+      querySnapshotComercios.forEach((doc) => {
+        //console.log(`${doc.id} => ${doc.data()}`);
+
+        if (
+          getProductsFromFirebase.findIndex((i) => i.id_comercio === doc.id) >
+          -1
+        ) {
+          getComerciosFromFirebase.push({
+            ...doc.data(),
+            id: doc.id,
+          });
+        }
+      });
+
+      console.log(getComerciosFromFirebase);
       console.log(getProductsFromFirebase);
       setProducts(getProductsFromFirebase);
+      setComercios(getComerciosFromFirebase);
     };
 
     // return cleanup function
@@ -102,19 +124,35 @@ const Carrito = () => {
         <>
           <div className={styles.productos}>
             <h1 className={styles.title}>Carrito</h1>
-            {products.length > 0 ? (
-              products.map((product) => (
-                <ProductoCarrito
-                  key={product.id}
-                  img={product.foto_producto[0]}
-                  nombreProducto={product.nombre}
-                  cantidad={product.cantidad_solicitada}
-                  precio={product.precio_unitario}
-                  stock={product.stock}
-                  id={product.id}
-                  handleDeleteCarrito={handleDeleteCarrito}
-                  idComercio={product.id_comercio}
-                />
+            {products.length > 0 && comercios.length > 0 ? (
+              comercios.map((comercio) => (
+                <>
+                  <div className={styles.boxComercio}>
+                    <picture className={styles.boxImg}>
+                      <img src={comercio.foto} alt="" className={styles.img} />
+                    </picture>
+                    <h1 className={styles.nombreComercio}>{comercio.nombre}</h1>
+                  </div>
+
+                  {products.map(
+                    (product) =>
+                      product.id_comercio === comercio.id && (
+                        <>
+                          <ProductoCarrito
+                            key={product.id}
+                            img={product.foto_producto[0]}
+                            nombreProducto={product.nombre}
+                            cantidad={product.cantidad_solicitada}
+                            precio={product.precio_unitario}
+                            stock={product.stock}
+                            id={product.id}
+                            handleDeleteCarrito={handleDeleteCarrito}
+                            idComercio={product.id_comercio}
+                          />
+                        </>
+                      )
+                  )}
+                </>
               ))
             ) : (
               <p className={styles.text}>Your cart is empty</p>
