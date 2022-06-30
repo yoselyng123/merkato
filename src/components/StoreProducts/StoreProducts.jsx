@@ -35,7 +35,7 @@ function StoreProducts({
         </>
       ))
     ) : (
-      <p className={styles.text}>Your cart is empty</p>
+      <p className={styles.text}>No se encontraron productos</p>
     )}
   </div>
 

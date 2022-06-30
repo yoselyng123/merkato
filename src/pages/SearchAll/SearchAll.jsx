@@ -15,6 +15,7 @@ function SearchAll({ }) {
     const subscriber = async () => {
 
       const getComerciosFromFirebase = [];
+      const filteredProducts = [];
 
       const querySnapshotComercios = await getDocs(
         collection(firebaseExports.db, "comercio")
@@ -45,15 +46,20 @@ function SearchAll({ }) {
             return null;
           }
         });
+        resultadosBusqueda.forEach((product) => {
+          filteredProducts.push(product);
+        });
         setProductosSearch(resultadosBusqueda);
       };
       filtrarByName(search);
+
+
 
     querySnapshotComercios.forEach((doc) => {
       //console.log(`${doc.id} => ${doc.data()}`);
 
       if (
-        ProductosFromFirebase.findIndex((i) => i.id_comercio === doc.id) >
+        filteredProducts.findIndex((i) => i.id_comercio === doc.id) >
         -1
       ) {
         getComerciosFromFirebase.push({
