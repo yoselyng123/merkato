@@ -6,7 +6,6 @@ import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { db } from "../../utils/firebaseConfig";
 import DetalleFactura from "../../components/DetalleFactura/DetalleFactura";
-import toast from "react-hot-toast";
 
 const MerkaterPage = () => {
   const [info, setInfo] = useState(false);
@@ -52,10 +51,7 @@ const MerkaterPage = () => {
     }
   };
 
-  const handleAceptar = async (
-    idUser,
-    idCarrito
-  ) => {
+  const handleAceptar = async (idUser, idCarrito) => {
     await updateDoc(doc(db, "historial", idCarrito), {
       idMerkater: idUser,
       estado: "en progreso",
@@ -75,9 +71,7 @@ const MerkaterPage = () => {
     });
     setProductos(getCarritosFromFirebase);
   };
-  const handleCancelar = async (
-    idCarrito
-  ) => {
+  const handleCancelar = async (idCarrito) => {
     await updateDoc(doc(db, "historial", idCarrito), {
       idMerkater: "",
       estado: "pendiente",
@@ -95,7 +89,6 @@ const MerkaterPage = () => {
     });
     setProductos(getCarritosFromFirebase);
   };
-
 
   const esPendiente = () => {
     if (isCompletado) {
@@ -124,8 +117,6 @@ const MerkaterPage = () => {
 
   return (
     <div className={styles.container}>
-
-
       {user && productos.length > 0 ? (
         productos !== -1 ? (
           <>

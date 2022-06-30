@@ -50,14 +50,6 @@ function StoreProducts() {
         <ProductDisplay />
         <ProductDisplay />
         <ProductDisplay />
-        <ProductDisplay />
-        <ProductDisplay />
-        <ProductDisplay />
-        <ProductDisplay />
-        <ProductDisplay />
-        <ProductDisplay />
-        <ProductDisplay />
-        <ProductDisplay />
       </div>
     </div>
   );

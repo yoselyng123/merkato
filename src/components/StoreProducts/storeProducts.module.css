@@ -70,6 +70,7 @@
     justify-content: flex-start;
     overflow: hidden;
     overflow-x: scroll;
+    gap: 2rem;
 }
 
 .productDisplayWrapper{
