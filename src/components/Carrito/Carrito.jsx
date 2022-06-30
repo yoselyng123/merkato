@@ -134,7 +134,7 @@ const Carrito = () => {
                     <h1 className={styles.nombreComercio}>{comercio.nombre}</h1>
                   </div>
 
-                  {products.map(
+                  {products && products.map(
                     (product) =>
                       product.id_comercio === comercio.id && (
                         <>

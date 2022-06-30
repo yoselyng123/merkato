@@ -113,7 +113,7 @@ function Rutas() {
       <Route
         exact
         path="/stores/search_id/:search"
-        element={<SearchAll products={productos} comercios={comercios} />}
+        element={<SearchAll />}
       />
       <Route
         exact

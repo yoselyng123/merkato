@@ -1,38 +1,80 @@
 import { useEffect, useState } from "react";
 import styles from "./searchAll.module.css";
 import { useParams } from "react-router-dom";
+import { query, collection, getDocs } from "firebase/firestore";
+import firebaseExports from "../../utils/firebaseConfig";
 import StoreProducts from "../../components/StoreProducts/StoreProducts";
 import ListProducts from "../../components/ListProducts/ListProducts";
 
-function SearchAll({ products, comercios }) {
-  const [productSearch, setProductSearch] = useState([]);
-  const [shopProducts, setShopProducts] = useState([]);
-
+function SearchAll({ }) {
   let { search } = useParams();
+  const [productosSearch, setProductosSearch] = useState([]);
+  const [comerciosSearch, setComerciosSearch] = useState([]);
 
   useEffect(() => {
-    /* const filtrarByName = (terminoBusqueda) => {
-      var resultadosBusqueda = products.filter((product) => {
-        if (
-          product.nombre
-            .toString()
-            .toLowerCase()
-            .includes(terminoBusqueda.toLowerCase())
-        ) {
-          return product;
-        } else {
-          return null;
-        }
+    const subscriber = async () => {
+
+      const getComerciosFromFirebase = [];
+
+      const querySnapshotComercios = await getDocs(
+        collection(firebaseExports.db, "comercio")
+      );
+
+      const ProductosFromFirebase = [];
+      await getDocs(
+        query(
+          collection(firebaseExports.db, "producto"),
+        )
+      ).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          ProductosFromFirebase.push({ ...doc.data(), id: doc.id });
+        });
+        console.log(ProductosFromFirebase);
       });
-      setProductSearch(resultadosBusqueda);
-    };
-    filtrarByName(search); */
-  }, [search, products]);
+
+      const filtrarByName = (terminoBusqueda) => {
+        var resultadosBusqueda = ProductosFromFirebase.filter((product) => {
+          if (
+            product.nombre
+              .toString()
+              .toLowerCase()
+              .includes(terminoBusqueda.toLowerCase())
+          ) {
+            return product;
+          } else {
+            return null;
+          }
+        });
+        setProductosSearch(resultadosBusqueda);
+      };
+      filtrarByName(search);
+
+    querySnapshotComercios.forEach((doc) => {
+      //console.log(`${doc.id} => ${doc.data()}`);
+
+      if (
+        ProductosFromFirebase.findIndex((i) => i.id_comercio === doc.id) >
+        -1
+      ) {
+        getComerciosFromFirebase.push({
+          ...doc.data(),
+          id: doc.id,
+        });
+      }
+    });
+    setComerciosSearch(getComerciosFromFirebase);
+
+  }
+
+    subscriber();
+  }, []);
 
   return (
     <div className={styles.searchAll}>
       <p>Resultados para "{search}"</p>
-      <StoreProducts />
+
+      {productosSearch && <StoreProducts comerciosSearch={comerciosSearch} productosSearch={productosSearch}/>}
+
     </div>
   );
 }
