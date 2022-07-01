@@ -4,16 +4,18 @@ import { useParams } from "react-router-dom";
 import { query, collection, getDocs } from "firebase/firestore";
 import firebaseExports from "../../utils/firebaseConfig";
 import StoreProducts from "../../components/StoreProducts/StoreProducts";
-import ListProducts from "../../components/ListProducts/ListProducts";
+import Comercio from "../../components/Comercio/Comercio";
 
-function SearchAll({}) {
+function SearchAll({ setIdComercio }) {
   let { search } = useParams();
   const [productosSearch, setProductosSearch] = useState([]);
   const [comerciosSearch, setComerciosSearch] = useState([]);
+  const [searchShop, setSearchShop] = useState(null);
 
   useEffect(() => {
     setProductosSearch([]);
     setComerciosSearch([]);
+    setSearchShop(null);
 
     const subscriber = async () => {
       const getComerciosFromFirebase = [];
@@ -61,6 +63,13 @@ function SearchAll({}) {
             id: doc.id,
           });
         }
+        if (doc.data().nombre.toLowerCase() === search.toLowerCase()) {
+          setSearchShop({
+            ...doc.data(),
+            id: doc.id,
+          });
+          console.log("ENTRA!@#");
+        }
       });
       setComerciosSearch(getComerciosFromFirebase);
     };
@@ -71,6 +80,10 @@ function SearchAll({}) {
   return (
     <div className={styles.searchAll}>
       <p>Resultados para "{search}"</p>
+
+      {searchShop && (
+        <Comercio data={searchShop} setIdComercio={setIdComercio} />
+      )}
 
       {productosSearch.length > 0 && comerciosSearch.length > 0 ? (
         comerciosSearch.map((comercio, index) => (
