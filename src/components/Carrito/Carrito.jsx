@@ -108,8 +108,8 @@ const Carrito = () => {
         }
       });
 
-      console.log(getComerciosFromFirebase);
-      console.log(getProductsFromFirebase);
+      // console.log(getComerciosFromFirebase);
+      // console.log(getProductsFromFirebase);
       setProducts(getProductsFromFirebase);
       setComercios(getComerciosFromFirebase);
     };
@@ -127,31 +127,32 @@ const Carrito = () => {
             {products.length > 0 && comercios.length > 0 ? (
               comercios.map((comercio) => (
                 <>
-                  <div className={styles.boxComercio}>
+                  <div className={styles.boxComercio} key={comercio.id}>
                     <picture className={styles.boxImg}>
                       <img src={comercio.foto} alt="" className={styles.img} />
                     </picture>
                     <h1 className={styles.nombreComercio}>{comercio.nombre}</h1>
                   </div>
 
-                  {products && products.map(
-                    (product) =>
-                      product.id_comercio === comercio.id && (
-                        <>
-                          <ProductoCarrito
-                            key={product.id}
-                            img={product.foto_producto[0]}
-                            nombreProducto={product.nombre}
-                            cantidad={product.cantidad_solicitada}
-                            precio={product.precio_unitario}
-                            stock={product.stock}
-                            id={product.id}
-                            handleDeleteCarrito={handleDeleteCarrito}
-                            idComercio={product.id_comercio}
-                          />
-                        </>
-                      )
-                  )}
+                  {products &&
+                    products.map(
+                      (product) =>
+                        product.id_comercio === comercio.id && (
+                          <>
+                            <ProductoCarrito
+                              key={product.id}
+                              img={product.foto_producto[0]}
+                              nombreProducto={product.nombre}
+                              cantidad={product.cantidad_solicitada}
+                              precio={product.precio_unitario}
+                              stock={product.stock}
+                              id={product.id}
+                              handleDeleteCarrito={handleDeleteCarrito}
+                              idComercio={product.id_comercio}
+                            />
+                          </>
+                        )
+                    )}
                 </>
               ))
             ) : (

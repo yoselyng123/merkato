@@ -90,7 +90,7 @@ const Favorites = () => {
         //console.log(`${doc.id} => ${doc.data()}`);
       });
 
-      console.log(getProductsFromFirebase);
+      // console.log(getProductsFromFirebase);
 
       setProductos(getProductsFromFirebase);
     };
@@ -124,7 +124,7 @@ const Favorites = () => {
         }
       });
 
-      console.log(getProductsFromFirebase);
+      // console.log(getProductsFromFirebase);
       setProducts(getProductsFromFirebase);
     };
 

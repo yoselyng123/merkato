@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 import { db, auth } from "../utils/firebaseConfig";
 import { getFirstElementArrayCollection } from "../utils/parser";
+import toast from "react-hot-toast";
 import {
   doc,
   getDocs,
@@ -19,38 +20,48 @@ export default function UserContextProvider({ children }) {
   const [carritoFavorito, setCarritoFavorito] = useState([]);
   const [rol, setRol] = useState("");
 
-  const agregarACarrito = async (idProducto, cantidad, precio, idComercio) => {
+  const agregarACarrito = async (
+    idProducto,
+    cantidad,
+    precio,
+    idComercio,
+    stock
+  ) => {
     //SIN USUARIO GUARDA EN LOCAL STORAGE
-    if (user == null) {
-      if (carrito.findIndex((i) => i.id === idProducto) === -1) {
-        carrito.push({
-          id: idProducto,
-          quantity: cantidad + 1,
-          montoTotal: precio * (cantidad + 1),
-          idComercio: idComercio,
-        });
+    if (cantidad <= stock) {
+      if (user == null) {
+        if (carrito.findIndex((i) => i.id === idProducto) === -1) {
+          carrito.push({
+            id: idProducto,
+            quantity: cantidad + 1,
+            montoTotal: precio * (cantidad + 1),
+            idComercio: idComercio,
+          });
+          localStorage.setItem("carrito", JSON.stringify(carrito));
+        }
         localStorage.setItem("carrito", JSON.stringify(carrito));
+        console.log(JSON.parse(localStorage.getItem("carrito")), "#######");
+        setCarrito(JSON.parse(localStorage.getItem("carrito")));
       }
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      console.log(JSON.parse(localStorage.getItem("carrito")), "#######");
-      setCarrito(JSON.parse(localStorage.getItem("carrito")));
-    }
-    //CON USUARIO GUARDA EN LA BD DIRECTO Y EN EL CARRITO DEL CONTEXT
-    else {
-      if (user.carrito.findIndex((i) => i.id === idProducto) === -1) {
-        user.carrito.push({
-          id: idProducto,
-          quantity: cantidad + 1,
-          montoTotal: precio * (cantidad + 1),
-          idComercio: idComercio,
+      //CON USUARIO GUARDA EN LA BD DIRECTO Y EN EL CARRITO DEL CONTEXT
+      else {
+        if (user.carrito.findIndex((i) => i.id === idProducto) === -1) {
+          user.carrito.push({
+            id: idProducto,
+            quantity: cantidad + 1,
+            montoTotal: precio * (cantidad + 1),
+            idComercio: idComercio,
+          });
+          localStorage.setItem("carrito", JSON.stringify(user.carrito));
+        }
+        setCarrito(JSON.parse(localStorage.getItem("carrito")));
+        const userRef = doc(db, "users", user.id);
+        await updateDoc(userRef, {
+          carrito: user.carrito,
         });
-        localStorage.setItem("carrito", JSON.stringify(user.carrito));
       }
-      setCarrito(JSON.parse(localStorage.getItem("carrito")));
-      const userRef = doc(db, "users", user.id);
-      await updateDoc(userRef, {
-        carrito: user.carrito,
-      });
+    } else {
+      return toast.error("La cantidad solicitada es mayor que la disponible");
     }
   };
 
@@ -85,9 +96,11 @@ export default function UserContextProvider({ children }) {
     IdProducto,
     cantidad,
     precio,
-    idComercio
+    idComercio,
+    stock
   ) => {
     //SI NO HAY USUARIOS
+
     if (user === null) {
       const localStorageAux = JSON.parse(localStorage.getItem("carrito"));
       if (type === "-") {
@@ -106,14 +119,21 @@ export default function UserContextProvider({ children }) {
             precio;
         }
       } else {
-        if (carrito.findIndex((i) => i.id === IdProducto) !== -1) {
-          carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity =
-            carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity + 1;
-          carrito[carrito.findIndex((i) => i.id === IdProducto)].montoTotal =
-            carrito[carrito.findIndex((i) => i.id === IdProducto)].montoTotal +
-            precio;
+        if (stock > cantidad) {
+          if (carrito.findIndex((i) => i.id === IdProducto) !== -1) {
+            carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity =
+              carrito[carrito.findIndex((i) => i.id === IdProducto)].quantity +
+              1;
+            carrito[carrito.findIndex((i) => i.id === IdProducto)].montoTotal =
+              carrito[carrito.findIndex((i) => i.id === IdProducto)]
+                .montoTotal + precio;
+          } else {
+            agregarACarrito(IdProducto, cantidad, precio, idComercio, stock);
+          }
         } else {
-          agregarACarrito(IdProducto, cantidad, precio, idComercio);
+          return toast.error(
+            "La cantidad solicitada es mayor que la disponible"
+          );
         }
       }
 
@@ -144,19 +164,25 @@ export default function UserContextProvider({ children }) {
               .montoTotal - precio;
         }
       } else {
-        if (user.carrito.findIndex((i) => i.id === IdProducto) !== -1) {
-          user.carrito[
-            user.carrito.findIndex((i) => i.id === IdProducto)
-          ].quantity =
-            user.carrito[user.carrito.findIndex((i) => i.id === IdProducto)]
-              .quantity + 1;
-          user.carrito[
-            user.carrito.findIndex((i) => i.id === IdProducto)
-          ].montoTotal =
-            user.carrito[user.carrito.findIndex((i) => i.id === IdProducto)]
-              .montoTotal + precio;
+        if (cantidad <= stock) {
+          if (user.carrito.findIndex((i) => i.id === IdProducto) !== -1) {
+            user.carrito[
+              user.carrito.findIndex((i) => i.id === IdProducto)
+            ].quantity =
+              user.carrito[user.carrito.findIndex((i) => i.id === IdProducto)]
+                .quantity + 1;
+            user.carrito[
+              user.carrito.findIndex((i) => i.id === IdProducto)
+            ].montoTotal =
+              user.carrito[user.carrito.findIndex((i) => i.id === IdProducto)]
+                .montoTotal + precio;
+          } else {
+            agregarACarrito(IdProducto, cantidad, precio, idComercio, stock);
+          }
         } else {
-          agregarACarrito(IdProducto, cantidad, precio, idComercio);
+          return toast.error(
+            "La cantidad solicitada es mayor que la disponible"
+          );
         }
       }
       //ACTUALIZO EL LOCAL STORAGE Y LUEGO ACTUALIZO EL CARRITO PARA QUE SE ACTUALICE EN TIEMPO REAL
@@ -306,7 +332,12 @@ export default function UserContextProvider({ children }) {
             localStorage.setItem("rol", profile.rol);
           }
         }
-        console.log("Logged user: ", loggedUser.displayName, loggedUser.uid, localStorage.getItem("rol"));
+        console.log(
+          "Logged user: ",
+          loggedUser.displayName,
+          loggedUser.uid,
+          localStorage.getItem("rol")
+        );
       } else {
         setUser(null);
         console.log("No user logged");
