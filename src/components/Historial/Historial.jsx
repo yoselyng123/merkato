@@ -23,6 +23,7 @@ const Historial = () => {
     idCarrito: "",
     nombre: "",
   });
+  const [isPendiente, setIsPendiente] = useState(0);
   const [isNombre, setIsNombre] = useState(false);
   const [direccion, setDireccion] = useState("");
   //Abre y cierra la descripcion de cada compra
@@ -114,6 +115,9 @@ const Historial = () => {
       setIsCompletado(true);
     }
   };
+  const esPendiente2 = (numero) => {
+    setIsPendiente(numero);
+  };
   useEffect(() => {
     const subscriber = async () => {
       /* Se crea array vacio de Productos */
@@ -155,26 +159,210 @@ const Historial = () => {
                 <div className={styles.btnBox}>
                   <button
                     className={
-                      isCompletado
-                        ? `${styles.btnIz}`
-                        : `${styles.btnIz} ${styles.btnA}`
+                      isPendiente === 0
+                        ? `${styles.btnIz} ${styles.btnA}`
+                        : `${styles.btnIz}`
                     }
-                    onClick={esPendiente}
+                    onClick={() => esPendiente2(0)}
                   >
                     Pendientes
                   </button>
                   <button
                     className={
-                      !isCompletado
-                        ? `${styles.btnDe}`
-                        : `${styles.btnDe} ${styles.btnA}`
+                      isPendiente === 2
+                        ? `${styles.btnMedio} ${styles.btnA}`
+                        : `${styles.btnMedio} `
                     }
-                    onClick={esPendiente}
+                    onClick={() => esPendiente2(2)}
+                  >
+                    En Progreso
+                  </button>
+
+                  <button
+                    className={
+                      isPendiente === 1
+                        ? `${styles.btnDe} ${styles.btnA}`
+                        : `${styles.btnDe} `
+                    }
+                    onClick={() => esPendiente2(1)}
                   >
                     Confirmados
                   </button>
                 </div>
-                {isCompletado
+                {/* {isPendiente === 0 &&
+                  productos.findIndex(
+                    (i) => i.estado === "pendiente" && i.idUser === user.id
+                  ) > -1 &&
+                  productos.map(
+                    (product) =>
+                      user.id === product.idUser &&
+                      product.estado === "pendiente" && (
+                        <HistorialCarrito
+                          total={product.total.toFixed(2)}
+                          fecha={product.fecha}
+                          idCarrito={product.id}
+                          idUser={product.idUser}
+                          carrito={product.carrito}
+                          click={handleClose}
+                          value={product.id}
+                          handleFavoritos={handleCloseFavorite}
+                          agregarFavorito={agregarFavoritoCarrito}
+                          direccion={product.direccion}
+                          estado={product.estado}
+                          key={product.id}
+                        />
+                      )
+                  )} */}
+                {/* {isPendiente === 1 &&
+                  productos.findIndex(
+                    (i) => i.estado === "completado" && i.idUser === user.id
+                  ) > -1 &&
+                  productos.map(
+                    (product) =>
+                      user.id === product.idUser &&
+                      product.estado === "completado" && (
+                        <HistorialCarrito
+                          total={product.total.toFixed(2)}
+                          fecha={product.fecha}
+                          idCarrito={product.id}
+                          idUser={product.idUser}
+                          carrito={product.carrito}
+                          click={handleClose}
+                          value={product.id}
+                          handleFavoritos={handleCloseFavorite}
+                          agregarFavorito={agregarFavoritoCarrito}
+                          direccion={product.direccion}
+                          estado={product.estado}
+                          key={product.id}
+                        />
+                      )
+                  )}
+
+                {isPendiente === 2 &&
+                productos.findIndex(
+                  (i) => i.estado === "en progreso" && i.idUser === user.id
+                ) > -1 ? (
+                  productos.map(
+                    (product) =>
+                      user.id === product.idUser &&
+                      product.estado === "en progreso" && (
+                        <HistorialCarrito
+                          total={product.total.toFixed(2)}
+                          fecha={product.fecha}
+                          idCarrito={product.id}
+                          idUser={product.idUser}
+                          carrito={product.carrito}
+                          click={handleClose}
+                          value={product.id}
+                          handleFavoritos={handleCloseFavorite}
+                          agregarFavorito={agregarFavoritoCarrito}
+                          direccion={product.direccion}
+                          estado={product.estado}
+                          key={product.id}
+                        />
+                      )
+                  )
+                ) : (
+                  <p>No tiene ningun carrito en este estado...</p>
+                )} */}
+                {isPendiente === 0 &&
+                productos.findIndex(
+                  (i) => i.estado === "pendiente" && i.idUser === user.id
+                ) > -1 ? (
+                  productos.map(
+                    (product) =>
+                      user.id === product.idUser &&
+                      product.estado === "pendiente" && (
+                        <HistorialCarrito
+                          total={product.total.toFixed(2)}
+                          fecha={product.fecha}
+                          idCarrito={product.id}
+                          idUser={product.idUser}
+                          carrito={product.carrito}
+                          click={handleClose}
+                          value={product.id}
+                          handleFavoritos={handleCloseFavorite}
+                          agregarFavorito={agregarFavoritoCarrito}
+                          direccion={product.direccion}
+                          estado={product.estado}
+                          key={product.id}
+                        />
+                      )
+                  )
+                ) : isPendiente === 1 &&
+                  productos.findIndex(
+                    (i) => i.estado === "completado" && i.idUser === user.id
+                  ) > -1 ? (
+                  productos.map(
+                    (product) =>
+                      user.id === product.idUser &&
+                      product.estado === "completado" && (
+                        <HistorialCarrito
+                          total={product.total.toFixed(2)}
+                          fecha={product.fecha}
+                          idCarrito={product.id}
+                          idUser={product.idUser}
+                          carrito={product.carrito}
+                          click={handleClose}
+                          value={product.id}
+                          handleFavoritos={handleCloseFavorite}
+                          agregarFavorito={agregarFavoritoCarrito}
+                          direccion={product.direccion}
+                          estado={product.estado}
+                          key={product.id}
+                        />
+                      )
+                  )
+                ) : isPendiente === 2 &&
+                  productos.findIndex(
+                    (i) => i.estado === "en progreso" && i.idUser === user.id
+                  ) > -1 ? (
+                  productos.map(
+                    (product) =>
+                      user.id === product.idUser &&
+                      product.estado === "en progreso" && (
+                        <HistorialCarrito
+                          total={product.total.toFixed(2)}
+                          fecha={product.fecha}
+                          idCarrito={product.id}
+                          idUser={product.idUser}
+                          carrito={product.carrito}
+                          click={handleClose}
+                          value={product.id}
+                          handleFavoritos={handleCloseFavorite}
+                          agregarFavorito={agregarFavoritoCarrito}
+                          direccion={product.direccion}
+                          estado={product.estado}
+                          key={product.id}
+                        />
+                      )
+                  )
+                ) : (
+                  <p>No tiene ningun carrito en este estado...</p>
+                )}
+                {/* {isPendiente === 1 &&
+                  productos.map(
+                    (product) =>
+                      user.id === product.idUser &&
+                      product.estado === "completado" && (
+                        <HistorialCarrito
+                          total={product.total.toFixed(2)}
+                          fecha={product.fecha}
+                          idCarrito={product.id}
+                          idUser={product.idUser}
+                          carrito={product.carrito}
+                          click={handleClose}
+                          value={product.id}
+                          handleFavoritos={handleCloseFavorite}
+                          agregarFavorito={agregarFavoritoCarrito}
+                          direccion={product.direccion}
+                          estado={product.estado}
+                          key={product.id}
+                        />
+                      )
+                  )} */}
+
+                {/* {isCompletado
                   ? productos.map(
                       (product) =>
                         user.id === product.idUser &&
@@ -198,7 +386,7 @@ const Historial = () => {
                   : productos.map(
                       (product) =>
                         user.id === product.idUser &&
-                        product.estado !== "completado" && (
+                        product.estado === "pendiente" && (
                           <HistorialCarrito
                             total={product.total.toFixed(2)}
                             fecha={product.fecha}
@@ -214,7 +402,7 @@ const Historial = () => {
                             key={product.id}
                           />
                         )
-                    )}
+                    )} */}
               </>
             ) : (
               <DetalleFactura

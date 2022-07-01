@@ -36,6 +36,17 @@
     background-color: white;
     width: 100%;
 }
+.btnMedio {
+    border: 1px solid var(--lightGreen);
+    padding: 10px;
+    font-weight: bolder;
+   
+    background-color: white;
+    width: 100%;
+    word-wrap:break-word;
+    /* Pendiente con esto */
+    min-width: 120px;
+}
 
 .btnBox {
     margin: 10px 0px;
@@ -53,6 +64,7 @@
     .btnBox{
         width: 100%;
     }
+    
 
     .downRightSide{
         display: flex;
@@ -60,3 +72,4 @@
         gap: 0.4rem;
     }
 }
+
