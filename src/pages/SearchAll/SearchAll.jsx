@@ -12,6 +12,9 @@ function SearchAll({}) {
   const [comerciosSearch, setComerciosSearch] = useState([]);
 
   useEffect(() => {
+    setProductosSearch([]);
+    setComerciosSearch([]);
+
     const subscriber = async () => {
       const getComerciosFromFirebase = [];
       const filteredProducts = [];
