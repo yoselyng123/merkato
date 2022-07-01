@@ -81,7 +81,6 @@ function Searcher({ products, idComercio, categorias }) {
 
   return (
     <div className={styles.searcher}>
-      <p>Resultados para "{name}"</p>
       <ListProducts products={listSearch} idComercio={idComercio} />
     </div>
   );

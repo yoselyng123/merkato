@@ -92,25 +92,26 @@ function NavBar() {
 
     if (window.location.pathname === "/") {
       setSelectedIndex(0);
+      setSelected(true);
     } else if (window.location.pathname === "/historial") {
       setSelectedIndex(1);
+      setSelected(true);
     } else if (window.location.pathname === "/favorites") {
       setSelectedIndex(2);
+      setSelected(true);
     }
   }, [carrito, window.location.pathname]);
 
   const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState(false);
 
   const handleSearch = (event) => {
     event.preventDefault();
     if (search !== "") {
-      if (
-        window.location.pathname.includes("shop") ||
-        window.location.pathname.includes("searchBy")
-      ) {
+      if (window.location.pathname === "/") {
         navigate(`../searchBy/${search}`, { replace: true });
       } else {
-        navigate(`../stores/search_id/${search}`, { replace: true });
+        navigate(`../searchBy/${search}`, { replace: true });
       }
     } else {
       navigate("/", { replace: true });

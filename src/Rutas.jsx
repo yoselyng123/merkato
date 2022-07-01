@@ -17,7 +17,6 @@ import Checkout from "./pages/Checkout/Checkout";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import MerkaterPage from "./pages/MerkaterPage/MerkaterPage";
 import ProtectedRoute from "./ProtectedRoute";
-import SearchAll from "./pages/SearchAll/SearchAll";
 
 function Rutas() {
   const rol = String(localStorage.getItem("rol"));
@@ -68,10 +67,12 @@ function Rutas() {
     const rol = String(localStorage.getItem("rol"));
     // return cleanup function
     subscriber();
+
   }, []);
 
   return (
     <Routes>
+      
       <Route exact path="/carrito" element={<CarritoPage />} />
 
       <Route exact path="/store/checkout" element={<Checkout />} />
@@ -84,6 +85,8 @@ function Rutas() {
         path="/home"
         element={<Stores comercios={comercios} setIdComercio={setIdComercio} />}
       />
+
+
 
       <Route
         exact
@@ -100,20 +103,15 @@ function Rutas() {
       <Route exact path="/historial" element={<HistorialPage />} />
       <Route exact path="/favorites" element={<FavoritesPage />} />
       <Route
-        exact
-        path="/searchBy/:name"
-        element={
-          <Searcher
-            products={productos}
-            idComercio={idComercio}
-            categorias={categorias}
-          />
-        }
-      />
-      <Route
-        exact
-        path="/stores/search_id/:search"
-        element={<SearchAll products={productos} comercios={comercios} />}
+      exact
+      path="/searchBy/:name"
+      element={
+        <Searcher
+          products={productos}
+          idComercio={idComercio}
+          categorias={categorias}
+        />
+      }
       />
       <Route
         exact
@@ -126,11 +124,13 @@ function Rutas() {
         element={<ViewByCategory />}
       />
 
+
+
       <Route
         exact
         path="/:comercio/:idcomercio/admin"
         element={
-          <ProtectedRoute isAllowed={rol !== "" && rol === "admin"}>
+          <ProtectedRoute isAllowed={rol !== "" && rol === "admin"} >
             <AdminView
               setProductos={setProductos}
               productos={productos}
@@ -141,15 +141,16 @@ function Rutas() {
         }
       />
 
-      <Route
+      <Route 
         exact
         path="/merkater"
         element={
-          <ProtectedRoute isAllowed={rol !== "" && rol === "merkater"}>
+          <ProtectedRoute isAllowed={rol !== "" && rol === "merkater"} >
             <MerkaterPage />
           </ProtectedRoute>
-        }
+        } 
       />
+
     </Routes>
   );
 }
