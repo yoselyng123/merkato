@@ -65,7 +65,6 @@ function Rutas() {
   };
 
   useEffect(() => {
-    const rol = String(localStorage.getItem("rol"));
     // return cleanup function
     subscriber();
   }, []);
@@ -113,7 +112,7 @@ function Rutas() {
       <Route
         exact
         path="/stores/search_id/:search"
-        element={<SearchAll />}
+        element={<SearchAll setIdComercio={setIdComercio} />}
       />
       <Route
         exact
