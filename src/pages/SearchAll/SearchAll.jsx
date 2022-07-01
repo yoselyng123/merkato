@@ -15,6 +15,7 @@ function SearchAll({ setIdComercio }) {
   useEffect(() => {
     setProductosSearch([]);
     setComerciosSearch([]);
+    setSearchShop(null);
 
     const subscriber = async () => {
       const getComerciosFromFirebase = [];
