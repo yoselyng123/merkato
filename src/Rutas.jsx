@@ -27,6 +27,7 @@ function Rutas() {
   const [categorias, setCategorias] = useState([]);
   const [idComercio, setIdComercio] = useState(null);
   const [pasillos, setPasillos] = useState([]);
+  const [cantidadPasillos, setCantidadPasillos] = useState(0);
 
   const subscriber = async () => {
     const getComerciosFromFirebase = [];
@@ -59,6 +60,7 @@ function Rutas() {
           PasillosFromFirebase.push({ ...doc.data(), id: doc.id });
         });
         setPasillos(PasillosFromFirebase);
+        setCantidadPasillos(PasillosFromFirebase.length);
         console.log(PasillosFromFirebase);
       }
     );
@@ -122,7 +124,7 @@ function Rutas() {
       <Route
         exact
         path="/searchBy/:idcomercio/pasillos/:pasillo"
-        element={<ViewByCategory />}
+        element={<ViewByCategory cantidadPasillos={cantidadPasillos}/>}
       />
 
       <Route
