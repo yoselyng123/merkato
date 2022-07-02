@@ -21,6 +21,7 @@ function Home({ setProductos, productos, categorias, pasillos }) {
 
   useEffect(() => {
     const subscriber = async () => {
+      setProductos([]);
       const ProductosFromFirebase = [];
       await getDocs(
         query(
