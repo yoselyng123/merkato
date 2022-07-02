@@ -7,6 +7,9 @@ function SelectPaymentMethod({
   directionClick,
   totalAmount,
   compraRealizada,
+  phoneNumber,
+  address,
+  selectedTime,
 }) {
   const [payPal, setPayPal] = useState(false);
   const [client, setClient] = useState({
@@ -75,27 +78,47 @@ function SelectPaymentMethod({
         </div>
       ) : (
         <div className={styles.linkPaypal}>
-          <p>Enlaza tu cuenta de PayPal para guardarla como metodo de pago</p>
+          {address.lineAddress1 !== "" &&
+            selectedTime !== "" &&
+            phoneNumber.length === 10 && (
+              <p>
+                Enlaza tu cuenta de PayPal para guardarla como metodo de pago
+              </p>
+            )}
+
           <div className={styles.btnsWrapper}>
-            <div className={styles.btnCancel} onClick={() => setPayPal(false)}>
-              <p style={{ color: "#000", fontWeight: "400" }}>Cancel</p>
-            </div>
-            <PaypalExpressBtn
-              env={env}
-              client={client}
-              currency={currency}
-              total={Number(totalAmount)}
-              onError={onError}
-              onSuccess={onSuccess}
-              onCancel={onCancel}
-              className={styles.btnPaypal}
-              style={{
-                color: "white",
-                size: "medium",
-                shape: "pill",
-                label: "pay",
-              }}
-            />
+            {address.lineAddress1 !== "" &&
+            selectedTime !== "" &&
+            phoneNumber.length === 10 ? (
+              <>
+                <div
+                  className={styles.btnCancel}
+                  onClick={() => setPayPal(false)}
+                >
+                  <p style={{ color: "#000", fontWeight: "400" }}>Cancel</p>
+                </div>
+                <PaypalExpressBtn
+                  env={env}
+                  client={client}
+                  currency={currency}
+                  total={Number(totalAmount)}
+                  onError={onError}
+                  onSuccess={onSuccess}
+                  onCancel={onCancel}
+                  className={styles.btnPaypal}
+                  style={{
+                    color: "white",
+                    size: "medium",
+                    shape: "pill",
+                    label: "pay",
+                  }}
+                />
+              </>
+            ) : (
+              <span className={styles.error}>
+                Por favor contesta los datos correctamente
+              </span>
+            )}
           </div>
 
           <hr />

@@ -282,6 +282,9 @@ function Checkout() {
               directionClick={paymentMethod}
               totalAmount={price.toFixed(2)}
               compraRealizada={compraRealizada}
+              phoneNumber={phoneNumber}
+              address={address}
+              selectedTime={selectedTime}
             />
           ) : (
             <CheckoutPreferences

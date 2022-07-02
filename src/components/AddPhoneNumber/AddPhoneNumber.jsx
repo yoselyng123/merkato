@@ -8,21 +8,37 @@ function AddPhoneNumber({
   setPhoneNumber,
   phoneNumber,
 }) {
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const [provisionalValue, setProvisionalValue] = useState(phoneNumber);
 
   const handleInputPhone = (e) => {
-    if (!isNaN(e.target.value)) {
-      setProvisionalValue(e.target.value);
+    if (e.target.value.length <= 10 && !isNaN(e.target.value)) {
+      setPhoneNumber(e.target.value);
     }
     if (e.target.value.length === 10) {
-      if (!isNaN(e.target.value)) {
-        setPhoneNumber(e.target.value);
-        setDisabled(false);
-        console.log(phoneNumber);
-      }
-    } else {
+      setDisabled(false);
+    }
+
+    // if (!isNaN(e.target.value)) {
+    //   setProvisionalValue(e.target.value);
+    // }
+    // if (e.target.value.length === 10) {
+    //   if (!isNaN(e.target.value)) {
+    //     setPhoneNumber(e.target.value);
+    //     setDisabled(false);
+    //     console.log(phoneNumber);
+    //   }
+    // } else {
+    //   setDisabled(true);
+    // }
+  };
+  const handleCLick = () => {
+    if (phoneNumber.length < 10) {
       setDisabled(true);
+    } else {
+      setDirectionClick(false);
+      setNext(true);
+      setDisabled(false);
     }
   };
 
@@ -54,17 +70,21 @@ function AddPhoneNumber({
           onChange={(e) => {
             handleInputPhone(e);
           }}
-          value={provisionalValue}
+          value={phoneNumber}
         />
       </div>
+      {disabled && (
+        <span className={styles.error}>
+          El numero debe contener 11 carateres
+        </span>
+      )}
 
       <input
         type="submit"
         value="Save"
-        disabled={disabled}
+        // disabled={phoneNumber.length < 10 ? true : false}
         onClick={() => {
-          setDirectionClick(false);
-          setNext(true);
+          handleCLick();
         }}
         style={{ cursor: "pointer" }}
       />

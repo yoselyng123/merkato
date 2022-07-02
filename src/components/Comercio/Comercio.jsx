@@ -8,7 +8,7 @@ function Comercio({ data, setIdComercio }) {
   let navigate = useNavigate();
 
   const handleClickComercio = () => {
-    setIdComercio(data.id);
+    // setIdComercio(data.id);
 
     if (user && user.rol === "admin") {
       navigate(`../${data.nombre}/${data.id}/admin`, { replace: true });

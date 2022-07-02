@@ -108,8 +108,8 @@ const Carrito = () => {
         }
       });
 
-      console.log(getComerciosFromFirebase);
-      console.log(getProductsFromFirebase);
+      // console.log(getComerciosFromFirebase);
+      // console.log(getProductsFromFirebase);
       setProducts(getProductsFromFirebase);
       setComercios(getComerciosFromFirebase);
     };
@@ -127,7 +127,7 @@ const Carrito = () => {
             {products.length > 0 && comercios.length > 0 ? (
               comercios.map((comercio) => (
                 <>
-                  <div className={styles.boxComercio}>
+                  <div className={styles.boxComercio} key={comercio.id}>
                     <picture className={styles.boxImg}>
                       <img src={comercio.foto} alt="" className={styles.img} />
                     </picture>

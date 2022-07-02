@@ -45,7 +45,7 @@ function StoreProducts({ comercio, productosSearch }) {
             (product) =>
               product.id_comercio === comercio.id && (
                 <Product
-                  key={comercio.id}
+                  key={product.id}
                   data={product}
                   idComercio={comercio.id}
                 />
