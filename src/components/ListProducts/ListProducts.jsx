@@ -25,6 +25,7 @@ function ListProducts({
     setAnchorEl(null);
   };
 
+  /* Filter product Function */
   const handleClickItem = (event) => {
     handleCloseMenu();
     setSort(event.currentTarget.innerText);
