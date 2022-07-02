@@ -90,13 +90,30 @@ const MerkaterPage = () => {
     setProductos(getCarritosFromFirebase);
   };
 
-  const esPendiente = () => {
-    if (isCompletado) {
-      setIsCompletado(false);
-    } else {
-      setIsCompletado(true);
-    }
+  const handleCompletar = async (idCarrito) => {
+    await updateDoc(doc(db, "historial", idCarrito), {
+      estado: "completado",
+    });
+
+    setInfo(false);
+
+    const getCarritosFromFirebase = [];
+    /* Se hace un snapshot de los docs en la coleccion Historial */
+    const querySnapshot = await getDocs(collection(db, "historial"));
+    /* Se hace Push al array de productos de cada doc en Historial */
+    querySnapshot.forEach((doc) => {
+      getCarritosFromFirebase.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+    setProductos(getCarritosFromFirebase);
   };
+
+  const esPendiente = (numero) => {
+    setIsCompletado(numero);
+  };
+
   useEffect(() => {
     const subscriber = async () => {
       /* Se crea array vacio de Productos */
@@ -126,26 +143,37 @@ const MerkaterPage = () => {
                 <div className={styles.btnBox}>
                   <button
                     className={
-                      isCompletado
-                        ? `${styles.btnIz}`
-                        : `${styles.btnIz} ${styles.btnA}`
+                      isCompletado === 0
+                        ? `${styles.btnIz} ${styles.btnA}`
+                        : `${styles.btnIz}`
                     }
-                    onClick={esPendiente}
+                    onClick={() => esPendiente(0)}
                   >
                     Pendientes
                   </button>
                   <button
                     className={
-                      !isCompletado
-                        ? `${styles.btnDe}`
-                        : `${styles.btnDe} ${styles.btnA}`
+                      isCompletado === 2
+                        ? `${styles.btnMedio} ${styles.btnA}`
+                        : `${styles.btnMedio} `
                     }
-                    onClick={esPendiente}
+                    onClick={() => esPendiente(2)}
                   >
-                    Aceptadas
+                    En Progreso
+                  </button>
+
+                  <button
+                    className={
+                      isCompletado === 1
+                        ? `${styles.btnDe} ${styles.btnA}`
+                        : `${styles.btnDe} `
+                    }
+                    onClick={() => esPendiente(1)}
+                  >
+                    Completadas
                   </button>
                 </div>
-                {isCompletado
+                {isCompletado === 2
                   ? productos.map(
                       (product) =>
                         user.id === product.idMerkater &&
@@ -158,6 +186,7 @@ const MerkaterPage = () => {
                             carrito={product.carrito}
                             click={handleClose}
                             value={product.id}
+                            handleCompletar={handleCompletar}
                             handleAceptar={handleAceptar}
                             handleCancelar={handleCancelar}
                             direccion={product.direccion}
@@ -166,7 +195,8 @@ const MerkaterPage = () => {
                           />
                         )
                     )
-                  : productos.map(
+                  : isCompletado === 0 
+                    ? productos.map(
                       (product) =>
                         product.estado === "pendiente" && (
                           <MerkaterCarrito
@@ -177,6 +207,7 @@ const MerkaterPage = () => {
                             carrito={product.carrito}
                             click={handleClose}
                             value={product.id}
+                            handleCompletar={handleCompletar}
                             handleAceptar={handleAceptar}
                             handleCancelar={handleCancelar}
                             direccion={product.direccion}
@@ -184,7 +215,27 @@ const MerkaterPage = () => {
                             key={product.id}
                           />
                         )
-                    )}
+                    )
+                    : productos.map(
+                      (product) =>
+                        user.id === product.idMerkater &&
+                        product.estado === "completado" && (
+                          <MerkaterCarrito
+                            total={product.total.toFixed(2)}
+                            fecha={product.fecha}
+                            idCarrito={product.id}
+                            idUser={product.idUser}
+                            carrito={product.carrito}
+                            click={handleClose}
+                            value={product.id}
+                            handleCompletar={handleCompletar}
+                            handleAceptar={handleAceptar}
+                            handleCancelar={handleCancelar}
+                            direccion={product.direccion}
+                            estado={product.estado}
+                            key={product.id}
+                          />
+                        ))}
               </>
             ) : (
               <DetalleFactura

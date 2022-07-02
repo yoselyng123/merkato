@@ -12,6 +12,7 @@ const MerkaterCarrito = ({
   click,
   handleAceptar,
   handleCancelar,
+  handleCompletar,
   /* agregarFavorito, */
   direccion,
   estado,
@@ -66,17 +67,30 @@ const MerkaterCarrito = ({
         <div className={styles.downInfo}>
           <div className={styles.downRightSide}>
             {estado === "en progreso" ? (
-              <button
-                className={styles.buttonAceptar}
-                onClick={() =>
-                  handleCancelar(
-                    idCarrito
-                  )
-                }
-              >
-                Cancelar orden
-              </button>
-            ) : (
+              <div className={styles.divBtn}>
+                <button
+                  className={styles.buttonAceptar}
+                  onClick={() =>
+                    handleCancelar(
+                      idCarrito
+                    )
+                  }
+                >
+                  Cancelar orden
+                </button>
+
+                <button
+                  className={styles.buttonAceptar}
+                  onClick={() =>
+                    handleCompletar(
+                      idCarrito
+                    )
+                  }
+                >
+                  Completar orden
+                </button>
+              </div>
+            ) : estado === "pendiente" && (
               <button
                 className={styles.buttonAceptar}
                 onClick={() =>

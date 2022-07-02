@@ -74,6 +74,11 @@
     flex-direction: column;
 }
 
+.divBtn {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .comprar {
     background-color: var(--lightGreen);
     color: white;

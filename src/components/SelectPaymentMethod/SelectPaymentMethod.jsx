@@ -108,7 +108,7 @@ function SelectPaymentMethod({
                   className={styles.btnPaypal}
                   style={{
                     color: "white",
-                    size: "medium",
+                    size: "small",
                     shape: "pill",
                     label: "pay",
                   }}
