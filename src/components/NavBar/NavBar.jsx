@@ -87,6 +87,14 @@ function NavBar() {
   const [isRegistrando, setIsRegistrando] = useState(false);
 
   useEffect(() => {
+    if (
+      !(
+        window.location.pathname === `/searchBy/${search}` ||
+        window.location.pathname === `/stores/search_id/${search}`
+      )
+    ) {
+      setSearch("");
+    }
     setNumItems(carrito.reduce((a, b) => a + b.quantity, 0));
     setTotalAmount(carrito.reduce((a, b) => a + b.montoTotal, 0).toFixed(2));
 

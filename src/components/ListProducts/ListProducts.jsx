@@ -1,8 +1,10 @@
 import Product from "../Product/Product";
 import styles from "./listProducts.module.css";
 import NoMatch from "../NoMatch/NoMatch";
-/* import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem"; */
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
+import { SvgIcon } from "@mui/material";
 
 function ListProducts({
   products,
@@ -11,17 +13,31 @@ function ListProducts({
   idComercio,
   categorias,
 }) {
-  /* const [sort, setSort] = useState("Aisle");
+  const [sort, setSort] = useState("Precio mas bajo");
   const [anchorEl, setAnchorEl] = useState(null);
-   const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl);
+
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
+
   const handleClickItem = (event) => {
     handleCloseMenu();
     setSort(event.currentTarget.innerText);
-  }; */
+    if (event.currentTarget.innerText === "Precio mas bajo")
+      products.sort(
+        (a, b) => parseFloat(a.precio_unitario) - parseFloat(b.precio_unitario)
+      );
+    else {
+      products.sort(
+        (a, b) => parseFloat(b.precio_unitario) - parseFloat(a.precio_unitario)
+      );
+    }
+  };
 
   const eliminarProductoFavorito = (id) => {
     console.log("Trol");
@@ -36,9 +52,9 @@ function ListProducts({
             ) : (
               <p className={styles.title}>Todos los productos</p>
             )}
-            {/* <div 
+            <div
               className={styles.filterBtn}
-              id="basic-button"
+              id="demo-customized-button"
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
@@ -49,7 +65,7 @@ function ListProducts({
                   <path d="M5.94 3.44a1.5 1.5 0 012.12 0L12 7.378A1.5 1.5 0 119.879 9.5L8.5 8.121V19a1.5 1.5 0 01-3 0V8.12L4.121 9.5A1.5 1.5 0 112 7.379l3.94-3.94zM19.879 14.5L18.5 15.88V5a1.5 1.5 0 00-3 0v10.879L14.121 14.5A1.5 1.5 0 1012 16.621l3.94 3.94a1.5 1.5 0 002.12 0L22 16.62a1.5 1.5 0 10-2.121-2.12z"></path>
                 </svg>
               </SvgIcon>
-              <p>Sort by {sort}</p>
+              <p>Filtrar</p>
 
               {open ? (
                 <SvgIcon style={{ fontSize: "1rem" }}>
@@ -64,21 +80,20 @@ function ListProducts({
                   </svg>
                 </SvgIcon>
               )}
-            </div> */}
+            </div>
 
-            {/* <Menu
+            <Menu
               id="basic-menu"
               anchorEl={anchorEl}
               open={open}
               onClose={handleCloseMenu}
               MenuListProps={{
-                "aria-labelledby": "basic-button",
+                "aria-labelledby": "demo-customized-button",
               }}
             >
-              <MenuItem onClick={handleClickItem}>Aisle</MenuItem>
-              <MenuItem onClick={handleClickItem}>Lowest Price</MenuItem>
-              <MenuItem onClick={handleClickItem}>Highest Price</MenuItem>
-            </Menu> */}
+              <MenuItem onClick={handleClickItem}>Precio mas bajo</MenuItem>
+              <MenuItem onClick={handleClickItem}>Precio mas alto</MenuItem>
+            </Menu>
           </div>
           <div className={styles.productsContainer}>
             {products.map((product) => (
