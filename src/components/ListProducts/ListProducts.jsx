@@ -34,7 +34,7 @@ function ListProducts({
             {title ? (
               <p className={styles.title}>{title}</p>
             ) : (
-              <p className={styles.title}>All Products</p>
+              <p className={styles.title}>Todos los productos</p>
             )}
             {/* <div 
               className={styles.filterBtn}

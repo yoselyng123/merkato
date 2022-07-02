@@ -33,7 +33,7 @@ function Category({ categorias, pasillo, idcomercio }) {
         onClick={() => handlePasilloClick(pasillo.id)}
       >
         <div className={styles.text}>
-          <p>Pasillo {pasillo.numero}</p>
+          <p>Pasillo {parseInt(pasillo.numero) + 1}</p>
         </div>
       </div>
 

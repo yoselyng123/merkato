@@ -134,28 +134,29 @@ const Carrito = () => {
                     <h1 className={styles.nombreComercio}>{comercio.nombre}</h1>
                   </div>
 
-                  {products && products.map(
-                    (product) =>
-                      product.id_comercio === comercio.id && (
-                        <>
-                          <ProductoCarrito
-                            key={product.id}
-                            img={product.foto_producto[0]}
-                            nombreProducto={product.nombre}
-                            cantidad={product.cantidad_solicitada}
-                            precio={product.precio_unitario}
-                            stock={product.stock}
-                            id={product.id}
-                            handleDeleteCarrito={handleDeleteCarrito}
-                            idComercio={product.id_comercio}
-                          />
-                        </>
-                      )
-                  )}
+                  {products &&
+                    products.map(
+                      (product) =>
+                        product.id_comercio === comercio.id && (
+                          <>
+                            <ProductoCarrito
+                              key={product.id}
+                              img={product.foto_producto[0]}
+                              nombreProducto={product.nombre}
+                              cantidad={product.cantidad_solicitada}
+                              precio={product.precio_unitario}
+                              stock={product.stock}
+                              id={product.id}
+                              handleDeleteCarrito={handleDeleteCarrito}
+                              idComercio={product.id_comercio}
+                            />
+                          </>
+                        )
+                    )}
                 </>
               ))
             ) : (
-              <p className={styles.text}>Your cart is empty</p>
+              <p className={styles.text}>Tu carrito esta vacio</p>
             )}
           </div>
           <Pago

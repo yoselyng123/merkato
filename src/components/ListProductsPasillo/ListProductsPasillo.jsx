@@ -11,20 +11,8 @@ function ListProductsPasillo({
   idComercio,
   categorias,
 }) {
-  /* const [sort, setSort] = useState("Aisle");
-  const [anchorEl, setAnchorEl] = useState(null);
-   const open = Boolean(anchorEl);
-
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
-  const handleClickItem = (event) => {
-    handleCloseMenu();
-    setSort(event.currentTarget.innerText);
-  }; */
-
   const eliminarProductoFavorito = (id) => {
-    console.log("Trol");
+    console.log("Producto Eliminado de Favoritos");
   };
   return (
     <div className={styles.listProducts}>

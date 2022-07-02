@@ -1,22 +1,83 @@
 .viewByCategory{
-    padding: 3rem 3rem;
+    padding: 0rem 3rem;
     display: flex;
     flex-direction: column;
 }
-.comercio{
+
+.topSection{
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    padding-top: 2rem;
-    gap: 2rem;
-    cursor: pointer;
-}
-.comercio > img{
-    height: 5rem;
+    width: 100%;
+    padding: 0rem 3rem;
+    height: fit-content;
+    padding-top: 0.5rem;
 }
 
-@media screen and (max-width: 700px) {
+.previousBtn{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all ease .1s;
+}
+
+.previousBtn > svg {
+    fill: var(--lightGreen);
+    transition: all ease .1s;
+}
+.previousBtn > p {
+    font-weight: 400;
+}
+
+.previousBtn:hover > p{
+    color: var(--lightGreen);
+    font-weight: 500;
+}
+
+.previousBtn:hover > svg {
+    font-size: 1.6rem;
+}
+
+.nextBtn{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all ease .1s;
+}
+
+.nextBtn > svg {
+    fill: var(--lightGreen);
+    transition: all ease .1s;
+}
+.nextBtn > p {
+    font-weight: 400;
+}
+
+.nextBtn:hover > p{
+    color: var(--lightGreen);
+    font-weight: 500;
+}
+
+.nextBtn:hover > svg {
+    font-size: 1.6rem;
+}
+
+.comercio{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.comercio > img{
+    height: 5rem;
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 780px) {
     .viewByCategory{
         padding: 1.5rem 1.5rem;
     }
@@ -24,4 +85,51 @@
     .comercio{
         padding: 0;
     }
+
+    .topSection{
+        padding: 0 1.5rem;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.4rem;
+        padding-top: 1rem;
+    }
+
+    .nextBtn {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nextBtn > svg {
+        font-size: 1.6rem;
+    }
+
+    .nextBtn > p {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .previousBtn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .previousBtn > svg {
+        font-size: 1.6rem;
+    }
+
+    .previousBtn > p {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .comercio_nombre{
+        text-align: center;
+    }
+    
 }
