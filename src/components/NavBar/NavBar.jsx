@@ -23,10 +23,22 @@ import ListItemText from "@mui/material/ListItemText";
 
 const auth = firebaseExports.auth;
 
-function NavBar() {
+function NavBar({ namesElements }) {
+  let navigate = useNavigate();
+  const [search, setSearch] = useState("");
   const [side, setSide] = useState({
     left: false,
   });
+  const location = useLocation().pathname;
+  const { carrito, user, setCarrito, setRol } = useContext(UserContext);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const [numItems, setNumItems] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [click, setClick] = useState(false);
+  const [isRegistrando, setIsRegistrando] = useState(false);
+  const suggestion = [];
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -39,12 +51,6 @@ function NavBar() {
     setSide({ ...side, [anchor]: open });
   };
 
-  const location = useLocation().pathname;
-
-  const { carrito, user, setCarrito, setRol } = useContext(UserContext);
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const handleClickMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -78,14 +84,6 @@ function NavBar() {
     navigate(`/`, { replace: true });
   };
 
-  let navigate = useNavigate();
-
-  const [numItems, setNumItems] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [click, setClick] = useState(false);
-  const [isRegistrando, setIsRegistrando] = useState(false);
-
   useEffect(() => {
     if (
       !(
@@ -106,8 +104,6 @@ function NavBar() {
       setSelectedIndex(2);
     }
   }, [carrito, window.location.pathname]);
-
-  const [search, setSearch] = useState("");
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -141,6 +137,10 @@ function NavBar() {
     setIsRegistrando(true);
   };
 
+  const handleChangeSearchValue = (evt) => {
+    setSearch(evt.target.value);
+  };
+
   const list = (anchor) => (
     <Box
       sx={{
@@ -158,7 +158,7 @@ function NavBar() {
               <ListItemButton onClick={() => handleSignInClick()}>
                 <ListItemText
                   disableTypography
-                  primary="Sign up"
+                  primary="Registrarse"
                   className={styles.textBtn}
                 />
               </ListItemButton>
@@ -175,7 +175,7 @@ function NavBar() {
                     </svg>
                   </SvgIcon>
                 </ListItemIcon>
-                <ListItemText primary="Log In" />
+                <ListItemText primary="Iniciar Sesion" />
               </ListItemButton>
             </ListItem>
           </>
@@ -343,7 +343,7 @@ function NavBar() {
           type="text"
           placeholder="I'm searching for..."
           onChange={(evt) => {
-            setSearch(evt.target.value);
+            handleChangeSearchValue(evt);
           }}
           value={search}
           onKeyPress={(e) => e.key === "Enter" && handleSearch(e)}
@@ -422,7 +422,7 @@ function NavBar() {
           </div>
         ) : (
           <div className={styles.loginBtn} onClick={(e) => handleLoginClick()}>
-            <p>Log in</p>
+            <p>Iniciar Sesion</p>
           </div>
         )}
 
@@ -431,7 +431,7 @@ function NavBar() {
             className={styles.signInBtn}
             onClick={(e) => handleSignInClick()}
           >
-            <p>Sign Up</p>
+            <p>Registrarse</p>
           </div>
         ) : (
           <Link to="/carrito" className={styles.cartWrapper}>
@@ -449,7 +449,7 @@ function NavBar() {
             </div>
 
             <div className={styles.cartInfo}>
-              <p className={styles.cartInfoTitle}>Your cart</p>
+              <p className={styles.cartInfoTitle}>Tu carrito</p>
               <p className={styles.cartInfoNumber}>${totalAmount}</p>
             </div>
           </Link>

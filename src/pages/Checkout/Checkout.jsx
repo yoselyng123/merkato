@@ -15,7 +15,6 @@ import {
   getDocs,
   updateDoc,
   setDoc,
-  getDoc,
 } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
 import uniqid from "uniqid";
@@ -24,15 +23,39 @@ import toast from "react-hot-toast";
 
 function Checkout() {
   const navigate = useNavigate();
+  const Date1 = new Date();
 
   const [alreadyApplied, setAlreadyApplied] = useState(false);
 
   const { user, carrito, setUser, setCarrito } = useContext(UserContext);
-  const Date1 = new Date();
   const [promoCodeInput, setPromoCodeInput] = useState("");
   const [promoCodesByUser, setPromoCodesByUser] = useState([]);
   const [appliedPromo, setAppliedPromo] = useState(false);
   const [discount, setDiscount] = useState(0);
+  const [directionClick, setDirectionClick] = useState(false);
+  const [deliveryTimeClick, setDeliveryTimeClick] = useState(false);
+  const [deliveryInstructionsClick, setDeliveryInstructionsClick] =
+    useState(false);
+  const [phoneNumberClick, setPhoneNumberClick] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState(false);
+
+  const [deliveryInstructions, setDeliveryInstructions] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [addresses, setAddresses] = useState("");
+  const [address, setAddress] = useState({
+    lineAddress1: "",
+    lineAddress2: "",
+    zipCode: "",
+    deliveryInstructions: "",
+  });
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [price, setPrice] = useState(0);
+  const values = {
+    delivery: 1.0,
+    tasaServicio: 0.5,
+    impuestos: 0.5,
+  };
 
   const handleApplyPromoCode = async () => {
     const promosRef = collection(db, "promos");
@@ -62,6 +85,7 @@ function Checkout() {
             appliedPromos: promoCodesByUser,
           });
           setAppliedPromo(true);
+          setPromoCodeInput("");
         });
       } else {
         toast(() => (
@@ -80,43 +104,19 @@ function Checkout() {
     }
   };
   useEffect(() => {
-    if (user) {
-      setAddresses(user.direcciones);
-      setTotalAmount(carrito.reduce((a, b) => a + b.montoTotal, 0));
-      setPromoCodesByUser(user.appliedPromos);
-      setPrice(
-        values.delivery +
-          values.tasaServicio +
-          values.impuestos +
-          carrito.reduce((a, b) => a + b.montoTotal, 0)
-      );
-    }
-  }, [carrito]);
+    // eslint-disable-next-line
+    setAddresses(user.direcciones);
+    setTotalAmount(carrito.reduce((a, b) => a + b.montoTotal, 0));
+    // eslint-disable-next-line
+    setPromoCodesByUser(user.appliedPromos);
 
-  const [directionClick, setDirectionClick] = useState(false);
-  const [deliveryTimeClick, setDeliveryTimeClick] = useState(false);
-  const [deliveryInstructionsClick, setDeliveryInstructionsClick] =
-    useState(false);
-  const [phoneNumberClick, setPhoneNumberClick] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState(false);
-
-  const [deliveryInstructions, setDeliveryInstructions] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
-  const [addresses, setAddresses] = useState("");
-  const [address, setAddress] = useState({
-    lineAddress1: "",
-    lineAddress2: "",
-    zipCode: "",
-    deliveryInstructions: "",
-  });
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [price, setPrice] = useState(0);
-  const values = {
-    delivery: 1.0,
-    tasaServicio: 0.5,
-    impuestos: 0.5,
-  };
+    setPrice(
+      values.delivery +
+        values.tasaServicio +
+        values.impuestos +
+        carrito.reduce((a, b) => a + b.montoTotal, 0)
+    );
+  }, [carrito, values.delivery, values.tasaServicio, values.impuestos]);
 
   const compraRealizada = async () => {
     await setDoc(doc(db, `historial`, uniqid()), {
@@ -137,7 +137,7 @@ function Checkout() {
     });
     const userRef = doc(db, "users", user.id);
 
-    //FUNCION QUE MODIFICIA EL STOCK
+    //FUNCION QUE MODIFICA EL STOCK
     // carrito.forEach(async (product) => {
     //   // await getProductByID(product.id);
     //   // console.log(product.id);
@@ -166,7 +166,7 @@ function Checkout() {
     toast.success(
       "Compra Realizada! Ingrese en Mis Pedidos para ver el status de su orden!"
     );
-    navigate("/", { replace: true });
+    navigate("/historial", { replace: true });
   };
 
   return (

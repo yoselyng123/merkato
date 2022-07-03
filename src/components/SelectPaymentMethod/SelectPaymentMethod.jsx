@@ -12,11 +12,11 @@ function SelectPaymentMethod({
   selectedTime,
 }) {
   const [payPal, setPayPal] = useState(false);
-  const [client, setClient] = useState({
+  const client = {
     sandbox:
       "AdSJSUQxGGwUaz8PJL0prKyFrTStKFpUSd9sxhhrqCVZGNHBY84e-kjKqXpi9b09qZPFiyrZaNcpIcop",
     production: "YOUR-PRODUCTION-APP-ID",
-  });
+  };
   const env = "sandbox";
   const currency = "USD";
 
@@ -116,7 +116,8 @@ function SelectPaymentMethod({
               </>
             ) : (
               <span className={styles.error}>
-                Por favor contesta los datos correctamente
+                Es necesaria una direccion de entrega, numero de telefono y hora
+                del delivery para proceder con la compra.
               </span>
             )}
           </div>

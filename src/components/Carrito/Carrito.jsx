@@ -117,8 +117,6 @@ const Carrito = () => {
         }
       });
 
-      // console.log(getComerciosFromFirebase);
-      // console.log(getProductsFromFirebase);
       setProducts(getProductsFromFirebase);
       setComercios(getComerciosFromFirebase);
     };
@@ -135,8 +133,8 @@ const Carrito = () => {
             <h1 className={styles.title}>Carrito</h1>
             {products.length > 0 && comercios.length > 0 ? (
               comercios.map((comercio) => (
-                <>
-                  <div className={styles.boxComercio} key={comercio.id}>
+                <div key={comercio.id}>
+                  <div className={styles.boxComercio}>
                     <picture className={styles.boxImg}>
                       <img src={comercio.foto} alt="" className={styles.img} />
                     </picture>
@@ -147,9 +145,8 @@ const Carrito = () => {
                     products.map(
                       (product) =>
                         product.id_comercio === comercio.id && (
-                          <>
+                          <div key={product.id}>
                             <ProductoCarrito
-                              key={product.id}
                               img={product.foto_producto[0]}
                               nombreProducto={product.nombre}
                               cantidad={product.cantidad_solicitada}
@@ -159,10 +156,10 @@ const Carrito = () => {
                               handleDeleteCarrito={handleDeleteCarrito}
                               idComercio={product.id_comercio}
                             />
-                          </>
+                          </div>
                         )
                     )}
-                </>
+                </div>
               ))
             ) : (
               <p className={styles.text}>Tu carrito esta vacio</p>

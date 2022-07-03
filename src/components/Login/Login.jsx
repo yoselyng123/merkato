@@ -17,9 +17,12 @@ import { UserContext } from "../../context/UserContext";
 const auth = firebaseExports.auth;
 
 function Login({ click, isRegistrando, setIsRegistrando }) {
-  const [invalidPassword, setInvalidPassword] = useState(false);
-  const [invalidEmail, setInvalidEmail] = useState(false);
-  const [wrongData, setWrongData] = useState(false);
+  const [wrongData, setWrongData] = useState({
+    email: false,
+    wrongPassword: false,
+    invalidPassword: false,
+    userNotFound: false,
+  });
 
   const { carrito, createUser, user, rol, setRol } = useContext(UserContext);
 
@@ -43,12 +46,27 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
         const errorCode = error.code;
         const errorMessage = error.message;
         // Error handler - notify user
-        if (
-          errorCode === "auth/wrong-password" ||
-          errorCode === "auth/user-not-found"
-        ) {
-          // Error control
-          setWrongData(true);
+        if (errorCode === "auth/wrong-password") {
+          setWrongData({
+            email: false,
+            wrongPassword: true,
+            invalidPassword: false,
+            userNotFound: false,
+          });
+        } else if (errorCode === "auth/user-not-found") {
+          setWrongData({
+            email: false,
+            wrongPassword: false,
+            invalidPassword: false,
+            userNotFound: true,
+          });
+        } else if (errorCode === "auth/invalid-email") {
+          setWrongData({
+            email: true,
+            wrongPassword: false,
+            invalidPassword: false,
+            userNotFound: false,
+          });
         }
         console.log(errorCode, errorMessage);
       }
@@ -83,10 +101,20 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
       if (errorCode === "auth/weak-password") {
-        setInvalidPassword(true);
+        setWrongData({
+          email: false,
+          wrongPassword: false,
+          invalidPassword: true,
+          userNotFound: false,
+        });
       }
       if (errorCode === "auth/invalid-email") {
-        setInvalidEmail(true);
+        setWrongData({
+          email: true,
+          wrongPassword: false,
+          invalidPassword: false,
+          userNotFound: false,
+        });
       }
     }
   };
@@ -117,7 +145,6 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
     <div className={styles.login}>
       {user && user.rol === "" && (
         <>
-          {/* {(isRegistrando = true)} */}
           <div className={styles.contentContainer}>
             <div
               className={styles.exitbutton}
@@ -156,12 +183,12 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
               <div>
                 {isRegistrando ? (
                   <div className={styles.bottom}>
-                    <p>Already have an account</p>
+                    <p>Ya tengo una cuenta</p>
                     <p
                       className={styles.link}
                       onClick={() => setIsRegistrando(!isRegistrando)}
                     >
-                      Log in
+                      Iniciar Sesion
                     </p>
                   </div>
                 ) : (
@@ -171,7 +198,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
                       className={styles.link}
                       onClick={() => setIsRegistrando(!isRegistrando)}
                     >
-                      Sign Up
+                      Registrarse
                     </p>
                   </div>
                 )}
@@ -208,45 +235,69 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
                 </div>
               </div>
               <p className={styles.title}>
-                {isRegistrando ? "Sign Up" : "Log in"}
+                {isRegistrando ? "Registrarse" : "Iniciar Sesion"}
               </p>
               <p style={{ fontSize: "0.9rem" }}>
                 {isRegistrando
-                  ? "Enter your email and password to get started."
+                  ? "Ingrese su email y contraseña para comenzar."
                   : null}
               </p>
               <form onSubmit={submitHandler} className={styles.form}>
                 <div className={styles.inputWrapper}>
-                  <input type="text" placeholder="email" id="email" />
-                  <input type="text" placeholder="password" id="password" />
+                  <input
+                    type="text"
+                    placeholder="email"
+                    id="email"
+                    className={
+                      wrongData.email || wrongData.userNotFound
+                        ? styles.errorOutline
+                        : styles.noOutline
+                    }
+                  />
+                  <input
+                    type="text"
+                    placeholder="password"
+                    id="password"
+                    className={
+                      wrongData.wrongPassword || wrongData.invalidPassword
+                        ? styles.errorOutline
+                        : styles.noOutline
+                    }
+                  />
                 </div>
-                {invalidPassword && (
+                {wrongData.invalidPassword && (
                   <p className={styles.errorMsg}>
-                    Password should be at least 6 characters
+                    La contraseña debe tener al menos 6 caracteres.
                   </p>
                 )}
-                {wrongData && (
-                  <p className={styles.errorMsg}>Invalid email or password</p>
+                {wrongData.wrongPassword && (
+                  <p className={styles.errorMsg}>Contraseña incorrecta.</p>
                 )}
-                {invalidEmail && (
-                  <p className={styles.errorMsg}>Invalid email </p>
+                {wrongData.email && (
+                  <p className={styles.errorMsg}>Email invalido. </p>
+                )}
+
+                {!isRegistrando && wrongData.userNotFound && (
+                  <p className={styles.errorMsg}>
+                    No existe un usuario registrado con ese email.
+                  </p>
                 )}
 
                 {isRegistrando ? (
                   <p style={{ fontSize: "0.8rem", textAlign: "center" }}>
-                    By continuing, you agree to our Terms of Service
+                    Continuando, esta de acuerdo con los Terminos y condiciones
                   </p>
                 ) : (
                   <p>
-                    Forgot password?{" "}
-                    <span className={styles.link}>Reset it</span>
+                    Olvido la contraseña?
+                    <span className={styles.link}>Resetear</span>
                   </p>
                 )}
 
                 <input
                   className={styles.submit}
                   type="submit"
-                  value={isRegistrando ? "Sign Up" : "Log in"}
+                  value={isRegistrando ? "Registrarse" : "Iniciar Sesion"}
                 />
 
                 <hr />
@@ -260,7 +311,7 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
                     alt=""
                     className={styles.icon}
                   />
-                  <p>Continue with Google</p>
+                  <p>Continuar con Google</p>
                 </div>
 
                 <hr />
@@ -268,22 +319,22 @@ function Login({ click, isRegistrando, setIsRegistrando }) {
                 <div>
                   {isRegistrando ? (
                     <div className={styles.bottom}>
-                      <p>Already have an account</p>
+                      <p>Ya tengo una cuenta</p>
                       <p
                         className={styles.link}
                         onClick={() => setIsRegistrando(!isRegistrando)}
                       >
-                        Log in
+                        Iniciar Sesion
                       </p>
                     </div>
                   ) : (
                     <div className={styles.bottom}>
-                      <p>Don't have an account</p>
+                      <p>No tiene una cuenta</p>
                       <p
                         className={styles.link}
                         onClick={() => setIsRegistrando(!isRegistrando)}
                       >
-                        Sign Up
+                        Registrarse
                       </p>
                     </div>
                   )}

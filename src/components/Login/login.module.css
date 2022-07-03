@@ -50,13 +50,13 @@
     color: red;
 }
 
-.inputWrapper > input {
+/* .inputWrapper > input {
     padding: 1rem 0.5rem;
     border-radius: 10px;
     border: 1px solid var(--gray);
     width: 100%;
     font-size: 1rem;
-}
+} */
 
 .form > input {
     padding: 1rem 0.5rem;
@@ -110,4 +110,30 @@
     align-items: center;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.errorOutline{
+    padding: 1rem 0.5rem;
+    border-radius: 10px;
+    border: 1px solid red;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.noOutline{
+    padding: 1rem 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--gray);
+    width: 100%;
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 700px) {
+    .form > input {
+        padding: 1rem 0.5rem;
+        border-radius: 10px;
+        border: 1px solid var(--gray);
+        width: 100%;
+        font-size: 1rem;
+    }
 }

@@ -60,6 +60,13 @@ function AddDirection({
           direcciones: addresses,
         });
       }
+
+      setAddress({
+        lineAddress1: lineAddress1,
+        lineAddress2: lineAddress2,
+        zipCode: zipCode,
+        deliveryInstructions: deliveryInstructions,
+      });
     }
   };
 
@@ -84,6 +91,12 @@ function AddDirection({
 
   const handleDeleteAddress = async () => {
     addresses.pop(keyUpdate);
+    setAddress({
+      lineAddress1: "",
+      lineAddress2: "",
+      zipCode: "",
+      deliveryInstructions: "",
+    });
     if (user) {
       const userRef = doc(db, "users", user.id);
       setUser({ ...user, direcciones: addresses });
