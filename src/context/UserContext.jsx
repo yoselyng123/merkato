@@ -10,6 +10,7 @@ import {
   query,
   setDoc,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 export const UserContext = createContext(null);

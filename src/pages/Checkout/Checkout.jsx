@@ -15,6 +15,7 @@ import {
   getDocs,
   updateDoc,
   setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
 import uniqid from "uniqid";
@@ -135,6 +136,27 @@ function Checkout() {
       estado: "pendiente",
     });
     const userRef = doc(db, "users", user.id);
+
+    //FUNCION QUE MODIFICIA EL STOCK
+    // carrito.forEach(async (product) => {
+    //   // await getProductByID(product.id);
+    //   // console.log(product.id);
+    //   const docRef = doc(db, "producto", product.id);
+    //   const docSnap = await getDoc(docRef);
+    //   if (docSnap.exists()) {
+    //     const producto = docSnap.data();
+    //     if (product.quantity <= producto.stock) {
+    //       const stock = producto.stock - product.quantity;
+    //       const userRef = doc(db, "producto", product.id);
+    //       await updateDoc(userRef, {
+    //         stock: stock,
+    //       });
+    //       console.log(producto.stock);
+    //       // console.log("EL Stock de " + producto.nombre + " " + stock);
+    //     }
+    //   }
+    // });
+
     await updateDoc(userRef, {
       carrito: [],
     });

@@ -1,12 +1,15 @@
 import React from "react";
 import styles from "./Pago.module.css";
+import { db } from "../../utils/firebaseConfig";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import toast from "react-hot-toast";
 import { SvgIcon } from "@mui/material";
-
+import { getFirstElementArrayCollection } from "../../utils/parser";
 const Pago = ({ totalAmount }) => {
+  const { carrito } = useContext(UserContext);
   let navigate = useNavigate();
   const handleClickHome = () => {
     navigate("/", { replace: true });

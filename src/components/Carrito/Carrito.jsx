@@ -39,6 +39,15 @@ const Carrito = () => {
   //BORRA PRODUCTO DEL CARRITO
   const handleDeleteCarrito = (id) => {
     const newArray = products.filter((item) => item.id !== id);
+    comercios.forEach((i) => {
+      if (newArray.findIndex((index) => index.id_comercio === i.id) === -1) {
+        const newArrayComercios = comercios.filter((item) => item.id !== i.id);
+        setComercios(newArrayComercios);
+      }
+    });
+
+    // const newArrayComercio = products.filter((item) => item.id !== id);
+
     setProducts(newArray);
     eliminarProductoCarrito(id);
   };
