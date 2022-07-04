@@ -29,12 +29,16 @@
     margin-right: 3rem;
 }
 
+.searchContainer2{
+    width: 50%;
+}
+
 .searchContainer{
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--lightGray);
-    width: 50%;
+    width: 100%;
     border-radius: 10px;
     padding: 0.6rem 0.8rem 0.6rem 0rem;
 }
@@ -254,7 +258,7 @@
         display: none;
     }
 
-    .searchContainer{
+    .searchContainer2{
         flex: 2;
     }
 

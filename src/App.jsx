@@ -38,7 +38,9 @@ function App() {
       await getDocs(query(collection(firebaseExports.db, "producto"))).then(
         (querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            ProductosFromFirebase.push(doc.data().nombre);
+            if (!ProductosFromFirebase.includes(doc.data().nombre)) {
+              ProductosFromFirebase.push(doc.data().nombre);
+            }
           });
         }
       );
@@ -53,8 +55,6 @@ function App() {
     };
 
     subscriber();
-
-    console.log(namesElements);
   }, []);
 
   return (
