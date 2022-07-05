@@ -106,7 +106,25 @@ const Historial = () => {
   };
   const esPendiente2 = async (numero) => {
     setIsPendiente(numero);
+    await subscriber2();
   };
+  const subscriber2 = async () => {
+    /* Se crea array vacio de Productos */
+    const getProductsFromFirebase = [];
+    /* Se hace un snapshot de los docs en la coleccion Historial */
+    const querySnapshot = await getDocs(collection(db, "historial"));
+    /* Se hace Push al array de productos de cada doc en Historial */
+    querySnapshot.forEach((doc) => {
+      getProductsFromFirebase.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+    setProductos(getProductsFromFirebase);
+  };
+  useEffect(() => {
+    subscriber();
+  }, [user]);
   const subscriber = async () => {
     setIsLoading(true);
     /* Se crea array vacio de Productos */
