@@ -91,6 +91,7 @@ function SearchAll({ setIdComercio }) {
             comercio={comercio}
             productosSearch={productosSearch}
             key={index}
+            isFavorito={false}
           />
         ))
       ) : (

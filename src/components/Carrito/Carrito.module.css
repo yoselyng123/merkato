@@ -45,6 +45,27 @@
     gap: 1rem;
     border-bottom: 2px solid var(--lightestGreen);
 }
+.boxTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+   
+
+}
+.btnVaciar{
+    background-color: var(--lightGreen);
+    border: none;
+    border-radius: 10px;
+    width: 20%;
+    height: 50%;
+    font-weight: 600;
+    color: white;
+    
+}
+.btnVaciar:hover{
+    background-color: var(--lightestGreen);
+}
 
 .nombreComercio{
     font-size: 18px;

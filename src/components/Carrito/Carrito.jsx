@@ -3,9 +3,10 @@ import Pago from "../Pago/Pago";
 import ProductoCarrito from "../ProductoCarrito/ProductoCarrito";
 import styles from "./Carrito.module.css";
 import firebaseExports from "../../utils/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import Loading from "../Loading/Loading";
 const Carrito = () => {
   const { carrito, setCarrito, eliminarProductoCarrito, user } =
     useContext(UserContext);
@@ -20,7 +21,24 @@ const Carrito = () => {
 
   const [totalAmount, setTotalAmount] = useState(0);
   const [info, setInfo] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const handleVaciarCarrito = async () => {
+    setIsLoading(true);
+    if (user) {
+      const userRef = doc(firebaseExports.db, "users", user.id);
+      await updateDoc(userRef, {
+        carrito: [],
+      });
+      localStorage.setItem("carrito", "[]");
+      setCarrito(JSON.parse(localStorage.getItem("carrito")));
+      user.carrito = JSON.parse(localStorage.getItem("carrito"));
+    } else {
+      localStorage.setItem("carrito", "[]");
+      setCarrito(JSON.parse(localStorage.getItem("carrito")));
+    }
+    setProducts([]);
+    setIsLoading(false);
+  };
   const handleClose = () => {
     if (
       (values.direccion !== "" && values.descripcion !== "") ||
@@ -58,6 +76,7 @@ const Carrito = () => {
 
   useEffect(() => {
     const subscriber = async () => {
+      setIsLoading(true);
       if (user === null) {
         setCarrito(JSON.parse(localStorage.getItem("carrito")));
       }
@@ -119,6 +138,7 @@ const Carrito = () => {
 
       setProducts(getProductsFromFirebase);
       setComercios(getComerciosFromFirebase);
+      setIsLoading(false);
     };
 
     // return cleanup function
@@ -127,10 +147,19 @@ const Carrito = () => {
 
   return (
     <div className={styles.containers}>
-      {info && (
+      {info && !isLoading ? (
         <>
           <div className={styles.productos}>
-            <h1 className={styles.title}>Carrito</h1>
+            <div className={styles.boxTitle}>
+              <h1 className={styles.title}>Carrito</h1>
+              <button
+                className={styles.btnVaciar}
+                onClick={handleVaciarCarrito}
+              >
+                Vaciar Carrito
+              </button>
+            </div>
+
             {products.length > 0 && comercios.length > 0 ? (
               comercios.map((comercio) => (
                 <div key={comercio.id}>
@@ -172,6 +201,8 @@ const Carrito = () => {
             setValues={setValues}
           />
         </>
+      ) : (
+        <Loading />
       )}
     </div>
   );

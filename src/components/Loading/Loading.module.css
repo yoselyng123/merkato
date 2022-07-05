@@ -1,0 +1,39 @@
+.loading {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    
+    
+
+}
+
+.text {
+    font-size: 2.25rem;
+    color: var(--lightGreen);
+    margin-top: 15%;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+@media (max-width:48rem) {
+    .text {
+        font-size: 2.25rem;
+        color: var(--lightGreen);
+        margin-top: 30%;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+@media (max-width:26.75rem) {
+    .text {
+        font-size: 1.5rem;
+        color: var(--lightGreen);
+        margin-top: 50%;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+}
